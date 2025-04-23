@@ -1,0 +1,202 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    height: 80px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: url(imagens/logo.png) no-repeat;
+    background-size: 200px;
+}
+
+main {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+footer {
+    clear: both;
+    text-align: center;
+    padding: 10px auto;
+}
+
+.caixa-menuprincipal {
+    float: right;
+}
+
+.caixa-menuprincipal ul {
+    list-style-type: none;
+}
+
+.caixa-menuprincipal ul li {
+    display: inline-block;
+}
+
+.caixa-menuprincipal ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.caixa-menuprincipal ul li a:hover {
+    background-color: gray;
+}
+
+#detalhes-container .detalhes-filme {
+    margin-bottom: 40px;
+    clear: both;
+}
+
+#detalhes-container .detalhes-filme img {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    height: 300px;
+    width: 300px;
+}
+
+#detalhes-container .detalhes-filme p {
+    margin: 10px 0;
+}
+
+.caixa-pesquisa {
+    margin-bottom: 30px;
+}
+
+.caixa-categorias ul {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+.caixa-categorias ul li a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.caixa-categorias ul li a:visited {
+    color: black;
+}
+
+@media (max-width: 480px) {
+    header {
+        background: none;
+        justify-content: center;
+        margin-bottom: 30px;
+        margin-top: 50px;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+
+    .caixa-menuprincipal {
+        float: none;
+        text-align: center;
+    }
+
+    .caixa-menuprincipal ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .caixa-menuprincipal ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    main {
+        width: 100%;
+        float: none;
+        padding: 10px;
+    }
+
+    aside {
+        width: 100%;
+        float: none;
+        height: 100px;
+    }
+
+    .caixa-filme {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 10px;
+    }
+
+    .caixa-filme img {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    .caixa-pesquisa {
+        display: none;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1023px) {
+    header {
+        background: none;
+        justify-content: center;
+    }
+
+    main {
+        width: 100%;
+        float: none;
+        padding: 15px;
+    }
+
+    .caixa-filme {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+    }
+
+    .caixa-filme img {
+        width: 100px;
+        height: auto;
+    }
+
+    .caixa-pesquisa {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    main {
+        width: 70%;
+        padding-bottom: 100px;
+    }
+
+    .caixa-filme {
+        height: auto;
+    }
+}
+
+@media (min-height: 700px) {
+    main {
+        width: 100%;
+        padding: 30px;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    .caixa-filme img {
+        margin-bottom: 30px;
+    }
+}

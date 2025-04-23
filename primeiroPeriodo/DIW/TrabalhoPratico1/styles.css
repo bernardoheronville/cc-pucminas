@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    height: 80px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: url(imagens/logo.png) no-repeat;
+    background-size: 200px;
+}
+
+main {
+    width: 70%;
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+aside {
+    margin-top: -5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+footer {
+    clear: both;
+    padding: 10px auto;
+}
+
+#filmes-container a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.caixa-menuprincipal {
+    float: right;
+}
+
+.caixa-menuprincipal ul {
+    list-style-type: none;
+    color: black;
+}
+
+.caixa-menuprincipal ul li {
+    display: inline-block;
+}
+
+.caixa-menuprincipal ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.caixa-menuprincipal ul li a:hover {
+    background-color: gray;
+}
+
+#filmes-container .caixa-filme {
+    margin-bottom: 20px;
+    clear: both;
+}
+
+#filmes-container .caixa-filme img {
+    display: block;
+    float: left;
+    width: 100px;
+    margin-right: 10px;
+    height: 100px;
+}
+
+#filmes-container .caixa-filme h4 {
+    margin: 5px 0;
+}
+
+.caixa-pesquisa {
+    margin-bottom: 30px;
+  }
+
+.caixa-categorias ul {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+.caixa-categorias ul li a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.caixa-categorias ul li a:visited {
+    color: black;
+}
+
+.caixa-info-aluno {
+    margin-top: 1px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.caixa-info-aluno .titulo {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.caixa-info-aluno .info-aluno {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.caixa-info-aluno .sobre {
+    flex-grow: 1;
+}
+
+.caixa-info-aluno .sobre h3 {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.caixa-info-aluno .sobre p {
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color: black;
+}
+
+.caixa-info-aluno .autoria {
+    flex-shrink: 0;
+    text-align: left;
+}
+
+.caixa-info-aluno .autoria h3 {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.caixa-info-aluno .autoria .detalhes-aluno {
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.caixa-info-aluno .autoria .detalhes-aluno p {
+    margin-bottom: 3px;
+    font-size: 0.9em;
+    color: black;
+}
+
+
+@media (max-width: 480px) {
+    header {
+        background: none;
+        justify-content: center;
+        margin-bottom: 30px;
+        margin-top: 50px;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+
+    .caixa-menuprincipal {
+        float: none;
+        text-align: center;
+    }
+
+    .caixa-menuprincipal ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .caixa-menuprincipal ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    main {
+        width: 100%;
+        float: none;
+        padding: 10px;
+    }
+
+    aside {
+        width: 100%;
+        float: none;
+        height: 100px;
+    }
+
+    .caixa-filme {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 10px;
+    }
+
+    .caixa-filme img {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    .caixa-pesquisa {
+        display: none;
+    }
+
+    .caixa-info-aluno .info-aluno {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .caixa-info-aluno .autoria {
+        text-align: left;
+    }
+
+    .caixa-info-aluno .autoria .detalhes-aluno {
+        align-items: center;
+    }
+
+}
+
+@media (min-width: 481px) and (max-width: 1023px) {
+    header {
+        background: none;
+        justify-content: center;
+    }
+
+    main {
+        width: 70%;
+        display: flex;
+        float: right;
+        padding: 15px;
+    }
+
+    aside {
+        width: 30%;
+        display: flex;
+        float: right;
+    }
+
+    .caixa-filme {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+    }
+
+    .caixa-filme img {
+        width: 100px;
+        height: auto;
+    }
+
+    .caixa-pesquisa {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    main {
+        width: 70%;
+        padding-bottom: 100px;
+    }
+
+    aside {
+        width: 30%;
+    }
+
+    .caixa-filme {
+        height: auto;
+    }
+}
+
+@media (min-height: 700px) {
+    main {
+        width: 100%;
+        padding: 30px;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    .caixa-filme img {
+        margin-bottom: 30px;
+    }
+
+    aside {
+        width: 100%;
+        margin-bottom: 100px;
+    }
+}
