@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1746217358 source:c:\users\nadab\desktop\projetos web\cc-pucminas\primeiroperiodo\aeds-1\listadeexercicios5\ex10\main.c
+	<stdio.h>
+	<stdlib.h>
+	<limits.h>
+

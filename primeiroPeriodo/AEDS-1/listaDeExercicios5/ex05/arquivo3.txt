@@ -1,0 +1,4 @@
+Conteudo inicial
+Do primeiro arquivo
+Conteudo final
+Do segundo arquivo
