@@ -24,10 +24,16 @@ int main()
     {
         FILE *entrada=fopen("entrada.txt","r");
         FILE *saida=fopen("saida.txt","w");
-        char texto;
-        while((texto=fgetc(entrada)) != EOF)
+        char texto[100];
+        while(fscanf(entrada," %[^\n]",texto) == 1)
         {
-            fprintf(saida,"%c",texto);
+            int i=0;
+            while(texto[i] != '\0')
+            {
+                fprintf(saida,"%c",texto[i]);
+                i++;
+            }
+            fprintf(saida, "\n");
         }
         fclose(entrada);
         fclose(saida);

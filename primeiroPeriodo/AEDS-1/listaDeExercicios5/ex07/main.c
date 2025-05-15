@@ -1,25 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 int main()
 {
     FILE *saida=fopen("saida.txt","w");
     int N,soma=0;
-    char letra,contador;
+    char letra,contador[100];
     scanf("%d",&N);
-    for(int i=1;i<=N;i++)
+    for(int i=1; i<=N; i++)
     {
         scanf(" %c",&letra);
         fprintf(saida,"%c\n",letra);
     }
     fclose(saida);
     saida=fopen("saida.txt","r");
-    while((contador=fgetc(saida)) != EOF)
+    while(fscanf(saida," %[^\n]",contador) == 1)
     {
-        if(contador=='A' || contador=='a' || contador=='E' || contador=='e' || contador=='I' || contador=='i' || contador=='O' || contador=='o' || contador=='U' || contador=='u')
+        int i=0;
+        while(contador[i] != '\0')
         {
-            soma++;
+            char teste = tolower(contador[i]);
+            if(teste=='a' || teste=='e' || teste=='i' || teste=='o' || teste=='u')
+            {
+                soma++;
+            }
+            i++;
         }
+
     }
     printf("%d",soma);
     fclose(saida);

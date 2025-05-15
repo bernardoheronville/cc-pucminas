@@ -3,16 +3,22 @@
 
 int main()
 {
-    int contador=1;
-    char caracteres;
+    int contador=0;
+    char texto[100];
     FILE *leitor=fopen("entrada.txt","r");
-    while((caracteres=fgetc(leitor)) != EOF)
+    while(fscanf(leitor," %[^\n]",texto) == 1)
     {
-        printf("%c",caracteres);
-        if(caracteres=='\n') contador++;
+        int i=0;
+        while(texto[i] != '\0')
+        {
+           printf("%c",texto[i]);
+           i++;
+        }
+        printf("\n");
+        contador++;
+        fgetc(leitor);
     }
-    printf("\n");
-    printf("%d LINHAS\n",contador);
+    printf("\n%d LINHAS\n",contador);
     fclose(leitor);
     return 0;
 }

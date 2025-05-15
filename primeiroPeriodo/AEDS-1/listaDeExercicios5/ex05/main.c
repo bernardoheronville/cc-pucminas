@@ -3,18 +3,29 @@
 
 int main()
 {
-    char caracteres;
+    char texto[100];
     FILE *leitor1=fopen("arquivo1.txt","r");
     FILE *leitor2=fopen("arquivo2.txt","r");
     FILE *saida=fopen("arquivo3.txt","a");
-    while((caracteres=fgetc(leitor1)) != EOF)
+    while(fscanf(leitor1," %[^\n]",texto) == 1)
     {
-        fprintf(saida,"%c",caracteres);
+        int i=0;
+        while(texto[i] != '\0')
+        {
+           fprintf(saida,"%c",texto[i]);
+           i++;
+        }
+        fprintf(saida,"\n");
     }
-    fprintf(saida,"\n");
-    while((caracteres=fgetc(leitor2)) != EOF)
+    while(fscanf(leitor2," %[^\n]",texto) == 1)
     {
-        fprintf(saida,"%c",caracteres);
+        int i=0;
+        while(texto[i] != '\0')
+        {
+           fprintf(saida,"%c",texto[i]);
+           i++;
+        }
+        fprintf(saida,"\n");
     }
     fclose(leitor1);
     fclose(leitor2);

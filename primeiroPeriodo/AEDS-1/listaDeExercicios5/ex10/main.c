@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
+#include <float.h>
 
 int main()
 {
-    float num,numMin=INT_MAX,numMax=INT_MIN,total=0,q=0;
+    float num,numMin=FLT_MAX,numMax= -FLT_MAX,total=0,q=0;
     FILE *entrada=fopen("entrada.txt","r");
-    while((fscanf(entrada,"%f",&num)) != EOF)
+    while((fscanf(entrada,"%f",&num)) == 1)
     {
        if(num>numMax)
        {

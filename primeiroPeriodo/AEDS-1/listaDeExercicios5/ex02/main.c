@@ -5,8 +5,8 @@ int main()
 {
     char texto[256];
     FILE *saida=fopen("saida.txt","w");
-    fgets(texto,256,stdin);
-    fprintf(saida,"%s",texto);
+    scanf(" %[^\n]",texto);
+    fprintf(saida,"%s\n",texto);
     fclose(saida);
     return 0;
 }
