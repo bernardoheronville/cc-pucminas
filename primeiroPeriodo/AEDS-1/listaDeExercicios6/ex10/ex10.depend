@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1747942960 source:c:\users\nadab\desktop\projetos web\cc-pucminas\primeiroperiodo\aeds-1\listadeexercicios6\ex10\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
