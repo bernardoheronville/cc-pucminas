@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1748284280 source:c:\users\nadab\desktop\projetos web\cc-pucminas\primeiroperiodo\aeds-1\exerciciciosdolivro\cap7ex14\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+

@@ -24,7 +24,7 @@ int main() {
     vetor = (char*)malloc(100*sizeof(char));
     scanf("%s", vetor);
     int tamanho = strlen(vetor);
-    printf("As permutações da string sao:\n", vetor);
+    printf("As permutacoes da string sao:\n", vetor);
     permutacoes(vetor, 0, tamanho - 1);
     free(vetor);
     return 0;

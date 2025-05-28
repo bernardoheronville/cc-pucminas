@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void preencherMatriz(int matriz[5][5])
+void preencherMatriz(int matriz[][5])
 {
     for(int i=0; i<5; i++)
     {
@@ -10,53 +10,39 @@ void preencherMatriz(int matriz[5][5])
             scanf("%d",&matriz[i][j]);
         }
     }
-    printf("%d\n",letraA(matriz));
-    printf("%d\n",letraB(matriz));
-    printf("%d\n",letraC(matriz));
-    printf("%d\n",letraD(matriz));
-    printf("%d\n",letraE(matriz));
 }
 
-int letraA(int matriz[5][5])
+int letraA(int matriz[][5])
 {
     int soma=0;
-    for(int i=0; i<5; i++)
+    for(int j=0; j<5; j++)
     {
-        for(int j=0;j<5;j++)
-        {
-           if(i==3) soma += matriz[i][j];
-        }
+        soma += matriz[4][j];
     }
     return (soma);
 }
 
-int letraB(int matriz[5][5])
+int letraB(int matriz[][5])
 {
     int soma=0;
     for(int i=0; i<5; i++)
     {
-        for(int j=0;j<5;j++)
-        {
-            if(j==1) soma += matriz[i][j];
-        }
+        soma += matriz[i][2];
     }
     return (soma);
 }
 
-int letraC(int matriz[5][5])
+int letraC(int matriz[][5])
 {
     int soma=0;
     for(int i=0; i<5; i++)
     {
-        for(int j=0; j<5; j++)
-        {
-            if(i == j) soma += matriz[i][j];
-        }
+        soma += matriz[i][i];
     }
     return (soma);
 }
 
-int letraD(int matriz[5][5])
+int letraD(int matriz[][5])
 {
     int soma=0;
     for(int i=0; i<5; i++)
@@ -82,6 +68,13 @@ int letraE(int matriz[][5])
 int main()
 {
     int M[5][5];
+
     preencherMatriz(M);
+
+    printf("%d\n",letraA(M));
+    printf("%d\n",letraB(M));
+    printf("%d\n",letraC(M));
+    printf("%d\n",letraD(M));
+    printf("%d\n",letraE(M));
     return 0;
 }

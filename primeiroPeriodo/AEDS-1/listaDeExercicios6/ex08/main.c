@@ -2,11 +2,18 @@
 
 void preencheMatriz(int matriz[10][10], int tam)
 {
-    for(int i = 0; i < tam; i++)
+    for (int i = 0; i < tam; i++)
     {
-        for(int j = 0; j < tam; j++)
+        for (int j = 0; j < tam; j++)
         {
-            scanf("%d", &matriz[i][j]);
+            scanf("%d",&matriz[i][j]);
+        }
+    }
+    for (int i = 0; i < tam; i++)
+    {
+        for (int j = 0; j < tam; j++)
+        {
+            printf("%d ",matriz[i][j]);
         }
     }
 }
@@ -14,7 +21,7 @@ void preencheMatriz(int matriz[10][10], int tam)
 void letraA(int matriz[10][10], int tam)
 {
     int aux[10];
-    for(int j = 0; j < tam; j++)
+    for (int j = 0; j < tam; j++)
     {
         aux[j] = matriz[1][j];
         matriz[1][j] = matriz[7][j];
@@ -25,7 +32,7 @@ void letraA(int matriz[10][10], int tam)
 void letraB(int matriz[10][10], int tam)
 {
     int aux[10];
-    for(int i = 0; i < tam; i++)
+    for (int i = 0; i < tam; i++)
     {
         aux[i] = matriz[i][3];
         matriz[i][3] = matriz[i][9];
@@ -50,38 +57,51 @@ void letraC(int matriz[10][10], int tam)
 
 void letraD(int matriz[10][10], int tam)
 {
-    int aux[10];
-    for (int j = 0; j < tam; j++)
+    int aux[10], contador = 0;
+
+    for(int i = 0; i < tam;i++)
     {
-        aux[j] = matriz[4][j];
-        matriz[4][j] = matriz[j][9];
-        matriz[j][9] = aux[j];
+        for(int j = 0; j < tam;j++)
+        {
+            if(i==4)
+            {
+                aux[contador] = matriz[i][j];
+                contador++;
+            }
+        }
+    }
+
+    for(int i = 0; i < tam;i++)
+    {
+        matriz[4][i] = matriz[i][9];
+    }
+    for(int i = 0; i<tam;i++)
+    {
+        matriz[i][9] = aux[i];
     }
 }
 
 void exibeMatriz(int matriz[10][10], int tam)
 {
-    for(int i = 0; i < tam; i++)
+    for (int i = 0; i < tam; i++)
     {
-        for(int j = 0; j < tam; j++)
+        for (int j = 0; j < tam; j++)
         {
             printf("%d ", matriz[i][j]);
         }
-        printf("\n");
     }
 }
 
 int main()
 {
     int M[10][10];
-
-    preencheMatriz(M, 10);
+    preencheMatriz(M,10);
     letraA(M, 10);
     letraB(M, 10);
     letraC(M, 10);
     letraD(M, 10);
     exibeMatriz(M, 10);
-
     return 0;
 }
+
 
