@@ -5,32 +5,33 @@
 
 typedef struct
 {
-    char *nome;
+    char nome[20];
     int dia;
     int mes;
 } Pessoa;
 
-void preenche(Pessoa *vet)
+void preenche(Pessoa vet[TAM])
 {
+    char enter;
     for(int i=0; i<TAM; i++)
     {
-        (vet+i)->nome=(char*)malloc(20*sizeof(char));
-        scanf("%s",(vet+i)->nome);
-        scanf("%d",&(vet+i)->dia);
-        scanf("%d",&(vet+i)->mes);
+        scanf("%s",vet[i].nome);
+        scanf("%d",&vet[i].dia);
+        scanf("%d",&vet[i].mes);
+        scanf("%c",&enter);
     }
 }
 
-void exibe(Pessoa *vet)
+void exibe(Pessoa vet[TAM])
 {
     for(int i=1; i<=12; i++)
     {
         printf("Aniversariantes do mes %d:\n",i);
         for(int j=0; j<TAM; j++)
         {
-            if((vet+j)->mes == i)
+            if(vet[j].mes == i)
             {
-                printf("Nome: %s, Dia: %d\n",(vet+j)->nome,(vet+j)->dia);
+                printf("Nome: %s, Dia: %d\n",vet[j].nome,vet[j].dia);
             }
         }
         printf("\n");
@@ -39,9 +40,8 @@ void exibe(Pessoa *vet)
 
 int main()
 {
-    Pessoa *vet = (Pessoa*)malloc(TAM*sizeof(Pessoa));
+    Pessoa vet[TAM];
     preenche(vet);
     exibe(vet);
-    free(vet);
     return 0;
 }
