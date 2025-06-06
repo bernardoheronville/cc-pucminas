@@ -14,7 +14,14 @@ typedef struct
 
 void cadastroLivros(Livro vet[TAM])
 {
-
+    for(int i=0; i<TAM; i++)
+    {
+        scanf("%d",vet[i].codigo);
+        scanf("%c",vet[i].doacao);
+        scanf("%s",vet[i].obra);
+        scanf("%s",vet[i].autor);
+        scanf("%s",vet[i].editora);
+    }
 }
 
 
