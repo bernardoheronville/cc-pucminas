@@ -9,8 +9,10 @@ typedef struct
 
 void calculaAlinhamento(Ponto num1, Ponto num2)
 {
-    if(num1.X == num2.X && num1.Y == num2.Y) printf("Nao ha alinhamentos\n");
-    else if
+    if(num1.X == num2.X && num1.Y == num2.Y) printf("Pontos identicos\n");
+    else if (num1.X == num2.X) printf("Alinhamento vertical\n");
+    else if (num1.Y == num2.Y) printf("Alinhamento horizontal\n");
+    else printf("Nao ha alinhamentos\n");
 }
 
 int main()
