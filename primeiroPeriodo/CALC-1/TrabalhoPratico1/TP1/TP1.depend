@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1749583428 source:c:\users\nadab\desktop\projetos web\cc-pucminas\primeiroperiodo\calc-1\trabalhopratico1\tp1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
