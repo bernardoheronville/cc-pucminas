@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1749580921 source:c:\users\nadab\desktop\projetos web\cc-pucminas\primeiroperiodo\aeds-1\treinamentoobi\2021\baralho\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
