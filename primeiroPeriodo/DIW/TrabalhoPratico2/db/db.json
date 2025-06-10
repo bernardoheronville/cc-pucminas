@@ -1,0 +1,69 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "login": "admin",
+      "nome": "Administrador",
+      "email": "admin@exemplo.com",
+      "senha": "123456"
+    }
+  ],
+  "filmes": [
+    {
+      "id": "1",
+      "titulo": "Thunderbolts",
+      "descricao": "Depois de se verem presos em uma armadilha mortal, uma equipe não convencional de anti-heróis deve embarcar em uma missão perigosa que os forçará a confrontar os cantos mais sombrios de seus passados.",
+      "imagem": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eKD2p840nsRXLUR25ciVsNMJgOB.jpg",
+      "favorito": false
+    },
+    {
+      "id": "2",
+      "titulo": "Missão: Impossível - O Acerto Final",
+      "descricao": "Depois de escapar de um acidente de trem calamitoso, Ethan percebe que a Entidade está escondida a bordo de um antigo submarino russo, mas um inimigo do seu passado chamado Gabriel também está no encalço.",
+      "imagem": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/cxcwecY0CnG1vHX58WOJjmCVDnl.jpg",
+      "favorito": false
+    },
+    {
+      "id": "3",
+      "titulo": "Lilo & Stitch",
+      "descricao": "Uma menina havaiana solitária faz amizade com um alienígena fugitivo, ajudando a remendar sua família fragmentada.",
+      "imagem": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/toLU4HzWf2iKqPbElKPDypKNGTr.jpg",
+      "favorito": false
+    },
+    {
+      "id": "4",
+      "titulo": "Premonição 6: Laços de Sangue",
+      "descricao": "Atormentada por um pesadelo violento recorrente, a estudante universitária Stefanie volta para casa para encontrar a única pessoa que pode quebrar o ciclo e salvar sua família do destino horrível que inevitavelmente os aguarda.",
+      "imagem": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8c47GIu7kpNPi8gsSR8jQBjYBB.jpg",
+      "favorito": false
+    },
+    {
+      "id": "5",
+      "titulo": "Memórias de um Caracol",
+      "descricao": "Após uma série de infortúnios, uma desajustada e melancólica colecionadora de caracóis aprende a encontrar confiança em si mesma em meio à desordem da vida cotidiana.",
+      "imagem": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/zeFRmFslWFp8GqbFfzUgwZb2ufW.jpg",
+      "favorito": false
+    },
+    {
+      "id": "6",
+      "titulo": "Bailarina - Do Universo de John Wick",
+      "descricao": "A história de uma jovem assassina nas tradições dos Ruska Roma para buscar vingança contra aqueles que destruíram sua família.",
+      "imagem": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/41VBHhbwWAP4saoKrAhAjNILR3u.jpg",
+      "favorito": false
+    },
+    {
+      "id": "7",
+      "titulo": "A Lenda de Ochi",
+      "descricao": "Em uma vila remota na ilha de Carpathia, uma tímida garota de fazenda chamada Yuri foi criada para temer uma espécie animal conhecida como Ochi. Mas, quando Yuri descobre que um bebê Ochi ferido foi abandonado, ela parte em uma aventura para levá-lo para casa.",
+      "imagem": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/WqxyyacuNBonVEm3VVh01BK1a3.jpg",
+      "favorito": false
+    },
+    {
+      "id": "8",
+      "titulo": "Invencível ",
+      "descricao": "Um menino tem uma doença rara de ossos frágeis e autismo. Mas o que o torna verdadeiramente único é a sua visão de mundo alegre, divertida e afirmativa, que transforma e une todos ao seu redor.",
+      "imagem": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/4vzSdzQGvP0TIpQHNa4Ip6op0Ts.jpg",
+      "favorito": false
+    }
+  ]
+}

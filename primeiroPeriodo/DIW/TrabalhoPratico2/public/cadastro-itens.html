@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Itens</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+  <header>
+    <img src="assets/imagens/logo.png" alt="Logo" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cadastro-itens.html" class="active">Cadastro</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="#" onclick="logout()">Login</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>Cadastro de Item</h2>
+    <form id="formCadastro">
+      <input type="hidden" id="itemId">
+      <label>Título</label>
+      <input type="text" id="titulo" required>
+      <label>Descrição</label>
+      <input type="text" id="descricao" required>
+      <label>URL da Imagem</label>
+      <input type="text" id="imagem" required>
+      <div class="botoes">
+        <button type="submit">Inserir</button>
+        <button type="button" onclick="alterarItem()">Alterar</button>
+        <button type="button" onclick="excluirItem()">Excluir</button>
+      </div>
+    </form>
+
+    <h3>Listagem de Itens</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaItens"></tbody>
+    </table>
+  </main>
+
+  <script src="assets/scripts/cadastro-itens.js"></script>
+
+</body>
+
+</html>

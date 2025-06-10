@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <header>
+
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="cadastro-itens.html">Cadastro</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="#" onclick="logout()">Login</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="destaque">
+      <h2>Filmes em Destaque</h2>
+      <div class="carrossel-container">
+        <button class="btn-anterior">‹</button>
+        <div class="carrossel" id="carrossel"></div>
+        <button class="btn-proximo">›</button>
+      </div>
+    </section>
+
+
+    <section>
+      <h2>Todos os Itens</h2>
+      <input type="text" id="busca" placeholder="Pesquisar...">
+      <div id="gridItens" class="grid-itens"></div>
+    </section>
+
+    <section class="mapa">
+      <h2>Gráfico de barras</h2>
+      <div>
+        <canvas id="myChart"></canvas>
+      </div>
+
+      <footer>
+        <div class="rodape">
+          <p><strong>Autor(a) do Trabalho:</strong> Bernardo Barbosa Heronville</p>
+          <p><strong>Curso:</strong> Ciencia da Computacao</p>
+          <p><strong>Turma:</strong> Manhã</p>
+          <div class="redes">[Links redes sociais]</div>
+        </div>
+      </footer>
+  </main>
+
+  <script src="assets/scripts/app.js"></script>
+</body>
+
+</html>
