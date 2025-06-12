@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1749766290 source:c:\users\nadab\desktop\projetos web\cc-pucminas\primeiroperiodo\aeds-1\treinamentoobi\2020\bingo\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
