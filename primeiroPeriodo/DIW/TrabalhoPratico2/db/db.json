@@ -5,7 +5,16 @@
       "login": "admin",
       "nome": "Administrador",
       "email": "admin@exemplo.com",
-      "senha": "123456"
+      "senha": "123456",
+      "admin": true
+    },
+    {
+      "id": "2",
+      "login": "user",
+      "nome": "Usuário Comum",
+      "email": "user@exemplo.com",
+      "senha": "123",
+      "admin": false
     }
   ],
   "filmes": [

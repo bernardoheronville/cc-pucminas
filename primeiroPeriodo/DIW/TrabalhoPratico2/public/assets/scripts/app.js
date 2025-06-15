@@ -1,3 +1,5 @@
+let todosOsFilmes = [];
+
 function logout() {
     localStorage.removeItem('user');
     window.location.href = 'login.html';
@@ -31,6 +33,28 @@ async function carregarItens() {
     } catch (error) {
         console.error('Erro ao carregar itens:', error);
     }
+}
+
+function desenharGrid(filmesParaMostrar) {
+    const container = document.getElementById('gridItens');
+    container.innerHTML = ''; 
+
+    filmesParaMostrar.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card-item';
+        card.innerHTML = `
+          <img src="${item.imagem}" alt="${item.titulo}">
+          <h3>${item.titulo}</h3>
+          <p>${item.descricao}</p>
+          <button onclick="toggleFavorito(event, '${item.id}')">
+            ${item.favorito ? '❤️' : '🤍'}
+          </button>
+        `;
+        card.onclick = () => {
+            window.location.href = `detalhes.html?id=${item.id}`;
+        };
+        container.appendChild(card);
+    });
 }
 
 async function toggleFavorito(event, id) {
