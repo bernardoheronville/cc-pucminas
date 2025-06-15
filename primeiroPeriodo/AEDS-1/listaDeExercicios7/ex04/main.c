@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TAM 5
-
 typedef struct
 {
     int codigo;
@@ -10,24 +8,62 @@ typedef struct
     char obra[20];
     char autor[20];
     char editora[20];
+    int area;
 } Livro;
-
-void cadastroLivros(Livro vet[TAM])
-{
-    for(int i=0; i<TAM; i++)
-    {
-        scanf("%d",vet[i].codigo);
-        scanf("%c",vet[i].doacao);
-        scanf("%s",vet[i].obra);
-        scanf("%s",vet[i].autor);
-        scanf("%s",vet[i].editora);
-    }
-}
-
 
 int main()
 {
-    Livro vetor[TAM];
-    cadastroLivros(vetor);
+    Livro exatas[500], humanas[500], biologicas[500];
+    int codiguin, i = 0;
+
+    while (1)
+    {
+        scanf("%d", &codiguin);
+        if (codiguin == -1) break;
+
+        Livro *livro;
+        if (codiguin == 1)
+        {
+            livro = &exatas[i];
+        }
+        else if (codiguin == 2)
+        {
+            livro = &humanas[i];
+        }
+        else
+        {
+            livro = &biologicas[i];
+        }
+
+        livro->area = codiguin;
+        scanf("%d", &livro->codigo);
+        scanf(" %c", &livro->doacao);
+        scanf("%s", livro->obra);
+        scanf("%s", livro->autor);
+        scanf("%s", livro->editora);
+
+        i++;
+    }
+
+    while (1)
+    {
+        scanf("%d", &codiguin);
+        if (codiguin == -1) break;
+
+        Livro *livro;
+        if (codiguin == 1)
+        {
+            livro = &exatas[i];
+        }
+        else if (codiguin == 2)
+        {
+            livro = &humanas[i];
+        }
+        else
+        {
+            livro = &biologicas[i];
+        }
+    }
+
     return 0;
 }
