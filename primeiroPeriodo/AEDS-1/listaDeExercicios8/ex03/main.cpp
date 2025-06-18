@@ -9,7 +9,7 @@ private:
 public:
     Carro()
     {
-        inicializaTudo(0,0,0,0);
+        inicializaTudo(50,15,0,0);
     }
     void inicializaTudo(int valor1, int valor2, int valor3, int valor4)
     {
