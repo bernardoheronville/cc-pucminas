@@ -26,6 +26,11 @@ public:
     {
         return nome;
     }
+
+    void exibe()
+    {
+        cout << "Autor: " << getNome() << endl;
+    }
 };
 
 class Livro
@@ -35,9 +40,9 @@ private:
     int ano;
     Autor *autor;
 public:
-    Livro()
+    Livro(Autor *autorObj) : autor(autorObj)
     {
-       inicializa("nenhum",0);
+        inicializa("nenhum",0);
     }
     void inicializa(string texto1, int valor1)
     {
@@ -64,12 +69,29 @@ public:
     {
         return ano;
     }
+
+    void exibe()
+    {
+        cout << "Detalhes do Livro: " << endl;
+        cout << "Titulo: " << getTitulo() << endl;
+        cout << "Ano de publicacao: " << getAno() << endl;
+        cout << "Autor: " << autor->getNome() << endl;
+    }
 };
 
 int main()
 {
+    string nomeAutor;
+    getline(cin,nomeAutor);
     Autor autor;
-    Livro livro;
-
+    autor.setNome(nomeAutor);
+    string tituloLivro;
+    int anoLivro;
+    getline(cin,tituloLivro);
+    cin >> anoLivro;
+    Livro livro(&autor);
+    livro.setTitulo(tituloLivro);
+    livro.setAno(anoLivro);
+    livro.exibe();
     return 0;
 }
