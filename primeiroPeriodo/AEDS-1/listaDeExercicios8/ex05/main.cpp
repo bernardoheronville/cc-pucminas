@@ -23,11 +23,13 @@ public:
 
     void setCapacidade(int valor)
     {
-        capacidade = valor;
+        if(valor > 0) capacidade = valor;
+        else cout << "Capacidade invalida" << endl;
     }
     void setTotalAndares(int valor)
     {
-        totalAndares = valor;
+        if(valor > 0) totalAndares = valor;
+        else cout << "Total de andares invalido" << endl;
     }
 
     int getAndarAtual()
