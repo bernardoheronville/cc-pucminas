@@ -3,8 +3,8 @@
 
 int main() // Função principal do programa
 {
-    int N; // Declara uma variável inteira N
-    printf("Digite um numero inteiro: "); // Solicita ao usuário que digite um número inteiro
+    // Declara uma variável inteira N
+    int N; 
     // Lê um número inteiro da entrada padrão e armazena em N
     scanf("%d", &N);
 
@@ -27,6 +27,5 @@ int main() // Função principal do programa
         printf("ERRO\n"); // Imprime "ERRO"
         break; // Sai do switch
     }
-
     return 0; // Retorna 0 para indicar que o programa terminou com sucesso
 }
