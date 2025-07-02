@@ -1,0 +1,15 @@
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\bin\Debug\net9.0\main.exe
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\bin\Debug\net9.0\main.deps.json
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\bin\Debug\net9.0\main.runtimeconfig.json
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\bin\Debug\net9.0\main.dll
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\bin\Debug\net9.0\main.pdb
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\main.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\main.AssemblyInfoInputs.cache
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\main.AssemblyInfo.cs
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\main.csproj.CoreCompileInputs.cache
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\main.sourcelink.json
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\main.dll
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\refint\main.dll
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\main.pdb
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\main.genruntimeconfig.cache
+C:\Users\nadab\Desktop\Projetos Web\cc-pucminas\primeiroPeriodo\LIP\TP_CLike\C#\main\obj\Debug\net9.0\ref\main.dll
