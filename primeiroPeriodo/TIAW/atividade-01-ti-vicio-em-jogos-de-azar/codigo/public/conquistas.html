@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conquistas</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen p-6">
+  <button onclick="window.history.back()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+    ← Voltar
+  </button>
+
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-md">
+    <h1 class="text-3xl font-bold mb-4 text-center">🏅 Conquistas</h1>
+    <p class="text-center text-gray-600 mb-8">Acompanhe suas conquistas com base em seu progresso!</p>
+    <div id="conquistasContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+  </div>
+  <script src="assets/js/conquistas.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do Usuário - Jogo Limpo</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="pagina_usuario.css">
+  <script src="pagina_usuario.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="../index.html">JOGO LIMPO</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="../PaginadeComunidade.html">Apoio Comunitário</a></li>
+          <li class="nav-item"><a class="nav-link" href="../about.html">Sobre Nós</a></li>
+          <li class="nav-item">
+            <button id="btn_logout_nav" class="btn btn-danger">Sair</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="d-flex align-items-center justify-content-center">
+    <div class="container">
+      <h1 class="display-4">Bem-vindo, <span id="nomeUsuario">Usuário</span>!</h1>
+      <p class="lead">Aqui está o seu progresso e atividades recentes.</p>
+    </div>
+  </header>
+
+  <!-- Perfil e Mensagem do Dia -->
+  <section class="container my-5">
+    <div class="row justify-content-center align-items-center">
+      <!-- Perfil -->
+      <div class="col-md-6 text-center">
+        <div class="profile-card">
+          <img id="avatarDesbloqueado" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar"
+            class="rounded-circle mb-3" width="150" height="150">
+
+          <h3 id="loginUsuario">Login</h3>
+          <p class="text-muted" id="emailUsuario">email@email.com</p>
+
+          <div class="d-grid gap-2 mt-3">
+            <a href="../conquistas.html" class="btn btn-conquistas">
+              🎖️ Visualizar Conquistas
+            </a>
+            <a href="../progresso.html" class="btn btn-outline-info">
+              📊 Acompanhar Progresso
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensagem do Dia -->
+      <div class="col-md-6 text-center">
+        <div class="motivacional p-4 bg-white rounded shadow-sm">
+          <h2 class="mb-3">Mensagem do Dia</h2>
+          <div id="mensagem" class="mensagem-card fs-5 fst-italic text-secondary">Carregando...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="container my-5">
+    <div class="card p-4 shadow-sm">
+      <h2 class="mb-3">Meta Pessoal: Dias Sem Jogar</h2>
+
+      <form id="formMetaDias">
+        <label for="metaInput" class="form-label">Quantos dias você quer ficar sem jogar?</label>
+        <input type="number" id="metaInput" class="form-control mb-3" min="1" required />
+        <button class="btn btn-primary" type="submit">Definir Meta</button>
+      </form>
+
+      <hr class="my-4" />
+
+      <p><strong>Dias sem jogar:</strong> <span id="diasSemJogar">0</span> / <span id="metaDias">?</span></p>
+      <button class="btn btn-success mt-2" id="btnNaoJogueiHoje"> Registrar dia sem jogar</button>
+      <button class="btn btn-outline-danger mt-2" id="btnResetarProgresso">Perdi um dia 😞 Resetar progresso</button>
+    </div>
+  </section>
+
+   <section class="container my-5">
+        <div class="card p-4 shadow-sm text-center bg-white bg-opacity-10 border-primary">
+            <h2 class="mb-3 text-primary-dark-custom">Descubra Seus Ganhos Reais!</h2>
+            <p class="lead text-primary-dark-custom">
+                Veja o quanto você pode economizar e transformar sua vida financeira ao não apostar.
+            </p>
+            <a href="../simule_ganhos.html" class="btn btn-outline-primary btn-lg mt-3 btn-simulacao-ganhos">
+                💰 Simular Meus Ganhos
+            </a>
+        </div>
+    </section>
+    
+  <!-- Atividades Recentes -->
+  <section class="container my-5">
+    <div class="card atividades-card mb-4 p-4 shadow-sm">
+      <h2 class="mb-3 text-primary">Atividades Saudáveis Registradas</h2>
+      <ul id="atividadesLista" class="list-unstyled atividades-lista mb-0"></ul>
+    </div>
+    <div class="registro-atividade-wrapper">
+      <div class="card p-4 mb-5 registro-atividade-card">
+        <h4 class="text-center mb-4">Registrar atividade saudável</h4>
+        <form id="formAtividadesDisponiveis">
+          <div id="listaAtividadesDisponiveis" class="mb-4">
+            <!-- Atividades serão inseridas aqui -->
+          </div>
+          <button type="submit" class="btn btn-success d-block mx-auto">Registrar atividades concluídas</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="apoio-comunitario my-5 py-4 px-3 rounded shadow-sm">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-2 text-center mb-3 mb-md-0">
+          <img src="https://img.icons8.com/ios-filled/80/4a90e2/groups.png" alt="Comunidade" />
+        </div>
+        <div class="col-md-7">
+          <h3 class="fw-bold">Conecte-se com a Comunidade</h3>
+          <p>
+            Compartilhe suas experiências, receba apoio e interaja com outras pessoas que também estão nessa jornada de
+            superação.
+          </p>
+        </div>
+        <div class="col-md-3 text-md-end text-center">
+          <a href="../PaginadeComunidade.html" class="btn btn-primary btn-lg">Ir para Apoio Comunitário</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center bg-light py-3">
+    <small>© 2025 Jogo Limpo. Todos os direitos reservados.</small>
+  </footer>
+
+</body>
+
+</html>

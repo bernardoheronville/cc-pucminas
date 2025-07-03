@@ -1,0 +1,361 @@
+:root {
+    --primary-color: #1976D2;
+    --primary-dark-color: #1565C0;
+    --secondary-color: #81C784;
+    --background-light: #E3F2FD;
+    --text-color: #333;
+    --card-background: #FFFFFF;
+    --border-color: #BBDEFB;
+    --shadow-color: rgba(0, 0, 0, 0.12);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2.5em 1em;
+    text-align: center;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+header h1 {
+    margin-top: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 1.2em;
+    max-width: 800px;
+    margin: 0.8em auto 0;
+}
+
+main {
+    flex-grow: 1;
+    max-width: 960px;
+    margin: 2em auto;
+    padding: 0 1em;
+}
+
+.card {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px var(--shadow-color);
+    padding: 2em;
+    margin-bottom: 2em;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    /* Sombra maior no hover */
+}
+
+h2 {
+    color: var(--primary-dark-color);
+    text-align: center;
+    margin-bottom: 1.8em;
+    font-size: 1.8em;
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6em;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #CCC;
+    border-radius: 8px;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+    border-color: var(--primary-dark-color);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+    outline: none;
+}
+
+button#simulateBtn {
+    display: block;
+    width: 100%;
+    padding: 14px 25px;
+    background-color: var(--primary-dark-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 2em;
+    font-weight: bold;
+}
+
+button#simulateBtn:hover {
+    background-color: #0D47A1;
+    /* Azul ainda mais escuro no hover */
+    transform: translateY(-2px);
+}
+
+button#simulateBtn:active {
+    transform: translateY(0);
+}
+
+/* Resultados */
+.simulation-results {
+    background-color: #E0F7FA;
+    border-color: #B2EBF2;
+}
+
+.result-box {
+    background-color: var(--card-background);
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.big-number {
+    font-size: 3.5em;
+    /* Aumentado para mais destaque */
+    font-weight: 800;
+    color: var(--primary-dark-color);
+    margin: 0.3em 0;
+    line-height: 1;
+}
+
+.investment-info small {
+    display: block;
+    margin-top: 0.8em;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 800px;
+    /* Mantém um limite razoável para o gráfico */
+    height: 450px;
+    /* Altura fixa para o gráfico */
+    margin: 2.5em auto;
+    padding: 1.5em;
+    /* Um pouco mais de padding */
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Sombra mais visível */
+    border: 1px solid var(--border-color);
+}
+
+.conquests {
+    margin-top: 2.5em;
+    text-align: center;
+}
+
+.conquests h3 {
+    color: var(--primary-dark-color);
+    margin-bottom: 1.8em;
+    font-size: 1.6em;
+}
+
+.conquests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5em;
+    justify-content: center;
+    padding: 0 1em;
+}
+
+.conquest-card {
+    background-color: var(--card-background);
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    text-align: left;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex;
+    align-items: flex-start;
+    gap: 1em;
+}
+
+.conquest-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.conquest-card .icon {
+    font-size: 2.5em;
+    /* Ícones maiores */
+    color: var(--primary-dark-color);
+    flex-shrink: 0;
+    margin-top: 0.05em;
+}
+
+.conquest-card p {
+    margin: 0;
+    font-size: 1em;
+    color: #444;
+}
+
+.conquest-card.no-conquests-yet {
+    background-color: #F8F9FA;
+    border-color: #E9ECEF;
+    grid-column: 1 / -1;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 2em;
+}
+
+.conquest-card.no-conquests-yet .icon {
+    font-size: 3.5em;
+    /* Ícone ainda maior para essa mensagem */
+    margin-bottom: 0.3em;
+}
+
+.conquest-card.no-conquests-yet h4 {
+    margin: 0;
+    color: var(--primary-dark-color);
+}
+
+.conquest-card.no-conquests-yet p {
+    font-size: 1.1em;
+    color: #666;
+}
+
+.support-info {
+    text-align: center;
+    background-color: #F3F8FB;
+    border-color: #D6E4EF;
+}
+
+.support-buttons {
+    margin-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 12px 25px;
+    background-color: var(--primary-dark-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #0D47A1;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+footer {
+    text-align: center;
+    padding: 1.5em;
+    margin-top: 3em;
+    background-color: var(--primary-dark-color);
+    color: white;
+    font-size: 0.9em;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .big-number {
+        font-size: 2.8em;
+    }
+
+    .conquests-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 1.5em;
+    }
+
+    .chart-container {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.6em;
+    }
+
+    header p {
+        font-size: 1em;
+    }
+
+    button#simulateBtn {
+        font-size: 1em;
+        padding: 12px 15px;
+    }
+
+    .big-number {
+        font-size: 2.2em;
+    }
+
+    h2,
+    h3 {
+        font-size: 1.5em;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .conquest-card .icon {
+        font-size: 2em;
+    }
+
+    .conquest-card.no-conquests-yet .icon {
+        font-size: 3em;
+    }
+}

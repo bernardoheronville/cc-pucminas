@@ -1,0 +1,29 @@
+cff-version: 1.0.1
+message: Please cite this software using these metadata.
+title: Jogo Limpo
+authors:
+  - family-names: Barbosa
+    given-names: Bernardo
+  - family-names: Sampaio
+    given-names: Bernardo
+  - family-names: Perdigão
+    given-names: Daniel
+  - family-names: Missiaggia
+    given-names: Fábio
+  - family-names: Lorene
+    given-names: Janielly
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Saldanha
+    given-names: Ilo
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: 
+    given-names: 
+keywords:
+  - Vício 
+  - Jogos de Azar
+repository-code: https://github.com/ICEI-PUC-Minas-PPLCC-TI/atividade-01-ti-vicio-em-jogos-de-azar.git
+license: CC-BY-4.0
+version: 1.0.0
+date-released: 2025-05-27

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administração de Atividades</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <script src="admin_atividades.js" defer></script>
+</head>
+
+<body class="bg-light">
+
+  <!-- ... seu HTML atual ... -->
+
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center">Gerenciar Atividades Disponíveis</h2>
+
+    <!-- Formulário Atividades -->
+    <form id="formAtividade" class="card p-4 shadow-sm mb-4">
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição da Atividade</label>
+        <input type="text" id="descricao" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="icone" class="form-label">Ícone (URL ou emoji)</label>
+        <input type="text" id="icone" class="form-control" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Salvar Atividade</button>
+    </form>
+
+    <!-- Lista Atividades -->
+    <ul id="listaAtividades" class="list-group shadow-sm"></ul>
+  </div>
+
+  <hr class="my-5">
+
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center">Gerenciar Conquistas</h2>
+
+    <!-- Formulário Conquistas -->
+    <form id="formConquista" class="card p-4 shadow-sm mb-4">
+      <div class="mb-3">
+        <label for="conquistaNome" class="form-label">Nome da Conquista</label>
+        <input type="text" id="conquistaNome" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="conquistaDescricao" class="form-label">Descrição</label>
+        <input type="text" id="conquistaDescricao" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="conquistaTipo" class="form-label">Tipo</label>
+        <select id="conquistaTipo" class="form-select" required>
+          <option value="">Selecione o tipo</option>
+          <option value="dias_sem_jogar">Dias sem jogar</option>
+          <option value="atividades">Atividades</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="conquistaMeta" class="form-label">Meta (número)</label>
+        <input type="number" id="conquistaMeta" class="form-control" min="1" required />
+      </div>
+      <div class="mb-3">
+        <label for="conquistaIcone" class="form-label">Ícone (emoji ou texto)</label>
+        <input type="text" id="conquistaIcone" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">Salvar Conquista</button>
+    </form>
+
+    <!-- Lista Conquistas -->
+    <ul id="listaConquistas" class="list-group shadow-sm"></ul>
+  </div>
+
+
+</body>
+
+</html>

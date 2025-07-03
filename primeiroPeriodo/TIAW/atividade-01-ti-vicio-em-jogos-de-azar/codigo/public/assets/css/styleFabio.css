@@ -1,0 +1,24 @@
+body{
+     background-color: #f0f0f0
+}
+
+
+#menu {
+    background-color: #0279ff;
+    margin: 0 auto 40px auto;
+    padding: 12px 0;
+    width: 42rem;
+    text-align: center;
+    color: #f0f0f0;
+}
+
+#box {
+    margin: 0 auto;
+    padding: 50px;
+    width: 30rem;
+    background-color: #e2e5ea;
+}
+
+#col{
+    margin-top: 100px;
+}

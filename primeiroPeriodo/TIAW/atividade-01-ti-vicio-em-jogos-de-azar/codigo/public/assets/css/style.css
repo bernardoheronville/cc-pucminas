@@ -1,0 +1,80 @@
+a {
+  color: inherit !important;       
+  text-decoration: none !important; 
+}
+
+header {
+    background-image: url(../images/bannerprincipal.png);
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+    color: #000;
+    min-height: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.btn-custom {
+    background-color: #007BFF !important;
+    color: white !important;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: white !important;
+    color: #007BFF !important;
+    border: 1px solid #007BFF !important;
+}
+
+main {
+    padding: 40px 20px;
+    background-color: #f7f7f7;
+}
+
+.conteudo-duplo {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 80px;
+    flex-wrap: wrap;
+}
+
+.conteudo-duplo img {
+    max-width: 350px;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.texto-conteudo {
+    flex: 1;
+}
+
+.texto-conteudo h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.texto-conteudo p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #e2e5e9;
+    font-size: 0.9rem;
+}

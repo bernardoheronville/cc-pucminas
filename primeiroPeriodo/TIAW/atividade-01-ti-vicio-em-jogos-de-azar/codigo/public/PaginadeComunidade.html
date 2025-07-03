@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comunidade - Apoio a Vício em Apostas</title>
+  <link rel="stylesheet" href="assets/css/comunidade.css">
+  <script src="assets/js/comunidade.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <button class="back-button" aria-label="Voltar para página anterior" type="button" onclick="history.back()">
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+        <path
+          d="M12.707 15.707a1 1 0 01-1.414 0L6.586 11H17a1 1 0 110 2H6.586l4.707 4.707a1 1 0 010 1.414zM6.586 9L11.293 4.293a1 1 0 111.414 1.414L8.414 9H17a1 1 0 110 2H8.414l4.293 4.293a1 1 0 11-1.414 1.414L6.586 11a1 1 0 010-2z"
+          fill-rule="evenodd" clip-rule="evenodd" />
+      </svg>
+      Voltar
+    </button>
+    <h1>Comunidade</h1>
+    <button id="new-post-button" type="button" aria-haspopup="dialog" aria-controls="modal" aria-expanded="false">Novo
+      Post</button>
+    <p>Espaço de apoio e troca para quem busca superar o vício em apostas.</p>
+  </header>
+  <main aria-live="polite" aria-relevant="additions">
+    <!-- Posts will be inserted here by JavaScript -->
+  </main>
+
+  <!-- Modal for new post -->
+  <div id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+    <div id="modal">
+      <h2 id="modal-title">Criar Novo Post</h2>
+      <form id="new-post-form" novalidate>
+        <div class="form-group">
+          <input type="text" id="post-title" name="title" placeholder=" " required maxlength="100"
+            aria-required="true" />
+          <label for="post-title">Título</label>
+        </div>
+        <div class="form-group">
+          <textarea id="post-content" name="content" placeholder=" " rows="5" required maxlength="1000"
+            aria-required="true"></textarea>
+          <label for="post-content">Conteúdo do post</label>
+        </div>
+        <div id="modal-buttons">
+          <button type="button" id="cancel-button">Cancelar</button>
+          <button type="submit" id="submit-button">Publicar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+</body>
+
+</html>

@@ -1,0 +1,252 @@
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f4f6f8;
+  --text-color: #333;
+  --light-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --radius: 16px;
+  --transition: 0.3s ease-in-out;
+  --avatar-size: 80px;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-image: url('../assets/images/bannerprincipal.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 20rem;
+  color: #000;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.motivacional {
+  background-color: #ffffff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.motivacional h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.mensagem-card {
+  font-size: 1.2rem;
+  color: #444;
+  font-style: italic;
+  background-color: #e0f7fa;
+  padding: 20px;
+  border-radius: 8px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apoio-comunitario {
+  background-color: #f0f8ff;
+  border-left: 5px solid #0d6efd;
+  transition: transform 0.2s ease;
+}
+
+.apoio-comunitario:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+}
+
+
+#medalhasUsuario img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  transition: transform var(--transition);
+}
+
+#medalhasUsuario img:hover {
+  transform: scale(1.1);
+}
+
+#avatarAtual {
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  box-shadow: var(--light-shadow);
+  margin-top: 1rem;
+}
+
+/* Conquistas */
+#conquistasUsuario .conquista-card {
+  background-color: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--light-shadow);
+  padding: 1rem;
+  transition: transform var(--transition);
+  text-align: center;
+}
+
+#conquistasUsuario .conquista-card:hover {
+  transform: translateY(-5px);
+}
+
+#conquistasUsuario .conquista-card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 0.5rem;
+}
+
+#conquistasUsuario .conquista-card h5 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.atividades-card {
+  background-color: #ffffff;
+  border-radius: var(--radius, 16px);
+  box-shadow: var(--light-shadow, 0 4px 12px rgba(0, 0, 0, 0.1));
+  padding: 2rem;
+}
+
+.atividades-card h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-color, #4a90e2);
+}
+
+.atividades-lista li {
+  background-color: #f4f6f8;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.8rem;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  color: var(--text-color, #333);
+  line-height: 1.4;
+}
+
+.atividades-lista li strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.atividades-lista li small {
+  color: #777;
+}
+
+.btn-conquistas {
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-conquistas:hover {
+  background-color: #357ab8;
+  text-decoration: none;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Área que agrupa todos os cards de atividades disponíveis */
+#listaAtividadesDisponiveis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Contêiner individual de cada atividade */
+.atividade-card {
+  position: relative;
+}
+
+/* Oculta o checkbox padrão, deixando apenas o card visível */
+.atividade-checkbox {
+  display: none;
+}
+
+/* Visual do card de atividade (label estilizado) */
+.atividade-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 2px solid #ccc;
+  border-radius: var(--radius, 16px);
+  padding: 1.2rem;
+  width: 200px;
+  height: 120px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text-color, #333);
+  box-shadow: var(--light-shadow, 0 4px 12px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease-in-out;
+}
+
+/* Aparência do card quando estiver selecionado (checkbox marcado) */
+.atividade-checkbox:checked+.atividade-label {
+  background-color: var(--primary-color, #4a90e2);
+  color: #ffffff;
+  border-color: var(--primary-color, #4a90e2);
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(74, 144, 226, 0.4);
+}
+
+.registro-atividade-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.registro-atividade-card {
+  width: 100%;
+  max-width: 900px;
+  background-color: #ffffff;
+  border-radius: var(--radius, 16px);
+  box-shadow: var(--light-shadow, 0 4px 12px rgba(0, 0, 0, 0.1));
+  padding: 2rem;
+}
+
+.registro-atividade-card h4 {
+  font-size: 1.5rem;
+  color: var(--text-color, #333);
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .profile-card {
+    margin-bottom: 2rem;
+  }
+
+  .registro-atividade-card {
+    padding: 1.2rem;
+  }
+}

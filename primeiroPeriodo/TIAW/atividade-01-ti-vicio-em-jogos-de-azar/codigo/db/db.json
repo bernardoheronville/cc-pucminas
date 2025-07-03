@@ -1,0 +1,418 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "login": "admin",
+      "senha": "123",
+      "nome": "Ana S.",
+      "tipo": "admin",
+      "email": "admin@abc.com",
+      "atividades": [
+        {
+          "descricao": "Ler um livro",
+          "data": "2025-06-22T02:51:40.007Z"
+        },
+        {
+          "descricao": "Caminhada leve de 20 minutos ao ar livre",
+          "data": "2025-06-22T05:19:29.804Z"
+        },
+        {
+          "descricao": "Iniciar a semana com 10 minutos de meditação",
+          "data": "2025-06-23T17:36:09.660Z"
+        },
+        {
+          "descricao": "Organizar a próxima semana e definir metas",
+          "data": "2025-06-23T17:36:09.660Z"
+        }
+      ],
+      "conquistas": [
+        "sem_jogar_3",
+        "3d97"
+      ],
+      "avatarDesbloqueado": "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+    },
+    {
+      "id": "2",
+      "login": "user",
+      "senha": "123",
+      "nome": "Marcos",
+      "tipo": "usuario",
+      "email": "user@abc.com",
+      "atividades": [
+        {
+          "descricao": "Ler um livro",
+          "data": "2025-06-22T06:25:11.108Z"
+        },
+        {
+          "descricao": "Iniciar a semana com 10 minutos de meditação",
+          "data": "2025-06-22T06:25:11.108Z"
+        },
+        {
+          "descricao": "Organizar a próxima semana e definir metas",
+          "data": "2025-06-22T06:25:11.108Z"
+        },
+        {
+          "descricao": "Evitar telas 1 hora antes de dormir",
+          "data": "2025-06-22T06:25:11.108Z"
+        },
+        {
+          "descricao": "Assistir a um vídeo ou podcast sobre vício em jogos",
+          "data": "2025-06-22T06:25:11.108Z"
+        },
+        {
+          "descricao": "Caminhada leve de 20 minutos ao ar livre",
+          "data": "2025-06-22T06:25:37.726Z"
+        },
+        {
+          "descricao": "Atividade social (ligar para alguém, conversar)",
+          "data": "2025-06-22T06:25:37.726Z"
+        },
+        {
+          "descricao": "Revisar quanto economizei sem apostar nesta semana",
+          "data": "2025-06-22T06:25:37.726Z"
+        },
+        {
+          "descricao": "Visualizar as consequências de uma recaída para manter o foco",
+          "data": "2025-06-22T06:26:06.311Z"
+        },
+        {
+          "descricao": "Escrever um motivo pelo qual quero parar de apostar",
+          "data": "2025-06-22T06:26:25.714Z"
+        },
+        {
+          "descricao": "Fazer algo prazeroso sem envolver tecnologia ou dinheiro",
+          "data": "2025-06-22T06:29:17.717Z"
+        }
+      ],
+      "conquistas": [
+        "sem_jogar_3",
+        "3d97",
+        "atividades_5",
+        "55f1"
+      ],
+      "avatarDesbloqueado": "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+    },
+    {
+      "id": "user_1750710732064",
+      "nome": "Jani",
+      "login": "user2",
+      "senha": "123",
+      "email": "user2@gmail.com",
+      "conquistas": [],
+      "atividades": [
+        {
+          "descricao": "Atividade social (ligar para alguém, conversar)",
+          "data": "2025-06-23T20:32:38.120Z"
+        },
+        {
+          "descricao": "Revisar quanto economizei sem apostar nesta semana",
+          "data": "2025-06-23T20:32:38.121Z"
+        }
+      ],
+      "avatarDesbloqueado": "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1750528957101",
+      "title": "Como resistir à vontade de apostar?",
+      "authorName": "Ana S.",
+      "userId": "1",
+      "date": "2025-06-21T18:02:37.101Z",
+      "content": "Tenho tentado de tudo para resistir à vontade de apostar, mas é difícil. Alguém tem dicas práticas para controlar melhor esses impulsos?",
+      "likesCount": 4,
+      "likedBy": [
+        "2",
+        "1",
+        "user_1750598679501",
+        "user_1750625510061"
+      ],
+      "comments": [
+        {
+          "authorId": "user_1750533096178",
+          "author": "Jani",
+          "text": "Tente manter sua mente ocupada, isso me ajudou!",
+          "date": "2025-06-21T19:12:23.001Z"
+        },
+        {
+          "authorId": "user_1750625510061",
+          "author": "Video",
+          "text": "Muito bom!",
+          "date": "2025-06-22T20:55:11.633Z"
+        }
+      ]
+    },
+    {
+      "id": "1234",
+      "title": "Pequenos passos para o controle financeiro",
+      "authorName": "Roberto M.",
+      "userId": "3",
+      "date": "2025-06-21T12:00:00Z",
+      "content": "Focar nos pequenos passos tem me ajudado. Controle de gastos, planejamento semanal e evitar gatilhos são essenciais. Vamos compartilhar mais estratégias!",
+      "likesCount": 4,
+      "likedBy": [
+        "user_1750533096178",
+        "1",
+        "user_1750598679501",
+        "user_1750625510061"
+      ],
+      "comments": [
+        {
+          "authorId": "1",
+          "author": "Ana S.",
+          "text": "Comentário comum",
+          "date": "2025-06-22T02:31:08.137Z"
+        }
+      ]
+    },
+    {
+      "id": "1750529494338",
+      "title": "A importância do apoio familiar",
+      "authorName": "Marcos",
+      "userId": "2",
+      "date": "2025-06-21T18:11:34.338Z",
+      "content": "O suporte da minha família tem sido fundamental para minha recuperação. Não hesitem em buscar ajuda próxima, não estamos sozinhos!",
+      "likesCount": 2,
+      "likedBy": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        {
+          "authorId": "user_1750598679501",
+          "author": "Joao Felipe",
+          "text": "bom",
+          "date": "2025-06-22T13:26:42.674Z"
+        }
+      ]
+    }
+  ],
+  "progresso": [
+    {
+      "id": "1",
+      "usuario_id": "1",
+      "meta_dias": 20,
+      "dias_sem_jogar": 1,
+      "datas_confirmadas": [
+        "2025-06-23"
+      ]
+    },
+    {
+      "id": "2",
+      "usuario_id": "2",
+      "meta_dias": 3,
+      "dias_sem_jogar": 3,
+      "datas_confirmadas": [
+        "2025-06-18",
+        "2025-06-19",
+        "2025-06-22"
+      ]
+    },
+    {
+      "usuario_id": "user_1750710732064",
+      "meta_dias": "5",
+      "dias_sem_jogar": 0,
+      "datas_confirmadas": [],
+      "id": "qbOT99T"
+    }
+  ],
+  "conquistas": [
+    {
+      "id": "3d97",
+      "nome": "Primeira Atividade",
+      "descricao": "Complete sua primeira atividade saudável",
+      "tipo": "atividades",
+      "meta": 1,
+      "icone": "✅"
+    },
+    {
+      "id": "sem_jogar_3",
+      "nome": "Primeiros 3 dias",
+      "descricao": "Fique 3 dias sem jogar.",
+      "tipo": "dias_sem_jogar",
+      "meta": 3,
+      "icone": "⏳"
+    },
+    {
+      "nome": "Semana Forte",
+      "descricao": "Fique 7 dias sem jogar.",
+      "tipo": "dias_sem_jogar",
+      "meta": 7,
+      "icone": "🏆",
+      "id": "sem_jogar_7"
+    },
+    {
+      "id": "atividades_5",
+      "nome": "Atleta saudável",
+      "descricao": "Complete 5 atividades saudáveis.",
+      "tipo": "atividades",
+      "meta": 5,
+      "icone": "💪"
+    },
+    {
+      "id": "80f8",
+      "nome": "Mês de Vitória",
+      "descricao": "Fique 30 dias seguidos sem jogar",
+      "tipo": "dias_sem_jogar",
+      "meta": 30,
+      "icone": "🎖️"
+    },
+    {
+      "id": "55f1",
+      "nome": "Dez Atividades",
+      "descricao": "Complete 10 atividades saudáveis",
+      "tipo": "atividades",
+      "meta": 10,
+      "icone": "🏃‍♂️"
+    },
+    {
+      "id": "d605",
+      "nome": "Maratonista de Missões",
+      "descricao": "Realize 15 atividades diferentes",
+      "tipo": "atividades",
+      "meta": 15,
+      "icone": "🏃‍♀️"
+    },
+    {
+      "id": "5e3b",
+      "nome": "Explorador Dedicado",
+      "descricao": "Realize 30 atividades",
+      "tipo": "atividades",
+      "meta": 30,
+      "icone": "🧭"
+    },
+    {
+      "id": "e707",
+      "nome": "Foco de Aço",
+      "descricao": "Alcance 50 dias sem jogar",
+      "tipo": "dias_sem_jogar",
+      "meta": 50,
+      "icone": "🛡️"
+    },
+    {
+      "id": "2013",
+      "nome": "Produtividade Máxima",
+      "descricao": "Complete 50 atividades no total",
+      "tipo": "atividades",
+      "meta": 50,
+      "icone": "🚀"
+    },
+    {
+      "id": "26f6",
+      "nome": "Desafio dos 100",
+      "descricao": "Alcance a marca de 100 atividades realizadas",
+      "tipo": "atividades",
+      "meta": 100,
+      "icone": "💯"
+    },
+    {
+      "id": "fdce",
+      "nome": "Lendário da Disciplina",
+      "descricao": "Complete 100 dias sem recaídas",
+      "tipo": "dias_sem_jogar",
+      "meta": 100,
+      "icone": "🌟"
+    }
+  ],
+  "atividadesDisponiveis": [
+    {
+      "descricao": "Ler um livro",
+      "icone": "📚",
+      "id": "ff94"
+    },
+    {
+      "id": "0f29",
+      "descricao": "Iniciar a semana com 10 minutos de meditação",
+      "icone": "🧘"
+    },
+    {
+      "id": "ac03",
+      "descricao": "Caminhada leve de 20 minutos ao ar livre",
+      "icone": "🚶‍♀️"
+    },
+    {
+      "id": "7002",
+      "descricao": "Atividade social (ligar para alguém, conversar)",
+      "icone": "📞"
+    },
+    {
+      "id": "5057",
+      "descricao": "Organizar a próxima semana e definir metas",
+      "icone": "📅"
+    },
+    {
+      "id": "3a1a",
+      "descricao": "Evitar telas 1 hora antes de dormir",
+      "icone": "📵"
+    },
+    {
+      "id": "24b6",
+      "descricao": "Assistir a um vídeo ou podcast sobre vício em jogos",
+      "icone": "🎧"
+    },
+    {
+      "id": "47ac",
+      "descricao": "Revisar quanto economizei sem apostar nesta semana",
+      "icone": "💰"
+    },
+    {
+      "id": "0357",
+      "descricao": "Fazer algo prazeroso sem envolver tecnologia ou dinheiro",
+      "icone": "🎨"
+    },
+    {
+      "id": "83a2",
+      "descricao": "Escrever um motivo pelo qual quero parar de apostar",
+      "icone": "📝"
+    },
+    {
+      "id": "8ef0",
+      "descricao": "Visualizar as consequências de uma recaída para manter o foco",
+      "icone": "⚠️"
+    }
+  ],
+  "avatares": [
+    {
+      "id": "default",
+      "nome": "Herói Desconhecido",
+      "img": "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      "limiteMinimoDias": 0
+    },
+    {
+      "id": "spiderman",
+      "nome": "Homem-Aranha",
+      "img": "https://img.icons8.com/color/96/spiderman-new.png",
+      "limiteMinimoDias": 3
+    },
+    {
+      "id": "wonderwoman",
+      "nome": "Mulher-Maravilha",
+      "img": "https://img.icons8.com/color/96/wonder-woman.png",
+      "limiteMinimoDias": 7
+    },
+    {
+      "id": "ironman",
+      "nome": "Homem de Ferro",
+      "img": "https://img.icons8.com/color/96/iron-man.png",
+      "limiteMinimoDias": 15
+    },
+    {
+      "id": "captainamerica",
+      "nome": "Capitão América",
+      "img": "https://img.icons8.com/color/96/captain-america.png",
+      "limiteMinimoDias": 30
+    },
+    {
+      "id": "batman",
+      "nome": "Batman",
+      "img": "https://img.icons8.com/color/96/batman.png",
+      "limiteMinimoDias": 50
+    },
+    {
+      "id": "superman",
+      "nome": "Superman",
+      "img": "https://img.icons8.com/color/96/superman.png",
+      "limiteMinimoDias": 100
+    }
+  ]
+}

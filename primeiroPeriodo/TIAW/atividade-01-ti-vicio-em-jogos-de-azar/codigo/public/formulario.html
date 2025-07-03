@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="assets/css/formulario.css">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Autoavaliação: Jogo Limpo</h2>
+    <form id="formulario">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="idade">Idade:</label>
+        <input type="text" id="idade" name="idade" required>
+
+        <label for="q1">1. Você sente necessidade de apostar quantias cada vez maiores para sentir emoção?</label>
+        <select id="q1" required>
+            <option value="">Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+
+        <label for="q2">2. Você já tentou parar de jogar e não conseguiu?</label>
+        <select id="q2" required>
+            <option value="">Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+
+        <label for="q3">3. Você se sente inquieto ou irritado quando tenta reduzir ou parar de jogar?</label>
+        <select id="q3" required>
+            <option value="">Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+
+        <label for="q4">4. Você já mentiu para familiares ou amigos para esconder o quanto joga?</label>
+        <select id="q4" required>
+            <option value="">Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+
+        <label for="q5">5. Você joga para fugir de problemas ou aliviar sentimentos negativos?</label>
+        <select id="q5" required>
+            <option value="">Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div id="resultado" class="resultado" style="display:none;"></div>
+</div>
+
+<script src="assets/js/formulario.js"></script>
+
+</body>
+</html>
