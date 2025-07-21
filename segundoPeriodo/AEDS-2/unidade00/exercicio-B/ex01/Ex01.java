@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
-public class Main {
-    static void preencherArray(Scanner sc, int tam, int array[]) {
+public class Ex01 {
+    public static void preencherArray(Scanner sc, int tam, int array[]) {
         for (int i = 0; i < tam; i++) {
             array[i] = sc.nextInt();
         }
     }
 
-    static boolean verificaArray(int num, int tam, int array[]) {
+    public static boolean verificaArray(int num, int tam, int array[]) {
         boolean existe = false;
         for (int i = 0; i < tam; i++) {
             if (array[i] == num) {
