@@ -24,7 +24,7 @@ int main()
 	scanf("%s", palavra);
 	while (strcmp(palavra, "FIM") != 0)
 	{
-		if (palindromo(palavra) == true)
+		if (palindromo(palavra))
 			printf("SIM\n");
 		else
 			printf("NAO\n");
