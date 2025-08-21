@@ -24,6 +24,6 @@ public class Main {
 			}
 			palavra = sc.nextLine();
 		}
-		
+		sc.close();
 	}
 }
