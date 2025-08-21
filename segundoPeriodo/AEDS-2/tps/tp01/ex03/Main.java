@@ -8,7 +8,7 @@ public class Main {
 		for(int i = 0; i < tam; i++) {
 			char caractereAtual = palavra.charAt(i);
 			if(caractereAtual == '\uFFFD')
-				continue;
+				novaPalavra += caractereAtual;
 			else {
 				char novoCaracter = (char) (caractereAtual + 3);
 				novaPalavra += novoCaracter;
