@@ -24,9 +24,8 @@ void combinador(char *str1, char *str2, char *str3, int tam1, int tam2, int tam3
 	}
 }
 
-int main()
-{
-	char str1[100], str2[100];
+int main() {
+	char str1[255], str2[255];
 	while(scanf("%s %s", str1, str2) != EOF) {
 		int tam1 = strlen(str1), tam2 = strlen(str2), tam3 = tam1 + tam2 + 1;
 		char str3[tam3];
