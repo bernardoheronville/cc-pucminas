@@ -34,5 +34,6 @@ public class Main {
 		}
 		espelho(num1, num2);
 		}
+		sc.close();
 	}
 }
