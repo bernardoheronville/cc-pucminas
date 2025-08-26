@@ -1,25 +1,48 @@
-import java.util.Scanner; // importando a biblioteca scanner
+import java.util.Scanner; // Importando a biblioteca scanner
 
-public class Main { // class main
+// Class Main
+public class Main { 
 
-	//funcao para retorna true or false se a string eh um palindromo
+	// Funcao para retorna true or false se a string eh um palindromo
 	public static boolean palindromo(String palavra) {
 		int inicio = 0, fim = palavra.length() - 1;
+		boolean resp = true;
 		while(inicio < fim) {
 			if(palavra.charAt(inicio) != palavra.charAt(fim)) {
-				return false;
+				resp = false;
+				inicio = fim;
 			}
-			inicio++;
-			fim--;
+			else {
+				inicio++;
+				fim--;
+			}
 		}
-		return true;
+		return resp;
 	}
 
-	// main
+	// Funcao para retornar true or false se as string sao iguais
+	public static boolean my_strcmp(String palavra1, String palavra2) {
+		boolean resp = true;
+		if(palavra1.length() == palavra2.length()) {
+			for(int i = 0; i < palavra1.length(); i++) {
+				if(palavra1.charAt(i) != palavra2.charAt(i)) {
+					resp = false;
+					i = palavra1.length();
+				}
+			}
+		}
+		else {
+			resp = false;
+		}
+		return resp;
+	}
+
+	// Main
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
-		String palavra = sc.nextLine();
-		while(!palavra.equals("FIM")) {
+		String palavra = new String();
+		palavra = sc.nextLine();
+		while(!my_strcmp(palavra, "FIM")) {
 			if(palindromo(palavra)) {
 				System.out.println("SIM");
 			}
@@ -28,6 +51,6 @@ public class Main { // class main
 			}
 			palavra = sc.nextLine();
 		}
-		sc.close();
+		sc.close(); 
 	}
 }

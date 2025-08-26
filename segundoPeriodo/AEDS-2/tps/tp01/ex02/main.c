@@ -1,16 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <stdbool.h> // Importando biblioteca bool
 
-//funcao para retorna true or false se a string eh um palindromo
-
-bool palindromo(char *palavra, int inicio, int fim) {
-	if(inicio >= fim) return true;
-	else if(*(palavra + inicio) != *(palavra + fim)) return false;
-	else return palindromo(palavra, inicio + 1, fim - 1);
-}
-
-//funcao para retornar um inteiro com o tamanho da string
+// Funcao para retornar um inteiro com o tamanho da string
 
 int my_strlen(char *palavra) {
 	int contador = 0;
@@ -20,7 +12,7 @@ int my_strlen(char *palavra) {
 	return contador;
 }
 
-//funcao para retorna valor true or false se as string sao iguais
+// Funcao para retorna valor true or false se as string sao iguais
 
 bool my_strcmp(char *palavra1, char *palavra2) {
 	int i = 0;
@@ -31,13 +23,29 @@ bool my_strcmp(char *palavra1, char *palavra2) {
 	return (*(palavra1 + i) == *(palavra2 + i));
 }
 
-// main
+// Funcao para retorna true or false se a string eh um palindromo
+
+bool palindromo(char *palavra, int inicio, int fim) {
+	bool resp;
+	if(inicio >= fim) resp = true;
+	else if(*(palavra + inicio) != *(palavra + fim)) resp = false;
+	else resp = palindromo(palavra, inicio + 1, fim - 1);
+	return resp;
+}
+
+// Funcao auxiliar do palindromo
+
+bool palindromoAux(char *palavra) {
+	return palindromo(palavra, 0, my_strlen(palavra) - 1);
+}
+
+// Main
 
 int main() {
 	char *palavra = (char*)malloc(256*sizeof(char));
 	scanf(" %[^\n]", palavra);
 	while(!my_strcmp(palavra, "FIM")) {
-		if(palindromo(palavra, 0, my_strlen(palavra) - 1)) {
+		if(palindromoAux(palavra)) {
 			printf("SIM\n");
 		}
 		else {

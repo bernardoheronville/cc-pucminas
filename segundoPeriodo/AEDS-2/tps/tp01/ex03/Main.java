@@ -1,30 +1,49 @@
-import java.util.Scanner;
-import java.io.InputStreamReader; // importanto biblioteca para conseguir pegar caracteres especiais
+import java.util.Scanner; // Importando biblioteca scanner
 
+// Classe Main
 public class Main {
 
-	// procedimento que substitui o caractere por + 3 na tabela ASCII
-	public static void ciframento(String palavra) {
-		int tam = palavra.length();
-		String novaPalavra = "";
-		for(int i = 0; i < tam; i++) {
-			char caractereAtual = palavra.charAt(i);
-			if(caractereAtual == '\uFFFD')
-				novaPalavra += caractereAtual;
-			else {
-				char novoCaracter = (char) (caractereAtual + 3);
-				novaPalavra += novoCaracter;
+	// Funcao para retornar true or false se as string sao iguais
+	public static boolean my_strcmp(String palavra1, String palavra2) {
+		boolean resp = true;
+		if(palavra1.length() == palavra2.length()) {
+			for(int i = 0; i < palavra1.length(); i++) {
+				if(palavra1.charAt(i) != palavra2.charAt(i)) {
+					resp = false;
+					i = palavra1.length();
+				}
 			}
 		}
-		System.out.println(novaPalavra);
+		else {
+			resp = false;
+		}
+		return resp;
 	}
 
-	// main
+	// Procedimento que substitui o caractere por + 3 na tabela ASCII
+	public static String ciframento(String palavra) {
+		char[] novaPalavra = new char[palavra.length()];
+		for(int i = 0; i < palavra.length(); i++) {
+			char caractereAtual = palavra.charAt(i);
+			if(caractereAtual >= 0 && caractereAtual <= 126) {
+				char novoCaracter = (char) (caractereAtual + 3);
+				novaPalavra[i] = novoCaracter;
+			}
+			else {
+				novaPalavra[i] = caractereAtual;
+			}
+		}
+		String resp = new String(novaPalavra);
+		return resp;
+	}
+
+	// Main
 	public static void main(String args[]) {
-		Scanner sc = new Scanner(new InputStreamReader(System.in, java.nio.charset.StandardCharsets.UTF_8));
-		String palavra = sc.nextLine();
-		while(!palavra.equals("FIM")) {
-			ciframento(palavra);
+		Scanner sc = new Scanner(System.in);
+		String palavra = new String();
+		palavra = sc.nextLine();
+		while(!my_strcmp(palavra, "FIM")) {
+			System.out.println(ciframento(palavra));
 			palavra = sc.nextLine();
 		}
 		sc.close();
