@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
-public class Main {
+public class Main { // Class Main
+	// Funcao para retornar true or false se as string sao iguais.
 	public static boolean my_strcmp(String palavra1, String palavra2) {
 		boolean resp = true;
 		if(palavra1.length() == palavra2.length()) {
@@ -17,6 +18,7 @@ public class Main {
 		return resp;
 	}
 
+	// Funcao que recebe uma string como parâmetro e retorna a string invertida. 
 	public static String inverteString(String palavra) {
 		char invertido[] = new char[palavra.length()];
 		for(int i = palavra.length() - 1, j = 0; i >= 0; i--, j++) {
@@ -25,6 +27,7 @@ public class Main {
 		return new String(invertido);
 	}
 
+	// Main
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
 		String palavra = new String();
