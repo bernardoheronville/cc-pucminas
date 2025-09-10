@@ -25,6 +25,7 @@ public class Main {
                 for(int j = 0; j < n; j++) {
                     if(arrayLingua[i].equals(arrayIdioma[j])) {
                         System.out.println(arrayFeliz[j]);
+                        System.out.printf("\n");
                     }
                 }
             }
