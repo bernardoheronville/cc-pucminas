@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <ctype.h>
+#include <ctype.h> //Adicionado para usar o tolower
 
+// Funcao para retornar um inteiro com o tamanho da string.
 int my_strlen(char *palavra) {
     int count = 0;
     while(*(palavra + count) != '\0') {
@@ -11,6 +12,7 @@ int my_strlen(char *palavra) {
     return count;
 }
 
+// Funcao para retorna valor true or false se as string sao iguais.
 bool my_strcmp(char *palavra1, char *palavra2) {
     int tam1 = my_strlen(palavra1), tam2 = my_strlen(palavra2);
     bool resp = true;
@@ -28,6 +30,7 @@ bool my_strcmp(char *palavra1, char *palavra2) {
     return resp;
 }
 
+// Funcao recursiva que recebe uma string e retorna true se a mesma é composta somente por vogais.
 bool isVogal(char *entrada, int i) {
     bool resp;
     char caracterAtual = tolower(*(entrada + i));
@@ -41,6 +44,7 @@ bool isVogal(char *entrada, int i) {
     return resp;
 }
 
+// Funcao recursiva que recebe uma string e retorna true se a mesma é composta somente por consoantes.
 bool isConsoante(char *entrada, int i) {
     bool resp;
     char caracterAtual = tolower(*(entrada + i));
@@ -54,6 +58,7 @@ bool isConsoante(char *entrada, int i) {
     return resp;
 }
 
+// Funcao recursiva que recebe uma string e retorna true se a mesma corresponde a um número inteiro.
 bool isInteiro(char *entrada, int i) {
     bool resp;
     char caracterAtual = *(entrada + i);
@@ -67,6 +72,7 @@ bool isInteiro(char *entrada, int i) {
     return resp;
 }
 
+// Funcao recursiva que recebe uma string e retorna true se a mesma corresponde a um número real.
 bool isReal(char *entrada, int i, int virgulaPonto) {
     bool resp;
     char caracterAtual = *(entrada + i);
@@ -83,6 +89,7 @@ bool isReal(char *entrada, int i, int virgulaPonto) {
     return resp;
 }
 
+// Procedimento que recebe uma string e chama as funcoes para retornar as respostas.
 void mostrarRespostas(char *entrada) {
     int tam = my_strlen(entrada) - 1;
 	if(isVogal(entrada, tam)) printf("SIM ");
@@ -96,6 +103,7 @@ void mostrarRespostas(char *entrada) {
 	printf("\n");
 }
 
+// Main
 int main() {
     char *entrada = (char*)malloc(256*sizeof(char));
     scanf(" %[^\n]",entrada);
