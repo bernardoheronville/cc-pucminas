@@ -9,7 +9,7 @@ void ordenar(Duendes duendes[] ,int n) {
     for(int i = 0; i < n; i++) {
         Duendes tmp = duendes[i];
         int j = i - 1;
-        while(j >= 0 && duendes[j].idade < tmp.idade) {
+        while(j >= 0 && duendes[j].idade < tmp.idade || duendes[j].idade == tmp.idade && duendes[j].nome[0] > tmp.nome[0]) {
             duendes[j + 1] = duendes[j];
             j--;
         }
