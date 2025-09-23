@@ -62,8 +62,8 @@ public class Main {
         int i = left, j = right;
         int a = array[left], b = array[(left + right) / 2], c = array[right];
         int pivo;
-        if ((a > b) && (a < c)) pivo = a;
-        else if ((b > a) && (b < c)) pivo = b;
+        if (a > b && a < c) pivo = a;
+        else if (b > a && b < c) pivo = b;
         else pivo = c;
         while(i <= j) {
             while(array[i] < pivo) i++;
@@ -82,6 +82,6 @@ public class Main {
 
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-
+        Random 
     }
 }
