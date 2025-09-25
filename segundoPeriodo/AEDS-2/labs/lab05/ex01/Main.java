@@ -107,8 +107,7 @@ public class Main {
     public static void meioOrdenado(int array[], int n) {
         Random rand = new Random();
         ordenado(array, n);
-        // Desordena 25% do array para um resultado "meio ordenado" mais realista
-        for (int i = 0; i < n / 4; i++) {
+        for (int i = 0; i < n / 2; i++) {
             swap(array, rand.nextInt(n), rand.nextInt(n));
         }
     }
