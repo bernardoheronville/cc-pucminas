@@ -3,73 +3,73 @@
    INICIANDO TESTES PARA N = 100
 #####################################################
 -----------------------------------------------------
-CENÁRIO: Array Ordenado
+CENÁRIO: Ordenado
 -----------------------------------------------------
-Pivô Primeiro:   0,071 ms.
-Pivô Último:     0,039 ms.
-Pivô Aleatório:  0,050 ms.
-Mediana de Três: 0,012 ms.
+Pivô Primeiro: 0,077 ms.
+Pivô Último: 0,069 ms.
+Pivô Aleatório:  0,197 ms.
+Mediana de Três: 0,017 ms.
 -----------------------------------------------------
-CENÁRIO: Array Meio Ordenado
+CENÁRIO: Meio Ordenado
 -----------------------------------------------------
-Pivô Primeiro:   0,021 ms.
-Pivô Último:     0,019 ms.
+Pivô Primeiro: 0,016 ms.
+Pivô Último: 0,014 ms.
 Pivô Aleatório:  0,073 ms.
-Mediana de Três: 0,020 ms.
+Mediana de Três: 0,022 ms.
 -----------------------------------------------------
-CENÁRIO: Array Aleatório
+CENÁRIO: Aleatório
 -----------------------------------------------------
-Pivô Primeiro:   0,015 ms.
-Pivô Último:     0,024 ms.
-Pivô Aleatório:  0,058 ms.
-Mediana de Três: 0,020 ms.
+Pivô Primeiro: 0,008 ms.
+Pivô Último: 0,007 ms.
+Pivô Aleatório:  0,064 ms.
+Mediana de Três: 0,034 ms.
 
 #####################################################
    INICIANDO TESTES PARA N = 1000
 #####################################################
 -----------------------------------------------------
-CENÁRIO: Array Ordenado
+CENÁRIO: Ordenado
 -----------------------------------------------------
-Pivô Primeiro:   0,888 ms.
-Pivô Último:     0,885 ms.
-Pivô Aleatório:  0,334 ms.
-Mediana de Três: 0,103 ms.
+Pivô Primeiro: 0,567 ms.
+Pivô Último: 0,561 ms.
+Pivô Aleatório:  0,283 ms.
+Mediana de Três: 0,036 ms.
 -----------------------------------------------------
-CENÁRIO: Array Meio Ordenado
+CENÁRIO: Meio Ordenado
 -----------------------------------------------------
-Pivô Primeiro:   0,071 ms.
-Pivô Último:     0,074 ms.
-Pivô Aleatório:  0,127 ms.
-Mediana de Três: 0,073 ms.
+Pivô Primeiro: 0,045 ms.
+Pivô Último: 0,050 ms.
+Pivô Aleatório:  0,099 ms.
+Mediana de Três: 0,040 ms.
 -----------------------------------------------------
-CENÁRIO: Array Aleatório
+CENÁRIO: Aleatório
 -----------------------------------------------------
-Pivô Primeiro:   0,072 ms.
-Pivô Último:     0,075 ms.
-Pivô Aleatório:  0,137 ms.
-Mediana de Três: 0,077 ms.
+Pivô Primeiro: 0,061 ms.
+Pivô Último: 0,061 ms.
+Pivô Aleatório:  0,120 ms.
+Mediana de Três: 0,063 ms.
 
 #####################################################
    INICIANDO TESTES PARA N = 10000
 #####################################################
 -----------------------------------------------------
-CENÁRIO: Array Ordenado
+CENÁRIO: Ordenado
 -----------------------------------------------------
-Pivô Primeiro:   31,973 ms.
-Pivô Último:     31,723 ms.
-Pivô Aleatório:  0,432 ms.
-Mediana de Três: 0,094 ms.
+Pivô Primeiro: 33,980 ms.
+Pivô Último: 33,311 ms.
+Pivô Aleatório:  0,426 ms.
+Mediana de Três: 0,105 ms.
 -----------------------------------------------------
-CENÁRIO: Array Meio Ordenado
+CENÁRIO: Meio Ordenado
 -----------------------------------------------------
-Pivô Primeiro:   0,617 ms.
-Pivô Último:     0,585 ms.
-Pivô Aleatório:  0,887 ms.
-Mediana de Três: 0,654 ms.
+Pivô Primeiro: 0,340 ms.
+Pivô Último: 0,380 ms.
+Pivô Aleatório:  0,617 ms.
+Mediana de Três: 0,317 ms.
 -----------------------------------------------------
-CENÁRIO: Array Aleatório
+CENÁRIO: Aleatório
 -----------------------------------------------------
-Pivô Primeiro:   0,674 ms.
-Pivô Último:     0,712 ms.
-Pivô Aleatório:  0,992 ms.
-Mediana de Três: 0,720 ms.
+Pivô Primeiro: 0,527 ms.
+Pivô Último: 0,502 ms.
+Pivô Aleatório:  0,863 ms.
+Mediana de Três: 0,535 ms.
