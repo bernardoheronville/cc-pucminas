@@ -80,8 +80,34 @@ public class Main {
         if(i < right) QuickSortMedianOfThree(array, i, right);
     }
 
+    public static long now() {
+        return System.nanoTime();
+    }
+
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
+        int n = 100;
+        //int array[] = new int[100];
+        //int array[] = new int[1000];
+        int array[] = new int[10000];
+        for(int i = 0; i < n; i++) {
+            array[i] = sc.nextInt();
+        }
+        long inicio = now();
+        //System.out.println("inicio " + inicio);
+        QuickSortFirstPivot(array, 0, n - 1);
+        //QuickSortLastPivot(array, 0, n - 1);
+        //QuickSortRandomPivot(array, 0, n - 1);
+        //QuickSortMedianOfThree(array, 0, n - 1);
+        long fim = now();
+        System.out.println("Numeros ordenados: ");
 
+        for(int i = 0; i < n; i++) {
+            System.out.printf("%d ",array[i]);
+        }
+
+        System.out.println("Tempo para ordenar: " + (fim-inicio) + " ns.");
+
+        System.out.printf("\n");
     }
 }
