@@ -9,9 +9,7 @@ public class Main {
             while(array[i] < pivo) i++;
             while(array[j] > pivo) j--;
             if(i <=j) {
-                int temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
+                swap(array, i, j);
                 i++;
                 j--;
             }
@@ -27,9 +25,7 @@ public class Main {
             while(array[i] < pivo) i++;
             while(array[j] > pivo) j--;
             if(i <=j) {
-                int temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
+                swap(array, i, j);
                 i++;
                 j--;
             }
@@ -47,9 +43,7 @@ public class Main {
             while(array[i] < pivo) i++;
             while(array[j] > pivo) j--;
             if(i <=j) {
-                int temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
+                swap(array, i, j);
                 i++;
                 j--;
             }
@@ -69,9 +63,7 @@ public class Main {
             while(array[i] < pivo) i++;
             while(array[j] > pivo) j--;
             if(i <=j) {
-                int temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
+                swap(array, i, j);
                 i++;
                 j--;
             }
@@ -80,34 +72,55 @@ public class Main {
         if(i < right) QuickSortMedianOfThree(array, i, right);
     }
 
+    public static void swap(int array[], int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    public static void ordenado(int array[], int n) {
+		for (int i = 0; i < n; i++) {
+			array[i] = i;
+		}
+	}
+
+    public static void random(int array[], int n) {
+		Random rand = new Random();
+		ordenado(array, n);	
+		for (int i = 0; i < n; i++) {
+			swap(array, i, Math.abs(rand.nextInt()) % n);
+		}
+	}
+
+    public static void meioOrdenado(int array[], int n) {
+		Random rand = new Random();
+		ordenado(array, n);	
+		for (int i = 0; i < n / 2; i++) {
+			swap(array, i, Math.abs(rand.nextInt()) % n);
+		}
+	}
+
     public static long now() {
         return System.nanoTime();
     }
 
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
+
         int n = 100;
-        //int array[] = new int[100];
-        //int array[] = new int[1000];
-        int array[] = new int[10000];
-        for(int i = 0; i < n; i++) {
-            array[i] = sc.nextInt();
-        }
+        int array[] = new int[n];
+
+        //ordenado(array, n);
+        meioOrdenado(array, n);
+        //random(array, n);
+        
         long inicio = now();
-        //System.out.println("inicio " + inicio);
-        QuickSortFirstPivot(array, 0, n - 1);
+        //QuickSortFirstPivot(array, 0, n - 1);
         //QuickSortLastPivot(array, 0, n - 1);
         //QuickSortRandomPivot(array, 0, n - 1);
-        //QuickSortMedianOfThree(array, 0, n - 1);
+        QuickSortMedianOfThree(array, 0, n - 1);
         long fim = now();
-        System.out.println("Numeros ordenados: ");
 
-        for(int i = 0; i < n; i++) {
-            System.out.printf("%d ",array[i]);
-        }
-
-        System.out.println("Tempo para ordenar: " + (fim-inicio) + " ns.");
-
-        System.out.printf("\n");
+        System.out.println("Tempo para ordenar: " + (fim - inicio) / 1_000_000.0 + " ms.");
     }
 }
