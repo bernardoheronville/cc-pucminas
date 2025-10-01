@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.*;
 
 class Game {
     private int id;
@@ -23,7 +24,23 @@ class Game {
         this.nome = nome;
     }
     public void setData(String data) {
-        this.data = data;
+        String mes = "", dia = "", ano = "", resp = "";
+        for(int i = 0; i < 3; i++) {
+            mes += data.charAt(i);
+        }
+        if(data.charAt(5) == ',') {
+            dia += '0';
+            dia += data.charAt(4);
+        }
+        else {
+            dia += data.charAt(4);
+            dia += data.charAt(5);
+        }
+        for(int i = 8; i < data.length() - 1; i++) {
+            ano += data.charAt(i);
+        }
+        resp = dia + "/" + mes + "/" + ano;
+        this.data = resp;
     }
     public void setJogadores(String jogadores) {
         this.jogadores = Integer.parseInt(jogadores);
@@ -77,19 +94,25 @@ class Game {
                 aux = "";
             }
             else {
-                aux += c;
+                if(!(c == '[' || c == ']' || c == '\'')) {
+                    aux += c;
+                } 
             }
         }
         resp[contador] = aux;
         return resp;
     }
+    public int getID() { return id; };
 
     private String auxiliarMostrar(String array[]) {
-        String result = "";
+        String result = "[";
         for(int i = 0; i < array.length; i++) {
             result += array[i];
-            result += ",";
+            if(i < array.length - 1) {
+                result += ",";
+            }
         }
+        result += "]";
         return result;
     }
 
@@ -119,7 +142,7 @@ public class Main {
         game.setTags(array[13]);
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
         File arq = new File("games.csv");
         Scanner scfile = new Scanner(arq);
@@ -131,26 +154,35 @@ public class Main {
             String aux = "";
             int contador = 0;
             boolean aspas = false;
-            for(int i = 0; i < entrada.length(); i++) {
-                char c = entrada.charAt(i);
-                if(c == '"') {
+            boolean dentroLista = false;
+            for (int j = 0; j < entrada.length(); j++) {
+                char c = entrada.charAt(j);
+                if (c == '"') {
                     aspas = !aspas;
-                }
-                else if(c == ',' && !aspas) {
-                    array[contador] = aux;
-                    contador++;
+                } else if (c == '[') {
+                    dentroLista = true;
+                    aux += c;
+                } else if (c == ']') {
+                    dentroLista = false;
+                    aux += c;
+                } else if (c == ',' && !aspas && !dentroLista) {
+                    array[contador++] = aux;
                     aux = "";
-                }
-                else {
+                } else {
                     aux += c;
                 }
             }
             array[contador] = aux;
-            settar(game, array);
+            settar(game[i], array);
         }
         String teste = sc.nextLine();
         while(!teste.equals("FIM")) {
-            
+            for(int i = 0; i < 1850; i++) {
+                if(Integer.parseInt(teste) == game[i].getID()) {
+                    System.out.println(game[i].toString());
+                }
+            }
+            teste = sc.nextLine();
         }
         sc.close();
         scfile.close();
