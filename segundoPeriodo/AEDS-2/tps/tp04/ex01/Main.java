@@ -16,20 +16,127 @@ class Game {
     private String generos[];
     private String tags[];
 
+    public void setID(String id) {
+        this.id = Integer.parseInt(id);
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public void setData(String data) {
+        this.data = data;
+    }
+    public void setJogadores(String jogadores) {
+        this.jogadores = Integer.parseInt(jogadores);
+    }
+    public void setPreco(String preco) {
+        this.preco = Float.parseFloat(preco);
+    }
+    public void setIdiomas(String idiomas) {
+        this.idiomas = formatar(idiomas);
+    }
+    public void setNotaEspecial(String notaEspecial) {
+        this.notaEspecial = Integer.parseInt(notaEspecial);
+    }
+    public void setNotaUsuario(String notaUsuario) {
+        this.notaUsuario = Float.parseFloat(notaUsuario);
+    }
+    public void setConquistas(String conquistas) {
+        this.conquistas = Integer.parseInt(conquistas);
+    }
+    public void setEmpresasPublicacao(String empresasPublicacao) {
+        this.empresasPublicacao = formatar(empresasPublicacao);
+    }
+    public void setEmpresasEstudios(String empresasEstudios) {
+        this.empresasEstudios = formatar(empresasEstudios);
+    }
+    public void setCategorias(String categorias) {
+        this.categorias = formatar(categorias);
+    }
+    public void setGeneros(String generos) {
+        this.generos = formatar(generos);
+    }
+    public void setTags(String tags) {
+       this.tags = formatar(tags);
+    }
+    public String[] formatar(String entrada) {
+        int virgulas = 0;
+        for(int i = 0; i < entrada.length(); i++) {
+            char c = entrada.charAt(i);
+            if(c == ',') {
+                virgulas++;
+            }
+        }
+        String resp[] = new String[virgulas + 1];
+        String aux = "";
+        int contador = 0;
+        for(int i = 0; i < entrada.length(); i++) {
+            char c = entrada.charAt(i); 
+            if(c == ',') {
+                resp[contador] = aux;
+                contador++;
+                aux = "";
+            }
+            else {
+                aux += c;
+            }
+        }
+        resp[contador] = aux;
+        return resp;
+    }
+
+    private String auxiliarMostrar(String array[]) {
+        String result = "";
+        for(int i = 0; i < array.length; i++) {
+            result += array[i];
+            result += ",";
+        }
+        return result;
+    }
+
+    @Override 
+    public String toString() {
+        return ("=> " + id + " ## " + nome + " ## " + data + " ## " + jogadores + " ## " + preco + " ## " + auxiliarMostrar(idiomas) + " ## " + notaEspecial
+                + " ## " + notaUsuario + " ## " + conquistas + " ## " + auxiliarMostrar(empresasPublicacao) + " ## " + auxiliarMostrar(empresasEstudios) + " ## " + auxiliarMostrar(categorias)
+                + " ## " + auxiliarMostrar(generos) + " ## " + auxiliarMostrar(tags));
+    }
 }
 
 public class Main {
+    public static void settar(Game game, String array[]) {
+        game.setID(array[0]);
+        game.setNome(array[1]);
+        game.setData(array[2]);
+        game.setJogadores(array[3]);
+        game.setPreco(array[4]);
+        game.setIdiomas(array[5]);
+        game.setNotaEspecial(array[6]);
+        game.setNotaUsuario(array[7]);
+        game.setConquistas(array[8]);
+        game.setEmpresasPublicacao(array[9]);
+        game.setEmpresasEstudios(array[10]);
+        game.setCategorias(array[11]);
+        game.setGeneros(array[12]);
+        game.setTags(array[13]);
+    }
 
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-        while(sc.hasNext()) {
-            String entrada = sc.nextLine();
+        File arq = new File("games.csv");
+        Scanner scfile = new Scanner(arq);
+        Game game[] = new Game[1850];
+        for(int i = 0; i < 1850; i++) {
+            game[i] = new Game();
+            String entrada = scfile.nextLine();
             String array[] = new String[14];
-            int contador = 0;
             String aux = "";
+            int contador = 0;
+            boolean aspas = false;
             for(int i = 0; i < entrada.length(); i++) {
                 char c = entrada.charAt(i);
-                if(c == ',') {
+                if(c == '"') {
+                    aspas = !aspas;
+                }
+                else if(c == ',' && !aspas) {
                     array[contador] = aux;
                     contador++;
                     aux = "";
@@ -38,7 +145,14 @@ public class Main {
                     aux += c;
                 }
             }
+            array[contador] = aux;
+            settar(game, array);
+        }
+        String teste = sc.nextLine();
+        while(!teste.equals("FIM")) {
+            
         }
         sc.close();
+        scfile.close();
     }
 }
