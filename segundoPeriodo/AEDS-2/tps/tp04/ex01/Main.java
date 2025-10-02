@@ -29,36 +29,80 @@ class Game {
             mes += data.charAt(i);
         }
         if(data.charAt(5) == ',') {
-            dia += '0';
+            dia += "0";
             dia += data.charAt(4);
+            for(int i = 7; i < data.length(); i++) {
+                ano += data.charAt(i);
+            }
         }
         else {
             dia += data.charAt(4);
             dia += data.charAt(5);
+            for(int i = 8; i < data.length(); i++) {
+                ano += data.charAt(i);
+            }
         }
-        for(int i = 8; i < data.length() - 1; i++) {
-            ano += data.charAt(i);
+        switch(mes) {
+            case "Jan": mes = "01"; break;
+            case "Feb": mes = "02"; break;
+            case "Mar": mes = "03"; break;
+            case "Apr": mes = "04"; break;
+            case "May": mes = "05"; break;
+            case "Jun": mes = "06"; break;
+            case "Jul": mes = "07"; break;
+            case "Aug": mes = "08"; break;
+            case "Sep": mes = "09"; break;
+            case "Oct": mes = "10"; break;
+            case "Nov": mes = "11"; break;
+            case "Dec": mes = "12"; break;
+            default: mes = "ERRO"; break;     
         }
         resp = dia + "/" + mes + "/" + ano;
         this.data = resp;
     }
     public void setJogadores(String jogadores) {
-        this.jogadores = Integer.parseInt(jogadores);
+        String aux = "";
+        for(int i = 0; i < jogadores.length(); i++) {
+            if(jogadores.charAt(i) >= '0' && jogadores.charAt(i) <= '9') {
+                aux += jogadores.charAt(i);
+            }
+        }
+        this.jogadores = Integer.parseInt(aux);
     }
     public void setPreco(String preco) {
-        this.preco = Float.parseFloat(preco);
+        if(preco.equals("Free to play")) {
+            this.preco = 0.0f;
+        }
+        else {
+            this.preco = Float.parseFloat(preco);
+        } 
     }
     public void setIdiomas(String idiomas) {
         this.idiomas = formatar(idiomas);
     }
     public void setNotaEspecial(String notaEspecial) {
-        this.notaEspecial = Integer.parseInt(notaEspecial);
+        if(notaEspecial == null) {
+            this.notaEspecial = -1;
+        }
+        else {
+            this.notaEspecial = Integer.parseInt(notaEspecial);
+        }
     }
     public void setNotaUsuario(String notaUsuario) {
-        this.notaUsuario = Float.parseFloat(notaUsuario);
+        if(notaUsuario == null || notaUsuario == "tbd") {
+            this.notaUsuario = -1.0f;
+        }
+        else {
+            this.notaUsuario = Float.parseFloat(notaUsuario);
+        }
     }
     public void setConquistas(String conquistas) {
-        this.conquistas = Integer.parseInt(conquistas);
+        if(conquistas == null) {
+            this.conquistas = 0;
+        }
+        else {
+            this.conquistas = Integer.parseInt(conquistas);
+        } 
     }
     public void setEmpresasPublicacao(String empresasPublicacao) {
         this.empresasPublicacao = formatar(empresasPublicacao);
@@ -76,6 +120,9 @@ class Game {
        this.tags = formatar(tags);
     }
     public String[] formatar(String entrada) {
+        if (entrada == null) {
+            return new String[0]; 
+        }
         int virgulas = 0;
         for(int i = 0; i < entrada.length(); i++) {
             char c = entrada.charAt(i);
@@ -104,12 +151,15 @@ class Game {
     }
     public int getID() { return id; };
 
-    private String auxiliarMostrar(String array[]) {
+    private String auxiliarMostrar(String array[], int aux) {
         String result = "[";
         for(int i = 0; i < array.length; i++) {
             result += array[i];
-            if(i < array.length - 1) {
+            if(i < array.length - 1 && aux == 0) {
                 result += ",";
+            }
+            else if(i < array.length - 1 && aux == 1) {
+                result += ", ";
             }
         }
         result += "]";
@@ -118,9 +168,9 @@ class Game {
 
     @Override 
     public String toString() {
-        return ("=> " + id + " ## " + nome + " ## " + data + " ## " + jogadores + " ## " + preco + " ## " + auxiliarMostrar(idiomas) + " ## " + notaEspecial
-                + " ## " + notaUsuario + " ## " + conquistas + " ## " + auxiliarMostrar(empresasPublicacao) + " ## " + auxiliarMostrar(empresasEstudios) + " ## " + auxiliarMostrar(categorias)
-                + " ## " + auxiliarMostrar(generos) + " ## " + auxiliarMostrar(tags));
+        return ("=> " + id + " ## " + nome + " ## " + data + " ## " + jogadores + " ## " + preco + " ## " + auxiliarMostrar(idiomas, 0) + " ## " + notaEspecial
+                + " ## " + notaUsuario + " ## " + conquistas + " ## " + auxiliarMostrar(empresasPublicacao, 1) + " ## " + auxiliarMostrar(empresasEstudios, 1) + " ## " + auxiliarMostrar(categorias, 1)
+                + " ## " + auxiliarMostrar(generos, 1) + " ## " + auxiliarMostrar(tags, 1) + " ## ");
     }
 }
 
@@ -144,45 +194,43 @@ public class Main {
 
     public static void main(String args[]) throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
-        File arq = new File("games.csv");
+        File arq = new File("pubs/games.csv");
         Scanner scfile = new Scanner(arq);
-        Game game[] = new Game[1850];
-        for(int i = 0; i < 1850; i++) {
-            game[i] = new Game();
+        Game game[] = new Game[2000];
+        int jogos = 0;
+        while(scfile.hasNextLine()) { 
             String entrada = scfile.nextLine();
-            String array[] = new String[14];
+            String array[] = new String[14]; 
             String aux = "";
             int contador = 0;
             boolean aspas = false;
-            boolean dentroLista = false;
-            for (int j = 0; j < entrada.length(); j++) {
-                char c = entrada.charAt(j);
+            for (int i = 0; i < entrada.length(); i++) {
+                char c = entrada.charAt(i);
                 if (c == '"') {
                     aspas = !aspas;
-                } else if (c == '[') {
-                    dentroLista = true;
-                    aux += c;
-                } else if (c == ']') {
-                    dentroLista = false;
-                    aux += c;
-                } else if (c == ',' && !aspas && !dentroLista) {
-                    array[contador++] = aux;
+                } else if (c == ',' && !aspas) {
+                    array[contador] = aux;
+                    contador++;
                     aux = "";
                 } else {
                     aux += c;
                 }
             }
             array[contador] = aux;
-            settar(game[i], array);
+            game[jogos] = new Game();
+            settar(game[jogos], array);
+            jogos++;
         }
-        String teste = sc.nextLine();
-        while(!teste.equals("FIM")) {
-            for(int i = 0; i < 1850; i++) {
-                if(Integer.parseInt(teste) == game[i].getID()) {
+        String busca = sc.nextLine();
+        while(!busca.equals("FIM")) {
+            int idBusca = Integer.parseInt(busca);
+            for(int i = 0; i < jogos; i++) {
+                if(idBusca == game[i].getID()) {
                     System.out.println(game[i].toString());
+                    i = jogos;
                 }
             }
-            teste = sc.nextLine();
+            busca = sc.nextLine();
         }
         sc.close();
         scfile.close();
