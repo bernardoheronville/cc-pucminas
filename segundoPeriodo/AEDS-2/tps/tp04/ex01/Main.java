@@ -55,7 +55,7 @@ class Game {
             case "Oct": mes = "10"; break;
             case "Nov": mes = "11"; break;
             case "Dec": mes = "12"; break;
-            default: mes = "ERRO"; break;     
+            default: mes = "01"; break;     
         }
         resp = dia + "/" + mes + "/" + ano;
         this.data = resp;
