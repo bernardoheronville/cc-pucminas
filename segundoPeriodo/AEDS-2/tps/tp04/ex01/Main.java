@@ -38,7 +38,7 @@ class Game {
 
     // Metodos setters.
     public void setID(String id) {
-        if (id != null && !id.isEmpty()) {
+        if (id != null) {
             this.id = Integer.parseInt(id);
         }
     }
@@ -46,7 +46,7 @@ class Game {
         this.nome = nome;
     }
     public void setData(String data) {
-        if (data == null || data.isEmpty()) {
+        if (data == null) {
             this.data = "01/01/0000";
             return;
         }
@@ -104,21 +104,21 @@ class Game {
         this.idiomas = formatar(idiomas);
     }
     public void setNotaEspecial(String notaEspecial) {
-        if(notaEspecial == null || notaEspecial.isEmpty()) {
+        if(notaEspecial == null) {
             this.notaEspecial = -1; 
         } else {
             this.notaEspecial = Integer.parseInt(notaEspecial);
         }
     }
     public void setNotaUsuario(String notaUsuario) {
-        if(notaUsuario == null || notaUsuario.isEmpty() || notaUsuario.equals("tbd")) {
+        if(notaUsuario == null || notaUsuario.equals("tbd")) {
             this.notaUsuario = -1.0f; 
         } else {
             this.notaUsuario = Float.parseFloat(notaUsuario);
         }
     }
     public void setConquistas(String conquistas) {
-        if(conquistas == null || conquistas.isEmpty()) {
+        if(conquistas == null) {
             this.conquistas = 0;
         } else {
             this.conquistas = Integer.parseInt(conquistas);
@@ -158,7 +158,7 @@ class Game {
 
     // Funcao que formata as strings.
     public String[] formatar(String entrada) {
-        if (entrada == null || entrada.isEmpty() || entrada.equals("[]")) {
+        if (entrada == null || entrada.equals("[]")) {
             return new String[0];
         }
         int virgulas = 1;

@@ -25,15 +25,15 @@ typedef struct {
     float notaUsuario;
     int conquistas;
     String empresasPublicacao[TAM];
-    int num_empresasPublicacao;
+    int numEmpresasPublicacao;
     String empresasEstudios[TAM];
-    int num_empresasEstudios;
+    int numEmpresasEstudios;
     String categorias[TAM];
-    int num_categorias;
+    int numCategorias;
     String generos[TAM];
-    int num_generos;
+    int numGeneros;
     String tags[TAM];
-    int num_tags;
+    int numTags;
 } Game;
 
 // Funcao que formata uma string separando uma lista como por exemplo ("['a', 'b', 'c']") em um array de strings.
@@ -165,19 +165,19 @@ void setConquistas(Game *game, String valor) {
     }
 }
 void setEmpresasPublicacao(Game *game, String valor) {
-    game->num_empresasPublicacao = formatar(valor, game->empresasPublicacao, false);
+    game->numEmpresasPublicacao = formatar(valor, game->empresasPublicacao, false);
 }
 void setEmpresasEstudios(Game *game, String valor) {
-    game->num_empresasEstudios = formatar(valor, game->empresasEstudios, false);
+    game->numEmpresasEstudios = formatar(valor, game->empresasEstudios, false);
 }
 void setCategorias(Game *game, String valor) {
-    game->num_categorias = formatar(valor, game->categorias, false);
+    game->numCategorias = formatar(valor, game->categorias, false);
 }
 void setGeneros(Game *game, String valor) {
-    game->num_generos = formatar(valor, game->generos, false);
+    game->numGeneros = formatar(valor, game->generos, false);
 }
 void setTags(Game *game, String valor) {
-    game->num_tags = formatar(valor, game->tags, false);
+    game->numTags = formatar(valor, game->tags, false);
 }
 void settar(Game *game, String array[]) {
     setId(game, array[0]);
@@ -225,15 +225,15 @@ void imprimir(Game *game) {
         game->notaUsuario,
         game->conquistas
     );
-    imprimirArray(game->empresasPublicacao, game->num_empresasPublicacao);
+    imprimirArray(game->empresasPublicacao, game->numEmpresasPublicacao);
     printf(" ## ");
-    imprimirArray(game->empresasEstudios, game->num_empresasEstudios);
+    imprimirArray(game->empresasEstudios, game->numEmpresasEstudios);
     printf(" ## ");
-    imprimirArray(game->categorias, game->num_categorias);
+    imprimirArray(game->categorias, game->numCategorias);
     printf(" ## ");
-    imprimirArray(game->generos, game->num_generos);
+    imprimirArray(game->generos, game->numGeneros);
     printf(" ## ");
-    imprimirArray(game->tags, game->num_tags);
+    imprimirArray(game->tags, game->numTags);
     printf(" ##\n");
 }
 
