@@ -3,9 +3,13 @@
 #include <string.h>
 #include <stdbool.h>
 
+// Auxilio.
+#define TAM_MAX 1000
+#define TAM 50
+
 // Struct String para auxilio.
 typedef struct {
-    char str[1000];
+    char str[TAM_MAX];
 } String;
 
 // Struct Game.
@@ -15,20 +19,20 @@ typedef struct {
     String data;
     int jogadores;
     float preco;
-    String idiomas[50];
+    String idiomas[TAM];
     int num_idiomas; 
     int notaEspecial;
     float notaUsuario;
     int conquistas;
-    String empresasPublicacao[50];
+    String empresasPublicacao[TAM];
     int num_empresasPublicacao;
-    String empresasEstudios[50];
+    String empresasEstudios[TAM];
     int num_empresasEstudios;
-    String categorias[50];
+    String categorias[TAM];
     int num_categorias;
-    String generos[50];
+    String generos[TAM];
     int num_generos;
-    String tags[50];
+    String tags[TAM];
     int num_tags;
 } Game;
 
@@ -48,8 +52,7 @@ int formatar(String entrada, String saida[], bool apostrofo) {
             }
             strcpy(aux.str, ""); 
             auxPos = 0;
-        }
-        else {
+        } else {
             if(!(c == '[' || c == ']' || (apostrofo && c == '\''))) {
                 aux.str[auxPos] = c;
                 auxPos++;
@@ -65,8 +68,8 @@ int formatar(String entrada, String saida[], bool apostrofo) {
     }
     return contador;
 }
-// Procedimento que transforma "Oct 18, 2018" em 18/10/2018.
-void setData(String entrada, String *saida) {
+// Procedimento que transforma "Oct 18, 2018" em "18/10/2018".
+void setDataFormatada(String entrada, String *saida) {
     if (strlen(entrada.str) < 8) { 
         strcpy(saida->str, "01/01/0000");
         return;
@@ -105,77 +108,117 @@ void setData(String entrada, String *saida) {
     strcat(saida->str, ano);
 }
 
-// Procedimento que setta cada atributo da struct.
-void settar(Game *game, String array[]) {
-    game->id = atoi(array[0].str);
-    strcpy(game->nome.str, array[1].str);
-    setData(array[2], &game->data);
+// Setters.
+void setId(Game *game, String valor) {
+    game->id = atoi(valor.str);
+}
+void setNome(Game *game, String valor) {
+    strcpy(game->nome.str, valor.str);
+}
+void setData(Game *game, String valor) {
+    setDataFormatada(valor, &game->data);
+}
+void setJogadores(Game *game, String valor) {
     String aux;
     aux.str[0] = '\0';
-    int AuxPos = 0;
-    for(int i = 0; i < strlen(array[3].str); i++) {
-        char c = array[3].str[i];
-        if(c >= '0' && c <= '9') {
-            aux.str[AuxPos++] = c;
-        }
+    int pos = 0;
+    for (int i = 0; i < strlen(valor.str); i++) {
+        if (valor.str[i] >= '0' && valor.str[i] <= '9')
+            aux.str[pos++] = valor.str[i];
     }
-    aux.str[AuxPos] = '\0';
+    aux.str[pos] = '\0';
     game->jogadores = atoi(aux.str);
-    if(strcmp(array[4].str, "Free to Play") == 0 || strcmp(array[4].str, "0.0") == 0) {
+}
+void setPreco(Game *game, String valor) {
+    if(strcmp(valor.str, "Free to Play") == 0 || strcmp(valor.str, "0.0") == 0) {
         game->preco = 0.0f;
-    } 
-    else {
-        game->preco = atof(array[4].str); 
     }
-    if(strlen(array[6].str) == 0) {
+    else {
+        game->preco = atof(valor.str); 
+    }  
+}
+void setIdiomas(Game *game, String valor) {
+    game->num_idiomas = formatar(valor, game->idiomas, true);
+}
+void setNotaEspecial(Game *game, String valor) {
+    if(strlen(valor.str) == 0) {
         game->notaEspecial = 0;
-    } 
-    else {
-        game->notaEspecial = atoi(array[6].str);
     }
-    if(strlen(array[7].str) == 0 || strcmp(array[7].str, "tbd") == 0) {
+    else {
+        game->notaEspecial = atoi(valor.str);
+    }
+}
+void setNotaUsuario(Game *game, String valor) {
+    if(strlen(valor.str) == 0 || strcmp(valor.str, "tbd") == 0) {
         game->notaUsuario = 0.0f;
-    } 
+    }   
     else {
-        game->notaUsuario = atof(array[7].str);
-    }
-    if(strlen(array[8].str) == 0) {
+        game->notaUsuario = atof(valor.str);
+    }   
+}
+void setConquistas(Game *game, String valor) {
+    if(strlen(valor.str) == 0) {
         game->conquistas = 0;
-    } 
-    else {
-        game->conquistas = atoi(array[8].str);
     }
-    game->num_idiomas = formatar(array[5], game->idiomas, true); 
-    game->num_empresasPublicacao = formatar(array[9], game->empresasPublicacao, false);
-    game->num_empresasEstudios = formatar(array[10], game->empresasEstudios, false);
-    game->num_categorias = formatar(array[11], game->categorias, false);
-    game->num_generos = formatar(array[12], game->generos, false);
-    game->num_tags = formatar(array[13], game->tags, false);
+    else {
+        game->conquistas = atoi(valor.str);
+    }
+}
+void setEmpresasPublicacao(Game *game, String valor) {
+    game->num_empresasPublicacao = formatar(valor, game->empresasPublicacao, false);
+}
+void setEmpresasEstudios(Game *game, String valor) {
+    game->num_empresasEstudios = formatar(valor, game->empresasEstudios, false);
+}
+void setCategorias(Game *game, String valor) {
+    game->num_categorias = formatar(valor, game->categorias, false);
+}
+void setGeneros(Game *game, String valor) {
+    game->num_generos = formatar(valor, game->generos, false);
+}
+void setTags(Game *game, String valor) {
+    game->num_tags = formatar(valor, game->tags, false);
+}
+void settar(Game *game, String array[]) {
+    setId(game, array[0]);
+    setNome(game, array[1]);
+    setData(game, array[2]);
+    setJogadores(game, array[3]);
+    setPreco(game, array[4]);
+    setIdiomas(game, array[5]);
+    setNotaEspecial(game, array[6]);
+    setNotaUsuario(game, array[7]);
+    setConquistas(game, array[8]);
+    setEmpresasPublicacao(game, array[9]);
+    setEmpresasEstudios(game, array[10]);
+    setCategorias(game, array[11]);
+    setGeneros(game, array[12]);
+    setTags(game, array[13]);
 }
 
-// Procedimento que imprimi o array a partir de seu tamanho.
-void imprimirArray(String arr[], int n) {
+// Procedimentos para imprimir.
+void imprimirArray(String array[], int n) {
     printf("[");
     for (int i = 0; i < n; i++) {
         int start = 0;
-        while(arr[i].str[start] == ' ') start++;
-        printf("%s", arr[i].str + start);
-        if (i < n - 1) {
-            printf(", ");
-        }
+        while(array[i].str[start] == ' ') start++;
+        printf("%s", array[i].str + start);
+        if (i < n - 1) printf(", ");
     }
     printf("]");
 }
-
-// Procedimento de imprimir normal
 void imprimir(Game *game) {
-    printf("=> %d ## %s ## %s ## %d ## %.2f ",
+    printf("=> %d ## %s ## %s ## %d ## ",
         game->id, 
         game->nome.str, 
         game->data.str,
-        game->jogadores,
-        game->preco
+        game->jogadores
     );
+    if (game->preco == 0.0) {
+        printf("0.0 ## ");
+    } else {
+        printf("%g ## ", game->preco);
+    }
     imprimirArray(game->idiomas, game->num_idiomas);
     printf(" ## %d ## %.1f ## %d ## ", 
         game->notaEspecial, 
@@ -194,17 +237,17 @@ void imprimir(Game *game) {
     printf(" ##\n");
 }
 
-// Main 
+// Main.
 int main() {
     FILE *arq = fopen("pubs/games.csv", "r");
     if (!arq) {
         printf("Erro ao abrir o arquivo\n");
         return 1;
     }
-    Game *game = (Game*)malloc(4000*sizeof(Game));
+    Game *game = (Game*)malloc(4000 * sizeof(Game));
     String entrada, cabecalho;
     int jogos = 0;
-    fscanf(arq, " %[^\n]", cabecalho.str); 
+    fscanf(arq, " %[^\n]", cabecalho.str);
     while (fscanf(arq, " %[^\n]", entrada.str) != EOF) {
         entrada.str[strcspn(entrada.str, "\r\n")] = '\0';
         String array[14];
@@ -217,13 +260,10 @@ int main() {
                 aspas = !aspas;
             } else if (c == ',' && !aspas) {
                 aux.str[auxPos] = '\0';
-                strcpy(array[contador].str, aux.str);
-                contador++;
-                strcpy(aux.str, "");
+                strcpy(array[contador++].str, aux.str);
                 auxPos = 0;
             } else {
-                aux.str[auxPos] = c;
-                auxPos++;
+                aux.str[auxPos++] = c;
             }
         }
         aux.str[auxPos] = '\0';
@@ -232,17 +272,17 @@ int main() {
         jogos++;
     }
     fclose(arq);
-    char busca[100];
-    scanf("%s", busca);
-    while (strcmp(busca, "FIM") != 0) {
-        int idBusca = atoi(busca);
+    String busca;
+    scanf("%s", busca.str);
+    while (strcmp(busca.str, "FIM") != 0) {
+        int idBusca = atoi(busca.str);
         for (int i = 0; i < jogos; i++) {
             if (idBusca == game[i].id) {
                 imprimir(&game[i]);
                 i = jogos;
             }
         }
-        scanf("%s", busca);
+        scanf("%s", busca.str);
     }
     free(game);
     return 0;
