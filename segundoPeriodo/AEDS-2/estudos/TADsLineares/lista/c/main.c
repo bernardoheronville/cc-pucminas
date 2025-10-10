@@ -84,6 +84,10 @@ void mostrar(Lista *lista) {
     }
     printf("\n");
 }
+ 
+void freeLista(Lista *lista) {
+    free(lista->array);
+}
 
 int main() {
     Lista lista;
@@ -104,5 +108,6 @@ int main() {
     printf("Removido da posição 0: %d\n", remover(&lista, 0));
     mostrar(&lista); 
 
+    freeLista(&lista);
     return 0;
 }
