@@ -91,7 +91,7 @@ int remover(Lista *lista, int pos) {
     else if(pos == 0) {
         resp = removerInicio(lista);
     }
-    else if(pos == tamanho(lista)) {
+    else if(pos == tamanho(lista) - 1) {
         resp = removerFim(lista);
     }
     else {
