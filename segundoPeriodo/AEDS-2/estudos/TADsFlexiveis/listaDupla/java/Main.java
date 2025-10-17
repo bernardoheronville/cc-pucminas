@@ -46,8 +46,8 @@ class ListaDupla {
             inserirFim(x);
         }
         else {
-            Celula aux = primeiro;
-            for(int i = 0; i < pos; i++, aux = aux.prox);
+            Celula aux = primeiro.prox;
+            for(int i = 1; i < pos; i++, aux = aux.prox);
             Celula tmp = new Celula(x);
             tmp.prox = aux.prox;
             tmp.prox.ant = tmp;
@@ -58,15 +58,18 @@ class ListaDupla {
     }
 
     public int removerInicio() {
-        if(primeiro == ultimo) {
+        if (primeiro == ultimo) {
             throw new IllegalArgumentException("Lista vazia");
         }
         Celula tmp = primeiro.prox;
         int resp = tmp.elemento;
         primeiro.prox = tmp.prox;
-        tmp.prox.ant = primeiro;
-        tmp.prox = tmp.ant = null;
-        tmp = null;
+        if (tmp.prox != null) {
+            tmp.prox.ant = primeiro;
+        } else {
+            ultimo = primeiro;
+        }
+
         return resp;
     }
     public int removerFim() {
@@ -93,8 +96,8 @@ class ListaDupla {
             resp = removerFim();
         }
         else {
-            Celula tmp = primeiro;
-            for(int i = 0; i <= pos; i++, tmp = tmp.prox);
+            Celula tmp = primeiro.prox;
+            for(int i = 0; i < pos; i++, tmp = tmp.prox);
             resp = tmp.elemento;
             tmp.ant.prox = tmp.prox;
             tmp.prox.ant = tmp.ant;

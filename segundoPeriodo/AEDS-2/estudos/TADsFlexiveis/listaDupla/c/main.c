@@ -62,18 +62,21 @@ void inserir(ListaDupla *lista, int x, int pos) {
 }
 
 int removerInicio(ListaDupla *lista) {
-    if(lista->primeiro == lista->ultimo) {
+    if (lista->primeiro == lista->ultimo) {
         return -1;
     }
     Celula *tmp = lista->primeiro->prox;
     int resp = tmp->elemento;
     lista->primeiro->prox = tmp->prox;
-    lista->primeiro->prox->ant = lista->primeiro;
-    tmp->prox = tmp->ant = NULL;
+    if (tmp->prox != NULL) {
+        tmp->prox->ant = lista->primeiro;
+    } else {
+        lista->ultimo = lista->primeiro;
+    }
     free(tmp);
-    tmp = NULL;
     return resp;
 }
+
 int removerFim(ListaDupla *lista) {
     if(lista->primeiro == lista->ultimo) {
         return -1;
@@ -89,7 +92,7 @@ int removerFim(ListaDupla *lista) {
 }
 int remover(ListaDupla *lista, int pos) {
     int resp;
-    if(lista->primeiro == lista->ultimo || pos < 0 || pos > tamanho(lista)) {
+    if(lista->primeiro == lista->ultimo || pos < 0 || pos >= tamanho(lista)) {
         return -1;
     }
     else if(pos == 0) {
@@ -99,12 +102,11 @@ int remover(ListaDupla *lista, int pos) {
         resp = removerFim(lista);
     }
     else {
-        Celula *i = lista->primeiro;
-        for(int j = 0; j < pos; j++, i = i->prox);
-        Celula *tmp = i->prox;
+        Celula *tmp = lista->primeiro->prox;
+        for(int i = 0; i < pos; i++, tmp = tmp->prox);
         resp = tmp->elemento;
-        i->prox = tmp->prox;
-        tmp->prox->ant = i;
+        tmp->ant->prox = tmp->prox;
+        tmp->prox->ant = tmp->ant;
         tmp->prox = tmp->ant = NULL;
         free(tmp);
         tmp = NULL;
