@@ -275,6 +275,40 @@ public class Main {
         return resp;
     }
 
+    // Procedimento que ordena o array a partir do ID.
+    public static void ordenarById(Game game[], int esq, int dir) {
+        int i = esq, j = dir;
+        int pivo = game[(esq + dir) / 2].getID();
+        while (i <= j) {
+            while(game[i].getID() < pivo) i++;
+            while(game[j].getID() > pivo) j--;
+            if (i <= j) {
+                swap(game, i, j);
+                i++;
+                j--;
+            }
+        }
+        if(esq < j) ordenarById(game, esq, j);
+        if(i < dir) ordenarById(game, i, dir);
+    }
+    // Funcao para realizar uma pesquisa Binaria com a chave de pesquisa ID.
+    public static int pesqBinId(Game game[], int jogos, int x) {
+        int esq = 0, dir = jogos - 1, meio;
+        while (esq <= dir) {
+            meio = (esq + dir) / 2;
+            if (x == game[meio].getID()) {
+                return meio; 
+            } 
+            else if (x > game[meio].getID()) {
+                esq = meio + 1;
+            } 
+            else {
+                dir = meio - 1;
+            }
+        }
+        return -1; 
+    }
+
     // Procedimento que ordena o array a partir do nome.
     public static void ordenarByNome(Game game[], int esq, int dir) {
         int i = esq, j = dir;
@@ -311,40 +345,6 @@ public class Main {
             }
         }
         return resp;
-    }
-
-    // Procedimento que ordena o array a partir do ID.
-    public static void ordenarById(Game game[], int esq, int dir) {
-        int i = esq, j = dir;
-        int pivo = game[(esq + dir) / 2].getID();
-        while (i <= j) {
-            while(game[i].getID() < pivo) i++;
-            while(game[j].getID() > pivo) j--;
-            if (i <= j) {
-                swap(game, i, j);
-                i++;
-                j--;
-            }
-        }
-        if(esq < j) ordenarById(game, esq, j);
-        if(i < dir) ordenarById(game, i, dir);
-    }
-    // Funcao para realizar uma pesquisa Binaria com a chave de pesquisa ID.
-    public static int pesqBinId(Game game[], int jogos, int x) {
-        int esq = 0, dir = jogos - 1, meio;
-        while (esq <= dir) {
-            meio = (esq + dir) / 2;
-            if (x == game[meio].getID()) {
-                return meio; 
-            } 
-            else if (x > game[meio].getID()) {
-                esq = meio + 1;
-            } 
-            else {
-                dir = meio - 1;
-            }
-        }
-        return -1; 
     }
 
     // Procedimento que faz uma troca entre elementos do array.
