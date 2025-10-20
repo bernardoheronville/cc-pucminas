@@ -238,6 +238,8 @@ class Game {
 }
 
 public class Main {
+    public static int compara = 0;
+
     // Procedimento auxiliar do metodo settar.
     public static void settar(Game game, String array[]) {
         game.setID(array[0]);
@@ -256,24 +258,24 @@ public class Main {
         game.setTags(array[13]);
     }
 
-    public static boolean pesqBinNome(Game game[], int jogos, String busca) {
-        boolean resp = false;
-        int esq = 0, dir = jogos - 1, meio;
-        while (esq <= dir) {
-            meio = (esq + dir) / 2;
-            int cmp = busca.compareTo(game[meio].getNome());
-            if (cmp == 0) {
-                resp = true;
-                esq = dir + 1; 
-            } else if (cmp > 0) {
-                esq = meio + 1;
-            } else {
-                dir = meio - 1;
+    // Funcao para retornar true or false se as string sao iguais.
+    public static boolean my_strcmp(String str1, String str2) {
+        boolean resp = true;
+        if(str1.length() == str2.length()) {
+            for(int i = 0; i < str1.length(); i++) {
+                if(str1.charAt(i) != str2.charAt(i)) {
+                    resp = false;
+                    i = str1.length();
+                }
             }
+        }
+        else {
+            resp = false;
         }
         return resp;
     }
 
+    // Procedimento que ordena o array a partir do nome.
     public static void ordenarByNome(Game game[], int esq, int dir) {
         int i = esq, j = dir;
         String pivo = game[(esq + dir) / 2].getNome();
@@ -289,7 +291,29 @@ public class Main {
         if (esq < j) ordenarByNome(game, esq, j);
         if (i < dir) ordenarByNome(game, i, dir);
     }
+    // Funcao para realizar uma pesquisa Binaria com a chave de pesquisa Nome.
+    public static boolean pesqBinNome(Game game[], int jogos, String busca) {
+        boolean resp = false;
+        int esq = 0, dir = jogos - 1, meio;
+        while (esq <= dir) {
+            meio = (esq + dir) / 2;
+            int cmp = busca.compareTo(game[meio].getNome());
+            if (cmp == 0) {
+                resp = true;
+                compara++;
+                esq = dir + 1; 
+            } else if (cmp > 0) {
+                compara += 2;
+                esq = meio + 1;
+            } else {
+                compara += 2;
+                dir = meio - 1;
+            }
+        }
+        return resp;
+    }
 
+    // Procedimento que ordena o array a partir do ID.
     public static void ordenarById(Game game[], int esq, int dir) {
         int i = esq, j = dir;
         int pivo = game[(esq + dir) / 2].getID();
@@ -305,7 +329,7 @@ public class Main {
         if(esq < j) ordenarById(game, esq, j);
         if(i < dir) ordenarById(game, i, dir);
     }
-
+    // Funcao para realizar uma pesquisa Binaria com a chave de pesquisa ID.
     public static int pesqBinId(Game game[], int jogos, int x) {
         int esq = 0, dir = jogos - 1, meio;
         while (esq <= dir) {
@@ -323,14 +347,21 @@ public class Main {
         return -1; 
     }
 
+    // Procedimento que faz uma troca entre elementos do array.
     public static void swap(Game game[], int i, int j) {
         Game temp = game[i];
         game[i] = game[j];
         game[j] = temp;
     }
 
+    public static long now() {
+        return System.nanoTime();
+    }
+
     // Main
     public static void main(String args[]) throws FileNotFoundException {
+        long inicio, fim;
+        inicio = now();
         Scanner sc = new Scanner(System.in);
         File arq = new File("pubs/games.csv");
         Scanner scfile = new Scanner(arq);
@@ -364,7 +395,7 @@ public class Main {
         Game pesquisa[] = new Game[100];
         int pesquisaAux = 0;
         String buscaId = sc.nextLine();
-        while(!buscaId.equals("FIM")) {
+        while(!my_strcmp(buscaId, "FIM")) {
             int idBusca = Integer.parseInt(buscaId);
             int pos = pesqBinId(game, jogos, idBusca);
             if(pos != -1) {
@@ -376,7 +407,7 @@ public class Main {
             ordenarByNome(pesquisa, 0, pesquisaAux - 1);
         }
         String buscaNome = sc.nextLine();
-        while(!buscaNome.equals("FIM")) {
+        while(!my_strcmp(buscaNome, "FIM")) {
             if(pesqBinNome(pesquisa, pesquisaAux, buscaNome)) {
                 System.out.println(" SIM");
             }
@@ -384,6 +415,15 @@ public class Main {
                 System.out.println(" NAO");
             }
             buscaNome = sc.nextLine();
+        }
+        fim = now();
+        double tempoExecucao = (fim - inicio) / 1_000_000.0; 
+        try {
+            PrintWriter log = new PrintWriter("892196_binaria.txt"); 
+            log.printf("892196\t%.2f\t%d\n", tempoExecucao, compara);
+            log.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao gravar log: " + e.getMessage());
         }
         sc.close();
         scfile.close();
