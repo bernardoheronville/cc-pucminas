@@ -314,8 +314,11 @@ public class Main {
         int i = esq, j = dir;
         String pivo = game[(esq + dir) / 2].getNome();
         while (i <= j) {
+            compara++;
             while (game[i].getNome().compareTo(pivo) < 0) i++;
+            compara++;
             while (game[j].getNome().compareTo(pivo) > 0) j--;
+            compara++;
             if (i <= j) {
                 swap(game, i, j);
                 i++;
@@ -354,6 +357,7 @@ public class Main {
         game[j] = temp;
     }
 
+    // Funcao o valor do horario atual.
     public static long now() {
         return System.nanoTime();
     }
@@ -361,7 +365,6 @@ public class Main {
     // Main
     public static void main(String args[]) throws FileNotFoundException {
         long inicio, fim;
-        inicio = now();
         Scanner sc = new Scanner(System.in);
         File arq = new File("pubs/games.csv");
         Scanner scfile = new Scanner(arq);
@@ -403,6 +406,7 @@ public class Main {
             }
             buscaId = sc.nextLine();
         }
+        inicio = now();
         if(pesquisaAux > 0) {
             ordenarByNome(pesquisa, 0, pesquisaAux - 1);
         }
@@ -420,7 +424,7 @@ public class Main {
         double tempoExecucao = (fim - inicio) / 1_000_000.0; 
         try {
             PrintWriter log = new PrintWriter("892196_binaria.txt"); 
-            log.printf("892196\t%.2f\t%d\n", tempoExecucao, compara);
+            log.printf("892196\t%.2fms\t%d\n", tempoExecucao, compara);
             log.close();
         } catch (IOException e) {
             System.out.println("Erro ao gravar log: " + e.getMessage());
