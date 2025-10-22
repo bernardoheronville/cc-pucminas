@@ -239,6 +239,7 @@ class Game {
 
 public class Main {
     public static int compara = 0;
+    public static int movimentacoes = 0;
 
     // Procedimento auxiliar do metodo settar.
     public static void settar(Game game, String array[]) {
@@ -309,7 +310,17 @@ public class Main {
         return -1; 
     }
 
-    public static void ordenarByJogadores() {
+    public static void heapsort(Game pesquisa[]) {
+        
+    }
+
+    public static void contruir(Game pesquisa[], int tam) {
+        for(int i = tam; i > 1 && pesquisa[i].getJogadores() > pesquisa[i / 2].getJogadores(); i /= 2) {
+            swap(pesquisa, i, i / 2);
+        }
+    }
+
+    public static void ordenarByJogadoresId() {
         
     }
 
@@ -358,17 +369,19 @@ public class Main {
             jogos++;
         }
         ordenarById(game, 0, jogos - 1);
-        Game pesquisa[] = new Game[100];
-        int pesquisaAux = 0;
+        Game pesquisa[] = new Game[200];
+        int pesquisaAux = 1;
         String buscaId = sc.nextLine();
         while(!my_strcmp(buscaId, "FIM")) {
             int idBusca = Integer.parseInt(buscaId);
             int pos = pesqBinId(game, jogos, idBusca);
             if(pos != -1) {
+                // contruir
                 pesquisa[pesquisaAux++] = game[pos];
             }
             buscaId = sc.nextLine();
         }
+
         if(pesquisaAux > 0) {
             ordenarByJogadores(pesquisa, 0, pesquisaAux - 1);
         }
