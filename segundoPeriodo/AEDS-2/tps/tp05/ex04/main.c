@@ -89,12 +89,19 @@ void setDataFormatada(String entrada, String *saida, Data *data) {
     char mes[4], dia[3], ano[5], mesNum[3];
     strncpy(mes, entrada.str, 3);
     mes[3] = '\0';
-    if (entrada.str[5] == ',') {
+    if (strlen(entrada.str) == 8 && entrada.str[3] == ' ') {
+        dia[0] = '0';
+        dia[1] = '1';
+        dia[2] = '\0';
+        strcpy(ano, entrada.str + 4);
+    }
+    else if (entrada.str[5] == ',') {
         dia[0] = '0';
         dia[1] = entrada.str[4];
         dia[2] = '\0';
         strcpy(ano, entrada.str + 7);
-    } else { 
+    } 
+    else { 
         dia[0] = entrada.str[4];
         dia[1] = entrada.str[5];
         dia[2] = '\0';
@@ -308,7 +315,6 @@ void ordenarByDataId(Game *game, int esq, int dir) {
             (game[i].dataInt.ano == pivoAno && game[i].dataInt.mes == pivoMes && game[i].dataInt.dia < pivoDia) ||
             (game[i].dataInt.ano == pivoAno && game[i].dataInt.mes == pivoMes && game[i].dataInt.dia == pivoDia && game[i].id < pivoId)) {
             i++;
-            compara++; 
         }
         compara++;
         while((game[j].dataInt.ano > pivoAno) || 
@@ -316,8 +322,8 @@ void ordenarByDataId(Game *game, int esq, int dir) {
             (game[j].dataInt.ano == pivoAno && game[j].dataInt.mes == pivoMes && game[j].dataInt.dia > pivoDia) ||
             (game[j].dataInt.ano == pivoAno && game[j].dataInt.mes == pivoMes && game[j].dataInt.dia == pivoDia && game[j].id > pivoId)) {
             j--;
-            compara++; 
         }
+        compara++;
         if(i <= j) {
             swap(game, i, j);
             i++;
@@ -330,7 +336,6 @@ void ordenarByDataId(Game *game, int esq, int dir) {
 
 // Main.
 int main() {
-    clock_t inicio = clock();
     FILE *arq = fopen("pubs/games.csv", "r");
     if (!arq) {
         printf("Erro ao abrir o arquivo\n");
@@ -377,21 +382,23 @@ int main() {
         }
         scanf("%s", buscaId.str);
     }
+    clock_t inicio = clock();
     if(pesquisaAux > 0) {
         ordenarByDataId(pesquisa, 0, pesquisaAux - 1);
     }
+    clock_t fim = clock();
     for(int i = 0; i < pesquisaAux; i++) {
         imprimir(&pesquisa[i]);
     }
     free(pesquisa);
     free(game);
-    clock_t fim = clock();
     double tempoExecucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
     FILE *log = fopen("892196_quicksort.txt", "w");
     if (log != NULL) {
-        fprintf(log, "892196\t%d mov\t%.6fms\t%d comp\n", movimentacoes, tempoExecucao, compara);
+        fprintf(log, "892196\t%.3fms\t%dmov\t%dcomp\n", tempoExecucao * 1000, movimentacoes, compara);
         fclose(log);
-    } else {
+    } 
+    else {
         printf("Erro ao criar arquivo de log.\n");
     }
     return 0;
