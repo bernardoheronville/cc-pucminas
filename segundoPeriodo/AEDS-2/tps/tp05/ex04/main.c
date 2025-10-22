@@ -267,40 +267,6 @@ void swap(Game *game, int i, int j) {
     movimentacoes += 3;
 }
 
-// Procedimento que ordena o array a partir do ID.
-void ordenarById(Game *game, int esq, int dir) {
-    int i = esq, j = dir;
-    int pivo = game[(esq + dir) / 2].id;
-    while(i <= j) {
-        while(game[i].id < pivo) i++;
-        while(game[j].id > pivo) j--;
-        if(i <= j) {
-            swap(game, i, j);
-            i++;
-            j--;
-        }
-    }
-    if(esq < j) ordenarById(game, esq, j);
-    if(i < dir) ordenarById(game, i, dir);
-}
-// Funcao para realizar uma pesquisa Binaria com a chave de pesquisa ID.
-int pesqBinId(Game *game,int jogos, int x){
-    int esq = 0, dir = jogos - 1, meio;
-    while (esq <= dir) {
-        meio = (esq + dir) / 2;
-        if (x == game[meio].id) {
-            return meio; 
-        } 
-        else if (x > game[meio].id) {
-            esq = meio + 1;
-        } 
-        else {
-            dir = meio - 1;
-        }
-    }
-    return -1; 
-}
-
 // Procedimento que ordena o array a partir do nome.
 void ordenarByDataId(Game *game, int esq, int dir) {
     int i = esq, j = dir;
@@ -369,16 +335,17 @@ int main() {
         jogos++;
     }
     fclose(arq);
-    ordenarById(game, 0, jogos - 1);
     Game *pesquisa = (Game*)malloc(200 * sizeof(Game)); 
     int pesquisaAux = 0;
     String buscaId;
     scanf("%s", buscaId.str);
     while(strcmp(buscaId.str, "FIM") != 0) {
         int idBusca = atoi(buscaId.str);
-        int pos = pesqBinId(game, jogos, idBusca);
-        if(pos != -1) {
-            pesquisa[pesquisaAux++] = game[pos];
+        for (int i = 0; i < jogos; i++) {
+            if (idBusca == game[i].id) {
+                pesquisa[pesquisaAux++] = game[i];
+                i = jogos;
+            }
         }
         scanf("%s", buscaId.str);
     }
@@ -395,7 +362,7 @@ int main() {
     double tempoExecucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
     FILE *log = fopen("892196_quicksort.txt", "w");
     if (log != NULL) {
-        fprintf(log, "892196\t%.3fms\t%dmov\t%dcomp\n", tempoExecucao * 1000, movimentacoes, compara);
+        fprintf(log, "892196\t%dcomparacoes\t%dmovimentacoes\t%.3fms\n", compara, movimentacoes, tempoExecucao * 1000);
         fclose(log);
     } 
     else {
