@@ -5,6 +5,7 @@
 #include <time.h>
 
 int compara = 0;
+int movimentacoes = 0;
 
 // Auxilio.
 #define TAM_MAX 1000
@@ -256,6 +257,7 @@ void swap(Game *game, int i, int j) {
     Game temp = game[i];
     game[i] = game[j];
     game[j] = temp;
+    movimentacoes += 3;
 }
 
 // Procedimento que ordena o array a partir do ID.
@@ -304,12 +306,18 @@ void ordenarByDataId(Game *game, int esq, int dir) {
         while((game[i].dataInt.ano < pivoAno) || 
             (game[i].dataInt.ano == pivoAno && game[i].dataInt.mes < pivoMes) ||
             (game[i].dataInt.ano == pivoAno && game[i].dataInt.mes == pivoMes && game[i].dataInt.dia < pivoDia) ||
-            (game[i].dataInt.ano == pivoAno && game[i].dataInt.mes == pivoMes && game[i].dataInt.dia == pivoDia && game[i].id < pivoId)) i++;
+            (game[i].dataInt.ano == pivoAno && game[i].dataInt.mes == pivoMes && game[i].dataInt.dia == pivoDia && game[i].id < pivoId)) {
+            i++;
+            compara++; 
+        }
         compara++;
         while((game[j].dataInt.ano > pivoAno) || 
             (game[j].dataInt.ano == pivoAno && game[j].dataInt.mes > pivoMes) ||
             (game[j].dataInt.ano == pivoAno && game[j].dataInt.mes == pivoMes && game[j].dataInt.dia > pivoDia) ||
-            (game[j].dataInt.ano == pivoAno && game[j].dataInt.mes == pivoMes && game[j].dataInt.dia == pivoDia && game[j].id > pivoId)) j--;
+            (game[j].dataInt.ano == pivoAno && game[j].dataInt.mes == pivoMes && game[j].dataInt.dia == pivoDia && game[j].id > pivoId)) {
+            j--;
+            compara++; 
+        }
         if(i <= j) {
             swap(game, i, j);
             i++;
@@ -381,7 +389,7 @@ int main() {
     double tempoExecucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
     FILE *log = fopen("892196_quicksort.txt", "w");
     if (log != NULL) {
-        fprintf(log, "892196\t%.6f\t%d\n", tempoExecucao, compara);
+        fprintf(log, "892196\t%d mov\t%.6fms\t%d comp\n", movimentacoes, tempoExecucao, compara);
         fclose(log);
     } else {
         printf("Erro ao criar arquivo de log.\n");

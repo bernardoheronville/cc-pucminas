@@ -239,6 +239,7 @@ class Game {
 
 public class Main {
     public static int compara = 0;
+    public static int movimentacoes = 0;
 
     // Procedimento auxiliar do metodo settar.
     public static void settar(Game game, String array[]) {
@@ -317,26 +318,28 @@ public class Main {
             intercalar(game, esq, meio, dir);
         }
     }
-    public void intercalar(Game game[], int esq, int meio, int dir){
-      int n1, n2, i, j, k;
-      n1 = meio-esq+1;
-      n2 = dir - meio;
-      int[] a1 = new int[n1+1];
-      int[] a2 = new int[n2+1];
-      for(i = 0; i < n1; i++){
-         a1[i] = game[esq+i].getPreco();
-      }
-      //Inicializar segundo subarray
-      for(j = 0; j < n2; j++){
-         a2[j] = game[meio+j+1];
-      }
-      //Sentinela no final dos dois arrays
-      a1[i] = a2[j] = 0x7FFFFFFF;
-      //Intercalacao propriamente dita
-      for(i = j = 0, k = esq; k <= dir; k++){
-         game[k] = (a1[i] <= a2[j]) ? a1[i++] : a2[j++];
-      }
-   }
+    public static void intercalar(Game game[], int esq, int meio, int dir){
+        int n1 = meio - esq + 1;
+        int n2 = dir - meio;
+        Game[] left = new Game[n1];
+        Game[] right = new Game[n2];
+        for (int i = 0; i < n1; i++) left[i] = game[esq + i];
+        for (int j = 0; j < n2; j++) right[j] = game[meio + 1 + j];
+        int i = 0, j = 0, k = esq;
+        while (i < n1 && j < n2) {
+            compara++;
+            if (left[i].getPreco() < right[j].getPreco() ||
+               (left[i].getPreco() == right[j].getPreco() && left[i].getID() < right[j].getID())) {
+                game[k++] = left[i++];
+            } 
+            else {
+                game[k++] = right[j++];
+            }
+            movimentacoes++;
+        }
+        while (i < n1) { game[k++] = left[i++]; movimentacoes++; }
+        while (j < n2) { game[k++] = right[j++]; movimentacoes++; }
+    }
  
     // Procedimento que faz uma troca entre elementos do array.
     public static void swap(Game game[], int i, int j) {
@@ -354,7 +357,7 @@ public class Main {
         long inicio, fim;
         inicio = now();
         Scanner sc = new Scanner(System.in);
-        File arq = new File("pubs/games.csv");
+        File arq = new File("/tmp/games.csv");
         Scanner scfile = new Scanner(arq);
         Game game[] = new Game[2000];
         int jogos = 0;
@@ -394,29 +397,29 @@ public class Main {
             }
             buscaId = sc.nextLine();
         }
-
         if(pesquisaAux > 0) {
-            ordenarByNome(pesquisa, 0, pesquisaAux - 1);
+            mergesort(pesquisa, 0, pesquisaAux - 1);
         }
-        String buscaNome = sc.nextLine();
-        while(!my_strcmp(buscaNome, "FIM")) {
-            if(pesqBinNome(pesquisa, pesquisaAux, buscaNome)) {
-                System.out.println(" SIM");
-            }
-            else {
-                System.out.println(" NAO");
-            }
-            buscaNome = sc.nextLine();
+        MyIO.println("| 5 preços mais caros |"); // Tive que usar para printar o ç.
+        //System.out.println("| 5 preços mais caros |");
+        for (int i = pesquisaAux - 1; i >= 0 && i >= pesquisaAux - 5; i--) {
+            System.out.println(pesquisa[i].toString());
+        }
+        System.out.printf("\n");
+        MyIO.println("| 5 preços mais baratos |"); // Tive que usar para printar o ç.
+        //System.out.println("| 5 preços mais baratos |");
+        for(int i = 0; i < 5; i++) {
+            System.out.println(pesquisa[i].toString());
         }
         fim = now();
         double tempoExecucao = (fim - inicio) / 1_000_000.0; 
-        try {
-            PrintWriter log = new PrintWriter("892196_binaria.txt"); 
+        /*try {
+            PrintWriter log = new PrintWriter("892196_mergesort.txt"); 
             log.printf("892196\t%.2f\t%d\n", tempoExecucao, compara);
             log.close();
         } catch (IOException e) {
             System.out.println("Erro ao gravar log: " + e.getMessage());
-        }
+        }*/
         sc.close();
         scfile.close();
     }

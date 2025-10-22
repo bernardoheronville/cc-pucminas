@@ -5,6 +5,7 @@
 #include <time.h>
 
 int compara = 0;
+int movimentacoes = 0;
 
 // Auxilio.
 #define TAM_MAX 1000
@@ -245,6 +246,7 @@ void swap(Game *game, int i, int j) {
     Game temp = game[i];
     game[i] = game[j];
     game[j] = temp;
+    movimentacoes += 3;
 }
 
 // Procedimento que ordena o array a partir do ID.
@@ -352,7 +354,7 @@ int main() {
     double tempoExecucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
     FILE *log = fopen("892196_selecao.txt", "w");
     if (log != NULL) {
-        fprintf(log, "892196\t%.6f\t%d\n", tempoExecucao, compara);
+        fprintf(log, "892196\t%.6f ms\t%d com\t%d mov\n", tempoExecucao, compara, movimentacoes);
         fclose(log);
     } else {
         printf("Erro ao criar arquivo de log.\n");
