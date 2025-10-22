@@ -1,0 +1,1 @@
+892196	549comparacoes	672movimentacoes	0,12ms

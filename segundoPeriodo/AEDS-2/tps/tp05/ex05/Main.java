@@ -276,40 +276,6 @@ public class Main {
         return resp;
     }
 
-    // Procedimento que ordena o array a partir do ID.
-    public static void ordenarById(Game game[], int esq, int dir) {
-        int i = esq, j = dir;
-        int pivo = game[(esq + dir) / 2].getID();
-        while (i <= j) {
-            while(game[i].getID() < pivo) i++;
-            while(game[j].getID() > pivo) j--;
-            if (i <= j) {
-                swap(game, i, j);
-                i++;
-                j--;
-            }
-        }
-        if(esq < j) ordenarById(game, esq, j);
-        if(i < dir) ordenarById(game, i, dir);
-    }
-    // Funcao para realizar uma pesquisa Binaria com a chave de pesquisa ID.
-    public static int pesqBinId(Game game[], int jogos, int x) {
-        int esq = 0, dir = jogos - 1, meio;
-        while (esq <= dir) {
-            meio = (esq + dir) / 2;
-            if (x == game[meio].getID()) {
-                return meio; 
-            } 
-            else if (x > game[meio].getID()) {
-                esq = meio + 1;
-            } 
-            else {
-                dir = meio - 1;
-            }
-        }
-        return -1; 
-    }
-
     public static void mergesort(Game game[], int esq, int dir) {
         if (esq < dir){
             int meio = (esq + dir) / 2;
@@ -340,13 +306,6 @@ public class Main {
         while (i < n1) { game[k++] = left[i++]; movimentacoes++; }
         while (j < n2) { game[k++] = right[j++]; movimentacoes++; }
     }
- 
-    // Procedimento que faz uma troca entre elementos do array.
-    public static void swap(Game game[], int i, int j) {
-        Game temp = game[i];
-        game[i] = game[j];
-        game[j] = temp;
-    }
 
     public static long now() {
         return System.nanoTime();
@@ -355,9 +314,8 @@ public class Main {
     // Main
     public static void main(String args[]) throws FileNotFoundException {
         long inicio, fim;
-        inicio = now();
         Scanner sc = new Scanner(System.in);
-        File arq = new File("/tmp/games.csv");
+        File arq = new File("pubs/games.csv");
         Scanner scfile = new Scanner(arq);
         Game game[] = new Game[2000];
         int jogos = 0;
@@ -385,21 +343,24 @@ public class Main {
             settar(game[jogos], array);
             jogos++;
         }
-        ordenarById(game, 0, jogos - 1);
         Game pesquisa[] = new Game[100];
         int pesquisaAux = 0;
         String buscaId = sc.nextLine();
         while(!my_strcmp(buscaId, "FIM")) {
             int idBusca = Integer.parseInt(buscaId);
-            int pos = pesqBinId(game, jogos, idBusca);
-            if(pos != -1) {
-                pesquisa[pesquisaAux++] = game[pos];
+            for(int i = 0; i < jogos; i++) {
+                if(idBusca == game[i].getID()) {
+                    pesquisa[pesquisaAux++] = game[i];
+                    i = jogos;
+                }
             }
             buscaId = sc.nextLine();
         }
+        inicio = now();
         if(pesquisaAux > 0) {
             mergesort(pesquisa, 0, pesquisaAux - 1);
         }
+        fim = now();
         MyIO.println("| 5 preços mais caros |"); // Tive que usar para printar o ç.
         //System.out.println("| 5 preços mais caros |");
         for (int i = pesquisaAux - 1; i >= 0 && i >= pesquisaAux - 5; i--) {
@@ -411,15 +372,14 @@ public class Main {
         for(int i = 0; i < 5; i++) {
             System.out.println(pesquisa[i].toString());
         }
-        fim = now();
         double tempoExecucao = (fim - inicio) / 1_000_000.0; 
-        /*try {
+        try {
             PrintWriter log = new PrintWriter("892196_mergesort.txt"); 
-            log.printf("892196\t%.2f\t%d\n", tempoExecucao, compara);
+            log.printf("892196\t%dcomparacoes\t%dmovimentacoes\t%.2fms\n", compara, movimentacoes, tempoExecucao);
             log.close();
         } catch (IOException e) {
             System.out.println("Erro ao gravar log: " + e.getMessage());
-        }*/
+        }
         sc.close();
         scfile.close();
     }
