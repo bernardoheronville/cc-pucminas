@@ -249,36 +249,6 @@ void swap(Game *game, int i, int j) {
     movimentacoes += 3;
 }
 
-// Procedimento que ordena o array a partir do ID.
-void ordenarById(Game *game, int n) {
-    for(int i = 0; i < n - 1; i++) {
-        int menor = i;
-        for(int j = i + 1; j < n; j++) {
-            if(game[menor].id > game[j].id) {
-                menor = j;
-            }
-        }
-        swap(game, menor, i);
-    }
-}
-// Funcao para realizar uma pesquisa Binaria com a chave de pesquisa ID.
-int pesqBinId(Game *game,int jogos, int x){
-    int esq = 0, dir = jogos - 1, meio;
-    while (esq <= dir) {
-        meio = (esq + dir) / 2;
-        if (x == game[meio].id) {
-            return meio; 
-        } 
-        else if (x > game[meio].id) {
-            esq = meio + 1;
-        } 
-        else {
-            dir = meio - 1;
-        }
-    }
-    return -1; 
-}
-
 // Procedimento que ordena o array a partir do nome.
 void ordenarByNome(Game *game, int n) {
     for(int i = 0; i < n - 1; i++) {
@@ -295,7 +265,6 @@ void ordenarByNome(Game *game, int n) {
 
 // Main.
 int main() {
-    clock_t inicio = clock();
     FILE *arq = fopen("pubs/games.csv", "r");
     if (!arq) {
         printf("Erro ao abrir o arquivo\n");
@@ -329,32 +298,34 @@ int main() {
         jogos++;
     }
     fclose(arq);
-    ordenarById(game, jogos);
     Game *pesquisa = (Game*)malloc(200 * sizeof(Game)); 
     int pesquisaAux = 0;
     String buscaId;
     scanf("%s", buscaId.str);
     while (strcmp(buscaId.str, "FIM") != 0) {
         int idBusca = atoi(buscaId.str);
-        int pos = pesqBinId(game, jogos, idBusca);
-        if(pos != -1) {
-            pesquisa[pesquisaAux++] = game[pos];
+        for (int i = 0; i < jogos; i++) {
+            if (idBusca == game[i].id) {
+                pesquisa[pesquisaAux++] = game[i];
+                i = jogos;
+            }
         }
         scanf("%s", buscaId.str);
     }
+    clock_t inicio = clock();
     if(pesquisaAux > 0) {
         ordenarByNome(pesquisa, pesquisaAux);
     }
+    clock_t fim = clock();
     for(int i = 0; i < pesquisaAux; i++) {
         imprimir(&pesquisa[i]);
     }
     free(pesquisa);
     free(game);
-    clock_t fim = clock();
     double tempoExecucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
     FILE *log = fopen("892196_selecao.txt", "w");
     if (log != NULL) {
-        fprintf(log, "892196\t%.6f ms\t%d com\t%d mov\n", tempoExecucao, compara, movimentacoes);
+        fprintf(log, "892196\t%dcomparacoes\t%dmovimentacoes\t%.3fms\n", compara, movimentacoes, tempoExecucao * 1000);
         fclose(log);
     } else {
         printf("Erro ao criar arquivo de log.\n");

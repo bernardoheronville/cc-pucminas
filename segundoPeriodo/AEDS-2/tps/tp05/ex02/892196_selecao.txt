@@ -1,1 +1,1 @@
-892196	0.457108 ms	4950 com	5844 mov
+892196	4950comparacoes	297mov	3.255ms
