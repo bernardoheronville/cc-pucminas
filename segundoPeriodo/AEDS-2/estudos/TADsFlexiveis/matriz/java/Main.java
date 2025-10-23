@@ -52,22 +52,38 @@ class Matriz {
     }
 
     public void inserir(Scanner sc) {
-        Celula c = inicio, l = inicio;
+        Celula l = inicio, c;
         for(int i = 0; i < linha; i++) {
+            c = l;
             for(int j = 0; j < coluna; j++) {
                 c.elemento = sc.nextInt();
                 c = c.prox;
             }
             l = l.inf;
-            c = l;
         }
+        c = l = null;
+    }
+
+    public void mostrar() {
+        Celula l = inicio, c;
+        for(int i = 0; i < linha; i++) {
+            c = l;
+            for(int j = 0; j < coluna; j++) {
+                System.out.print(c.elemento + " ");
+                c = c.prox;
+            }
+            System.out.print("\n");
+            l = l.inf;
+        }
+        c = l = null;
     }
 }
 
 public class Main {
     public static void main(String args[]) {
-        Matriz matriz = new Matriz();
+        Matriz matriz = new Matriz(3, 3);
         Scanner sc = new Scanner(System.in);
         matriz.inserir(sc);
+        matriz.mostrar();
     }
 }
