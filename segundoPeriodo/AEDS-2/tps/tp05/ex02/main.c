@@ -259,13 +259,13 @@ void ordenarByNome(Game *game, int n) {
                 menor = j;
             }
         }
-        swap(game, menor, i);
+        if(i != menor) swap(game, menor, i);
     }
 }
 
 // Main.
 int main() {
-    FILE *arq = fopen("pubs/games.csv", "r");
+    FILE *arq = fopen("/tmp/games.csv", "r");
     if (!arq) {
         printf("Erro ao abrir o arquivo\n");
         return 1;
