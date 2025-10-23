@@ -424,7 +424,7 @@ public class Main {
         double tempoExecucao = (fim - inicio) / 1_000_000.0; 
         try {
             PrintWriter log = new PrintWriter("892196_binaria.txt"); 
-            log.printf("892196\t%.2fms\t%d\n", tempoExecucao, compara);
+            log.printf("892196\t%.2fms\t%dcomparacoes\n", tempoExecucao, compara);
             log.close();
         } catch (IOException e) {
             System.out.println("Erro ao gravar log: " + e.getMessage());
