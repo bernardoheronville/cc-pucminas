@@ -314,11 +314,8 @@ public class Main {
         int i = esq, j = dir;
         String pivo = game[(esq + dir) / 2].getNome();
         while (i <= j) {
-            compara++;
             while (game[i].getNome().compareTo(pivo) < 0) i++;
-            compara++;
             while (game[j].getNome().compareTo(pivo) > 0) j--;
-            compara++;
             if (i <= j) {
                 swap(game, i, j);
                 i++;
