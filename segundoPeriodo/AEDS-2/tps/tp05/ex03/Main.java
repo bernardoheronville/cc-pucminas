@@ -276,52 +276,65 @@ public class Main {
         return resp;
     }
 
-    // Procedimento que ordena o array a partir do ID.
-    public static void ordenarById(Game game[], int esq, int dir) {
-        int i = esq, j = dir;
-        int pivo = game[(esq + dir) / 2].getID();
-        while (i <= j) {
-            while(game[i].getID() < pivo) i++;
-            while(game[j].getID() > pivo) j--;
-            if (i <= j) {
-                swap(game, i, j);
-                i++;
-                j--;
-            }
+    public static void ordenarByJogadoresId(Game[] pesquisa, int n) {
+        Game[] heap = new Game[n + 1];
+        for (int i = 0; i < n; i++) {
+            heap[i + 1] = pesquisa[i];
         }
-        if(esq < j) ordenarById(game, esq, j);
-        if(i < dir) ordenarById(game, i, dir);
+        for (int tamHeap = 2; tamHeap <= n; tamHeap++) {
+            construir(heap, tamHeap);
+        }
+        int tamHeap = n;
+        while (tamHeap > 1) {
+            swap(heap, 1, tamHeap);
+            tamHeap--;
+            reconstruir(heap, tamHeap);
+        }
+        for (int i = 0; i < n; i++) {
+            pesquisa[i] = heap[i + 1];
+        }
     }
-    // Funcao para realizar uma pesquisa Binaria com a chave de pesquisa ID.
-    public static int pesqBinId(Game game[], int jogos, int x) {
-        int esq = 0, dir = jogos - 1, meio;
-        while (esq <= dir) {
-            meio = (esq + dir) / 2;
-            if (x == game[meio].getID()) {
-                return meio; 
-            } 
-            else if (x > game[meio].getID()) {
-                esq = meio + 1;
+
+    public static void construir(Game[] heap, int tam) {
+        for (int i = tam; i > 1 && maior(heap[i], heap[i / 2]); i /= 2) {
+            swap(heap, i, i / 2);
+        }
+    }
+
+    public static void reconstruir(Game[] heap, int tam) {
+        int i = 1;
+        while(i <= tam / 2) {
+            int filho = getMaiorFilho(heap, i, tam);
+            if(maior(heap[filho], heap[i])) {
+                swap(heap, i, filho);
+                i = filho;
             } 
             else {
-                dir = meio - 1;
+                break;
             }
         }
-        return -1; 
     }
 
-    public static void heapsort(Game pesquisa[]) {
-        
+    // Retorna o maior filho
+    public static int getMaiorFilho(Game[] heap, int i, int tam) {
+        if(2 * i == tam) return 2 * i;
+        else if(maior(heap[2 * i + 1], heap[2 * i])) return 2 * i + 1;
+        else return 2 * i;
     }
 
-    public static void contruir(Game pesquisa[], int tam) {
-        for(int i = tam; i > 1 && pesquisa[i].getJogadores() > pesquisa[i / 2].getJogadores(); i /= 2) {
-            swap(pesquisa, i, i / 2);
+    public static boolean maior(Game a, Game b) {
+        if(a == null || b == null) return false; 
+        compara++;
+        if(a.getJogadores() > b.getJogadores()) {
+            return true;
+        } 
+        else if (a.getJogadores() == b.getJogadores()) {
+            compara++;
+            return a.getID() > b.getID(); 
+        } 
+        else {
+            return false;
         }
-    }
-
-    public static void ordenarByJogadoresId() {
-        
     }
 
     // Procedimento que faz uma troca entre elementos do array.
@@ -329,6 +342,7 @@ public class Main {
         Game temp = game[i];
         game[i] = game[j];
         game[j] = temp;
+        movimentacoes += 3;
     }
 
     public static long now() {
@@ -338,7 +352,6 @@ public class Main {
     // Main
     public static void main(String args[]) throws FileNotFoundException {
         long inicio, fim;
-        inicio = now();
         Scanner sc = new Scanner(System.in);
         File arq = new File("pubs/games.csv");
         Scanner scfile = new Scanner(arq);
@@ -368,38 +381,31 @@ public class Main {
             settar(game[jogos], array);
             jogos++;
         }
-        ordenarById(game, 0, jogos - 1);
         Game pesquisa[] = new Game[200];
-        int pesquisaAux = 1;
+        int pesquisaAux = 0;
         String buscaId = sc.nextLine();
         while(!my_strcmp(buscaId, "FIM")) {
             int idBusca = Integer.parseInt(buscaId);
-            int pos = pesqBinId(game, jogos, idBusca);
-            if(pos != -1) {
-                // contruir
-                pesquisa[pesquisaAux++] = game[pos];
+            for(int i = 0; i < jogos; i++) {
+                if(idBusca == game[i].getID()) {
+                    pesquisa[pesquisaAux++] = game[i];
+                    i = jogos;
+                }
             }
             buscaId = sc.nextLine();
         }
-
+        inicio = now();
         if(pesquisaAux > 0) {
-            ordenarByJogadores(pesquisa, 0, pesquisaAux - 1);
-        }
-        String buscaNome = sc.nextLine();
-        while(!my_strcmp(buscaNome, "FIM")) {
-            if(pesqBinNome(pesquisa, pesquisaAux, buscaNome)) {
-                System.out.println(" SIM");
-            }
-            else {
-                System.out.println(" NAO");
-            }
-            buscaNome = sc.nextLine();
+            ordenarByJogadoresId(pesquisa, pesquisaAux);
         }
         fim = now();
+        for(int i = 0; i < pesquisaAux; i++) {
+            System.out.println(pesquisa[i].toString());
+        }
         double tempoExecucao = (fim - inicio) / 1_000_000.0; 
         try {
-            PrintWriter log = new PrintWriter("892196_binaria.txt"); 
-            log.printf("892196\t%.2f\t%d\n", tempoExecucao, compara);
+            PrintWriter log = new PrintWriter("892196_heapsort.txt"); 
+            log.printf("892196\t%dcomparacoes\t%dmovimentacoes\t%.2fms\n", compara, movimentacoes, tempoExecucao);
             log.close();
         } catch (IOException e) {
             System.out.println("Erro ao gravar log: " + e.getMessage());
