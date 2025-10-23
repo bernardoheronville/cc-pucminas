@@ -265,7 +265,7 @@ void ordenarByNome(Game *game, int n) {
 
 // Main.
 int main() {
-    FILE *arq = fopen("/tmp/games.csv", "r");
+    FILE *arq = fopen("pubs/games.csv", "r");
     if (!arq) {
         printf("Erro ao abrir o arquivo\n");
         return 1;
