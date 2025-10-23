@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Celula {
     public int elemento;
     public Celula sup, inf, prox, ant;
@@ -48,10 +50,24 @@ class Matriz {
             }
         }
     }
+
+    public void inserir(Scanner sc) {
+        Celula c = inicio, l = inicio;
+        for(int i = 0; i < linha; i++) {
+            for(int j = 0; j < coluna; j++) {
+                c.elemento = sc.nextInt();
+                c = c.prox;
+            }
+            l = l.inf;
+            c = l;
+        }
+    }
 }
 
 public class Main {
     public static void main(String args[]) {
-
+        Matriz matriz = new Matriz();
+        Scanner sc = new Scanner(System.in);
+        matriz.inserir(sc);
     }
 }
