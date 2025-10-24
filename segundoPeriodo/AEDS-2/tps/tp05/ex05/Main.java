@@ -361,14 +361,14 @@ public class Main {
             mergesort(pesquisa, 0, pesquisaAux - 1);
         }
         fim = now();
-        MyIO.println("| 5 preços mais caros |"); // Tive que usar para printar o ç.
-        //System.out.println("| 5 preços mais caros |");
+        //MyIO.println("| 5 preços mais caros |"); // Tive que usar para printar o ç.
+        System.out.println("| 5 preços mais caros |");
         for (int i = pesquisaAux - 1; i >= 0 && i >= pesquisaAux - 5; i--) {
             System.out.println(pesquisa[i].toString());
         }
         System.out.printf("\n");
-        MyIO.println("| 5 preços mais baratos |"); // Tive que usar para printar o ç.
-        //System.out.println("| 5 preços mais baratos |");
+        //MyIO.println("| 5 preços mais baratos |"); // Tive que usar para printar o ç.
+        System.out.println("| 5 preços mais baratos |");
         for(int i = 0; i < 5; i++) {
             System.out.println(pesquisa[i].toString());
         }
