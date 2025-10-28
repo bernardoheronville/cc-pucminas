@@ -350,7 +350,7 @@ class Lista {
         return count;
     }
 
-    // Precedimento que mostrar os elementos da Lista.
+    // Procedimento que mostra os elementos da Lista.
     public void mostrar() {
         for(Celula i = primeiro.prox; i != null; i = i.prox) {
             System.out.println(i.elemento.toString());
