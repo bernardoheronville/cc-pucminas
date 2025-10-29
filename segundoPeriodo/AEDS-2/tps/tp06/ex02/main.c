@@ -47,20 +47,19 @@ typedef struct {
 Game gamevazio() {
     Game g;
     g.id = -1;
-    strcpy(g.nome.str, "");
-    strcpy(g.data.str, "");
+    strcpy(g.nome.str, "nenhum");
+    strcpy(g.data.str, "01/01/2000");
     g.jogadores = 0;
     g.preco = 0.0f;
-    g.num_idiomas = 0;
-    g.notaEspecial = 0;
-    g.notaUsuario = 0.0f;
+    strcpy(g.idiomas->str, " ");
+    g.notaEspecial = -1;
+    g.notaUsuario = -1.0f;
     g.conquistas = 0;
-    g.numEmpresasPublicacao = 0;
-    g.numEmpresasEstudios = 0;
-    g.numCategorias = 0;
-    g.numGeneros = 0;
-    g.numTags = 0;
-    g.dataInt.dia = g.dataInt.mes = g.dataInt.ano = 0;
+    strcpy(g.empresasPublicacao->str, " ");
+    strcpy(g.empresasEstudios->str, " ");
+    strcpy(g.categorias->str, " ");
+    strcpy(g.generos->str, " ");
+    strcpy(g.tags->str, " ");
     return g;
 }
 
