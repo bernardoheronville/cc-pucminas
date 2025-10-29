@@ -424,17 +424,71 @@ public class Main {
             settar(game, array);
             lista.inserirFim(game);
         }
-        // Testando com a entrada do tp04, quando receber a entrada do tp06 arrumar.
-        String busca = sc.nextLine();
-        while(!busca.equals("FIM")) {
-            int idBusca = Integer.parseInt(busca);
+        Lista pesquisa = new Lista();
+        String buscaId = sc.nextLine();
+        while(!my_strcmp(buscaId, "FIM")) {
+            int idBusca = Integer.parseInt(buscaId);
             for(Celula i = lista.primeiro.prox; i != null; i = i.prox) {
                 if(idBusca == i.elemento.getID()) {
-                    System.out.println(i.elemento.toString());
+                    pesquisa.inserirFim(i.elemento);
                     i = lista.ultimo;
                 }
             }
-            busca = sc.nextLine();
+            buscaId = sc.nextLine();
+        }
+        int n = sc.nextInt();
+        for(int i = 0; i < n; i++) {
+            String acao = sc.next();
+            switch(acao) {
+                case "II":
+                    int in = sc.nextInt();
+                    for(Celula j = lista.primeiro.prox; j != null; j = j.prox) {
+                        if(in == j.elemento.getID()) {
+                            pesquisa.inserirInicio(j.elemento);
+                            j = lista.ultimo;
+                        }
+                    }
+                    break;
+                case "I*":
+                    int pos = sc.nextInt();
+                    int num = sc.nextInt();
+                    for(Celula j = lista.primeiro.prox; j != null; j = j.prox) {
+                        if(num == j.elemento.getID()) {
+                            pesquisa.inserir(j.elemento, pos);
+                            j = lista.ultimo;
+                        }
+                    }
+                    break;
+                case "IF":
+                    int fim = sc.nextInt();
+                    for(Celula j = lista.primeiro.prox; j != null; j = j.prox) {
+                        if(fim == j.elemento.getID()) {
+                            pesquisa.inserirFim(j.elemento);
+                            j = lista.ultimo;
+                        }
+                    }
+                    break;
+                case "RI":
+                        Game removidoInicio = pesquisa.removerInicio();
+                        System.out.println("(R) " + removidoInicio.getNome());
+                    break;
+                case "R*":
+                    int posRem = sc.nextInt();
+                    Game removidoPos = pesquisa.remover(posRem);
+                    System.out.println("(R) " + removidoPos.getNome());
+                    break;
+                case "RF":
+                    Game removidoFim = pesquisa.removerFim();
+                    System.out.println("(R) " + removidoFim.getNome());
+                    break;
+                default:
+                    System.out.println("ERRO");
+                    break;
+            }
+        }
+        int count = 0;
+        for(Celula i = pesquisa.primeiro.prox; i != null; i = i.prox, count++) {
+            System.out.printf("[%d] %s\n", count, i.elemento.toString());
         }
         sc.close();
         scfile.close();
