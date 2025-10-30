@@ -186,17 +186,43 @@ Game remover(Lista *lista, int pos) {
     return resp;
 }
 
+// Funcap que retorna o tamanho da string.
+int my_strlen(char *str) {
+    int count = 0;
+    while(*(str + count) != '\0') {
+        count++;
+    }
+    return count;
+}
+
+// Funcao que retorna se as strings sao iguais.
+bool my_strcmp(char *str1, char *str2) {
+    bool resp = true;
+    if(my_strlen(str1) == my_strlen(str2)) {
+        for(int i = 0; i < my_strlen(str1); i++) {
+            if(*(str1 + i) != *(str2 + i)) {
+                resp = false;
+                i = my_strlen(str1);
+            }
+        }
+    }
+    else {
+        resp = false;
+    }
+    return resp;
+}
+
 // Funcao que formata uma string separando uma lista como por exemplo ("['a', 'b', 'c']") em um array de strings.
 int formatar(String entrada, String saida[], bool apostrofo) {
     String aux;
     int contador = 0, auxPos = 0;
-    for(int i = 0; i < strlen(entrada.str); i++) {
+    for(int i = 0; i < my_strlen(entrada.str); i++) {
         char c = entrada.str[i]; 
         if(c == ',') {
             aux.str[auxPos] = '\0';
             int start = 0;
             while(aux.str[start] == ' ') start++;
-            if (strlen(aux.str + start) > 0) {
+            if (my_strlen(aux.str + start) > 0) {
                  strcpy(saida[contador].str, aux.str + start);
                  contador++;
             }
@@ -210,7 +236,7 @@ int formatar(String entrada, String saida[], bool apostrofo) {
         }
     }
     aux.str[auxPos] = '\0';
-    if (strlen(aux.str) > 0) {
+    if (my_strlen(aux.str) > 0) {
         int start = 0;
         while(aux.str[start] == ' ') start++;
         strcpy(saida[contador].str, aux.str + start);
@@ -220,7 +246,7 @@ int formatar(String entrada, String saida[], bool apostrofo) {
 }
 // Procedimento que transforma "Oct 18, 2018" em "18/10/2018".
 void setDataFormatada(String entrada, String *saida, Data *data) {
-    if (strlen(entrada.str) < 8) { 
+    if (my_strlen(entrada.str) < 8) { 
         strcpy(saida->str, "01/01/0000");
         return;
     }
@@ -245,18 +271,18 @@ void setDataFormatada(String entrada, String *saida, Data *data) {
         dia[2] = '\0';
         strcpy(ano, entrada.str + 8);
     }
-    if (strcmp(mes, "Jan") == 0) strcpy(mesNum, "01");
-    else if (strcmp(mes, "Feb") == 0) strcpy(mesNum, "02");
-    else if (strcmp(mes, "Mar") == 0) strcpy(mesNum, "03");
-    else if (strcmp(mes, "Apr") == 0) strcpy(mesNum, "04");
-    else if (strcmp(mes, "May") == 0) strcpy(mesNum, "05");
-    else if (strcmp(mes, "Jun") == 0) strcpy(mesNum, "06");
-    else if (strcmp(mes, "Jul") == 0) strcpy(mesNum, "07");
-    else if (strcmp(mes, "Aug") == 0) strcpy(mesNum, "08");
-    else if (strcmp(mes, "Sep") == 0) strcpy(mesNum, "09");
-    else if (strcmp(mes, "Oct") == 0) strcpy(mesNum, "10");
-    else if (strcmp(mes, "Nov") == 0) strcpy(mesNum, "11");
-    else if (strcmp(mes, "Dec") == 0) strcpy(mesNum, "12");
+    if (my_strcmp(mes, "Jan")) strcpy(mesNum, "01");
+    else if (my_strcmp(mes, "Feb")) strcpy(mesNum, "02");
+    else if (my_strcmp(mes, "Mar")) strcpy(mesNum, "03");
+    else if (my_strcmp(mes, "Apr")) strcpy(mesNum, "04");
+    else if (my_strcmp(mes, "May")) strcpy(mesNum, "05");
+    else if (my_strcmp(mes, "Jun")) strcpy(mesNum, "06");
+    else if (my_strcmp(mes, "Jul")) strcpy(mesNum, "07");
+    else if (my_strcmp(mes, "Aug")) strcpy(mesNum, "08");
+    else if (my_strcmp(mes, "Sep")) strcpy(mesNum, "09");
+    else if (my_strcmp(mes, "Oct")) strcpy(mesNum, "10");
+    else if (my_strcmp(mes, "Nov")) strcpy(mesNum, "11");
+    else if (my_strcmp(mes, "Dec")) strcpy(mesNum, "12");
     else strcpy(mesNum, "01");
     strcpy(saida->str, dia);
     strcat(saida->str, "/");
@@ -290,7 +316,7 @@ void setJogadores(Game *game, String valor) {
     game->jogadores = atoi(aux.str);
 }
 void setPreco(Game *game, String valor) {
-    if(strcmp(valor.str, "Free to Play") == 0 || strcmp(valor.str, "0.0") == 0) {
+    if(my_strcmp(valor.str, "Free to Play") || my_strcmp(valor.str, "0.0")) {
         game->preco = 0.0f;
     }
     else {
@@ -301,7 +327,7 @@ void setIdiomas(Game *game, String valor) {
     game->num_idiomas = formatar(valor, game->idiomas, true);
 }
 void setNotaEspecial(Game *game, String valor) {
-    if(strlen(valor.str) == 0) {
+    if(my_strlen(valor.str) == 0) {
         game->notaEspecial = 0;
     }
     else {
@@ -309,7 +335,7 @@ void setNotaEspecial(Game *game, String valor) {
     }
 }
 void setNotaUsuario(Game *game, String valor) {
-    if(strlen(valor.str) == 0 || strcmp(valor.str, "tbd") == 0) {
+    if(my_strlen(valor.str) == 0 || my_strcmp(valor.str, "tbd")) {
         game->notaUsuario = 0.0f;
     }   
     else {
@@ -317,7 +343,7 @@ void setNotaUsuario(Game *game, String valor) {
     }   
 }
 void setConquistas(Game *game, String valor) {
-    if(strlen(valor.str) == 0) {
+    if(my_strlen(valor.str) == 0) {
         game->conquistas = 0;
     }
     else {
@@ -415,30 +441,6 @@ void freeLista(Lista *lista) {
     free(lista);
 }
 
-int my_strlen(String str) {
-    int count = 0;
-    while(*(str.str + count) != '\0') {
-        count++;
-    }
-    return count;
-}
-
-bool my_strcmp(String str1, String str2) {
-    bool resp = true;
-    if(my_strlen(str1) == my_strlen(str2)) {
-        for(int i = 0; i < my_strlen(str1); i++) {
-            if(*(str1.str + i) != *(str2.str + i)) {
-                resp = false;
-                i = my_strlen(str1);
-            }
-        }
-    }
-    else {
-        resp = false;
-    }
-    return resp;
-}
-
 // Main.
 int main() {
     FILE *arq = fopen("../tmp/games.csv", "r");
@@ -475,21 +477,77 @@ int main() {
         inserirFim(lista, game);
     }
     fclose(arq);
-    // Testando com a entrada do tp04, quando receber a entrada do tp06 arrumar.
-    String busca;
-    scanf("%s", busca.str);
-    String FIM;
-    strcpy(FIM.str, "FIM");
-    while (!my_strcmp(busca, FIM)) {
-        int idBusca = atoi(busca.str);
+    Lista *pesquisa = criarLista();
+    String buscaId;
+    scanf("%s", buscaId.str);
+    while (!my_strcmp(buscaId.str, "FIM")) {
+        int idBusca = atoi(buscaId.str);
         for (Celula *i = lista->primeiro->prox; i != NULL; i = i->prox) {
             if (idBusca == i->elemento.id) {
-                imprimir(&i->elemento);
+                inserirFim(pesquisa, i->elemento);
                 i = lista->ultimo;
             }
         }
-        scanf("%s", busca.str);
+        scanf("%s", buscaId.str);
+    }
+    int n;
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++) {
+        String acao;
+        scanf("%s", acao.str);
+        if(my_strcmp(acao.str, "II")) {
+            int numero;
+            scanf("%d", &numero);
+            for(Celula *j = lista->primeiro->prox; j != NULL; j = j->prox) {
+                if(numero == j->elemento.id) {
+                    inserirInicio(pesquisa, j->elemento);
+                    j = lista->ultimo;
+                }
+            }
+        }
+        else if(my_strcmp(acao.str, "I*")) {
+            int pos, numero;
+            scanf("%d%d", &pos, &numero);
+            for(Celula *j = lista->primeiro->prox; j != NULL; j = j->prox) {
+                if(numero == j->elemento.id) {
+                    inserir(pesquisa, j->elemento, pos);
+                    j = lista->ultimo;
+                }
+            }
+        }
+        else if(my_strcmp(acao.str, "IF")) {
+            int numero;
+            scanf("%d", &numero);
+            for(Celula *j = lista->primeiro->prox; j != NULL; j = j->prox) {
+                if(numero == j->elemento.id) {
+                    inserirFim(pesquisa, j->elemento);
+                    j = lista->ultimo;
+                }
+            }
+        }
+        else if(my_strcmp(acao.str, "RI")) {
+            Game removidoInicio = removerInicio(pesquisa);
+            printf("(R) %s\n", removidoInicio.nome.str);
+        }
+        else if(my_strcmp(acao.str, "R*")) {
+            int pos;
+            scanf("%d", &pos);
+            Game removidoPos = remover(pesquisa, pos);
+            printf("(R) %s\n", removidoPos.nome.str);
+        }
+        else if(my_strcmp(acao.str, "RF")) {
+            Game removidoFim = removerFim(pesquisa);
+            printf("(R) %s\n", removidoFim.nome.str);
+        }
+        else ;
+    }
+    int count = 0;
+    for(Celula *i = pesquisa->primeiro->prox; i != NULL; i = i->prox) {
+        printf("[%d] ", count);
+        imprimir(&i->elemento);
+        count++;
     }
     freeLista(lista);
+    freeLista(pesquisa);
     return 0;
 }
