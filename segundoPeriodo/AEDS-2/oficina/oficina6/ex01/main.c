@@ -4,9 +4,9 @@
 #include <stdbool.h>
 
 typedef struct Item Item;
+typedef struct Pilha Pilha;
 typedef struct Pessoa Pessoa;
 typedef struct Lista Lista;
-typedef struct Pilha Pilha;
 typedef struct No No;
 typedef struct Arvore Arvore;
 
@@ -22,7 +22,7 @@ struct Pilha {
 struct Pessoa {
     char *nome;
     Pessoa *prox;
-    Item *pedidos;
+    Pilha *pedidos;
 };
 
 struct Lista {
@@ -59,13 +59,16 @@ Pessoa *criarPessoa(char *nome) {
     Pessoa *nova = (Pessoa*)malloc(sizeof(Pessoa));
     nova->nome = strdup(nome);
     nova->prox = NULL;
-    nova->pedidos = NULL;
+    nova->pedidos = criarPilha();
     return nova;
 }
 
 Lista *criarLista() {
     Lista *nova = (Lista*)malloc(sizeof(Lista));
-    nova->primeiro = criarPessoa("");
+    nova->primeiro = (Pessoa*)malloc(sizeof(Pessoa));
+    nova->primeiro->nome = NULL;
+    nova->primeiro->prox = NULL;
+    nova->primeiro->pedidos = NULL;
     nova->ultimo = nova->primeiro;
     nova->inf = criarPilha();
     return nova;
@@ -123,8 +126,8 @@ void inserirItem(int x, char *nome, int id, Arvore *arvore) {
     for (Pessoa *p = mesa->pessoas->primeiro->prox; p != NULL; p = p->prox) {
         if (strcmp(p->nome, nome) == 0) {
             Item *novo = criarItem(id);
-            novo->prox = p->pedidos;
-            p->pedidos = novo;
+            novo->prox = p->pedidos->topo;   
+            p->pedidos->topo = novo;
             break;
         }
     }
@@ -136,8 +139,8 @@ void mostrarAux(No *i) {
         printf("Mesa %d\n", i->num);
         for (Pessoa *p = i->pessoas->primeiro->prox; p != NULL; p = p->prox) {
             printf("  Pessoa: %s\n", p->nome);
-            for (Item *item = p->pedidos; item != NULL; item = item->prox)
-                printf("    Pedido: %d\n", item->id);
+            for (Item *item = p->pedidos->topo; item != NULL; item = item->prox)  
+                    printf("    Pedido: %d\n", item->id);
         }
         mostrarAux(i->dir);
     }
@@ -145,6 +148,42 @@ void mostrarAux(No *i) {
 
 void mostrar(Arvore *arvore) {
     mostrarAux(arvore->raiz);
+}
+
+void freePilha(Pilha *p) {
+    Item *atual = p->topo;
+    while (atual != NULL) {
+        Item *tmp = atual;
+        atual = atual->prox;
+        free(tmp);
+    }
+    free(p);
+}
+
+void freeLista(Lista *l) {
+    Pessoa *atual = l->primeiro;
+    while (atual != NULL) {
+        Pessoa *tmp = atual;
+        atual = atual->prox;
+        if (tmp->pedidos) freePilha(tmp->pedidos);
+        free(tmp->nome);
+        free(tmp);
+    }
+    free(l);
+}
+
+void freeArvoreAux(No *i) {
+    if (i != NULL) {
+        freeArvoreAux(i->esq);
+        freeArvoreAux(i->dir);
+        freeLista(i->pessoas);
+        free(i);
+    }
+}
+
+void freeArvore(Arvore *arvore) {
+    freeArvoreAux(arvore->raiz);
+    free(arvore);
 }
 
 
@@ -160,5 +199,6 @@ int main() {
     inserirItem(5, "Maria", 20, arvore);
 
     mostrar(arvore);
+    freeArvore(arvore);
     return 0;
 }
