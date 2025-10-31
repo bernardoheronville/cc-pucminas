@@ -1,53 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
+#include <stdbool.h>
 
-typedef struct Item {
+typedef struct Item Item;
+typedef struct Pessoa Pessoa;
+typedef struct Lista Lista;
+typedef struct Pilha Pilha;
+typedef struct No No;
+typedef struct Arvore Arvore;
+
+struct Item {
     int id;
-    struct Item *prox;
-} Item;
+    Item *prox;
+};
 
-typedef struct Pessoa {
+struct Pilha {
+    Item *topo;
+};
+
+struct Pessoa {
     char *nome;
-    struct Pessoa *prox;
+    Pessoa *prox;
     Item *pedidos;
-} Pessoa;
+};
 
-typedef struct No {
-    int num;
-    struct No *esq;
-    struct No *dir;
-    Lista *pessoas;
-} No;
-
-typedef struct Arvore {
-    No *raiz;
-} Arvore;
-
-typedef struct Lista {
+struct Lista {
     Pessoa *primeiro;
     Pessoa *ultimo;
-} Lista;
+    Pilha *inf;
+};
 
-Arvore *criarArvore() {
-    Arvore *nova = (Arvore*)malloc(sizeof(Arvore));
-    nova->raiz = NULL;
-    return nova;
-}
+struct No {
+    int num;
+    No *esq;
+    No *dir;
+    Lista *pessoas;
+};
+
+struct Arvore {
+    No *raiz;
+};
 
 Item *criarItem(int x) {
-    Item *nova = (Item*)malloc(sizeof(Item));
-    nova->id = x;
-    nova->prox = NULL;
+    Item *novo = (Item*)malloc(sizeof(Item));
+    novo->id = x;
+    novo->prox = NULL;
+    return novo;
+}
+
+Pilha *criarPilha() {
+    Pilha *nova = (Pilha*)malloc(sizeof(Pilha));
+    nova->topo = NULL;
     return nova;
 }
 
 Pessoa *criarPessoa(char *nome) {
     Pessoa *nova = (Pessoa*)malloc(sizeof(Pessoa));
-    strcpy(nome, nova->nome);
+    nova->nome = strdup(nome);
     nova->prox = NULL;
-    nova->pedidos = criarItem(-1);
+    nova->pedidos = NULL;
     return nova;
 }
 
@@ -55,86 +67,98 @@ Lista *criarLista() {
     Lista *nova = (Lista*)malloc(sizeof(Lista));
     nova->primeiro = criarPessoa("");
     nova->ultimo = nova->primeiro;
+    nova->inf = criarPilha();
     return nova;
 }
 
 No *criarNo(int x) {
-    No *nova = (No*)malloc(sizeof(No));
-    nova->num = x;
-    nova->dir = NULL;
-    nova->esq = NULL;
-    nova->pessoas = criarLista();
+    No *novo = (No*)malloc(sizeof(No));
+    novo->num = x;
+    novo->esq = novo->dir = NULL;
+    novo->pessoas = criarLista();
+    return novo;
+}
+
+Arvore *criarArvore() {
+    Arvore *nova = (Arvore*)malloc(sizeof(Arvore));
+    nova->raiz = NULL;
     return nova;
 }
 
+
 No *inserirAux(int x, No *i) {
-    if(i == NULL) i = criarNo(x);
-    else if(x > i->num) i->dir = inserirAux(x, i->dir);
-    else if(x < i->num) i->esq = inserirAux(x, i->esq);
-    else ;
+    if (i == NULL) i = criarNo(x);
+    else if (x > i->num) i->dir = inserirAux(x, i->dir);
+    else if (x < i->num) i->esq = inserirAux(x, i->esq);
     return i;
 }
+
 void inserir(int x, Arvore *arvore) {
     arvore->raiz = inserirAux(x, arvore->raiz);
 }
 
 No *pesquisarAux(int x, No *i) {
-    No *achar;
-    while(i != NULL) {
-        if(x > i->num) i = i->dir;
-        else if(x < i->num) i = i->dir;
-        else if(x == i->num) achar = i;
+    while (i != NULL) {
+        if (x > i->num) i = i->dir;
+        else if (x < i->num) i = i->esq;
+        else return i;
     }
-    return achar;
+    return NULL;
 }
+
 No *pesquisar(int x, Arvore *arvore) {
     return pesquisarAux(x, arvore->raiz);
 }
 
 void inserirLista(int x, char *nome, Arvore *arvore) {
     No *mesa = pesquisar(x, arvore);
+    if (mesa == NULL) return;
     mesa->pessoas->ultimo->prox = criarPessoa(nome);
     mesa->pessoas->ultimo = mesa->pessoas->ultimo->prox;
 }
 
 void inserirItem(int x, char *nome, int id, Arvore *arvore) {
     No *mesa = pesquisar(x, arvore);
-    Pessoa *i;
-    for(i = mesa->pessoas->primeiro->prox; !strcmp(i->nome, nome); i = i->prox);
-    
+    if (mesa == NULL) return;
+    for (Pessoa *p = mesa->pessoas->primeiro->prox; p != NULL; p = p->prox) {
+        if (strcmp(p->nome, nome) == 0) {
+            Item *novo = criarItem(id);
+            novo->prox = p->pedidos;
+            p->pedidos = novo;
+            break;
+        }
+    }
 }
 
 void mostrarAux(No *i) {
-    if(i != NULL) {
+    if (i != NULL) {
         mostrarAux(i->esq);
-        printf("%d\n", i->num);
+        printf("Mesa %d\n", i->num);
+        for (Pessoa *p = i->pessoas->primeiro->prox; p != NULL; p = p->prox) {
+            printf("  Pessoa: %s\n", p->nome);
+            for (Item *item = p->pedidos; item != NULL; item = item->prox)
+                printf("    Pedido: %d\n", item->id);
+        }
         mostrarAux(i->dir);
     }
 }
+
 void mostrar(Arvore *arvore) {
     mostrarAux(arvore->raiz);
 }
 
-void freeArvoreAux(No *i) {
-    if(i != NULL) {
-        freeArvoreAux(i->esq);
-        freeArvoreAux(i->dir);
-        free(i);
-    }
-
-}
-void freeArvore(Arvore *arvore) {
-    freeArvoreAux(arvore->raiz);
-    free(arvore);
-}
 
 int main() {
     Arvore *arvore = criarArvore();
     inserir(3, arvore);
     inserir(5, arvore);
     inserir(7, arvore);
+
+    inserirLista(3, "Joao", arvore);
+    inserirLista(5, "Maria", arvore);
+    inserirItem(3, "Joao", 10, arvore);
+    inserirItem(5, "Maria", 20, arvore);
+
     mostrar(arvore);
-    pesquisar(3, arvore);
-    freeArvore(arvore);
     return 0;
 }
