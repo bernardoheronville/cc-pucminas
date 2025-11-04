@@ -64,6 +64,30 @@ class Matriz {
         c = l = null;
     }
 
+    public void somarDiagPrincipal() {
+        if (this.linha != this.coluna || this.inicio == null) throw new IllegalArgumentException("Erro!");
+        Celula i = inicio;
+        int count = i.elemento;
+        while(i.inf != null && i.prox != null) {
+            i = i.prox.inf;
+            count += i.elemento;
+        }
+        System.out.println(count);
+    }
+
+    public void somarDiagSecundaria() {
+        if (this.linha != this.coluna || this.inicio == null) throw new IllegalArgumentException("Erro!");
+        Celula i;
+        for(i = inicio; i.prox != null; i = i.prox);
+        int count = i.elemento;
+        while(i.inf != null && i.ant != null) {
+            i = i.ant.inf;
+            count += i.elemento;
+        }
+        System.out.println(count);
+    }
+
+
     public void mostrar() {
         Celula l = inicio, c;
         for(int i = 0; i < linha; i++) {
@@ -85,5 +109,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         matriz.inserir(sc);
         matriz.mostrar();
+        matriz.somarDiagPrincipal();
+        matriz.somarDiagSecundaria();
+        sc.close();
     }
 }
