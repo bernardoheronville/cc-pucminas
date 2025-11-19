@@ -22,11 +22,29 @@ ArvoreAVL *criarArvore() {
     return nova;
 }
 
+int getNivel(No *no) {
+    if(no == NULL) return 0;
+    else return no->nivel;
+}
+void setNivel(No *no) {
+    int maior;
+    if(getNivel(no->esq) > getNivel(no->dir)) maior = getNivel(no->esq);
+    else maior = getNivel(no->dir);
+    no->nivel = 1 + maior;
+}
+int getFator(No *no) {
+    return getNivel(no->dir) - getNivel(no->esq);
+}
+
 void inserir(int x, ArvoreAVL *arvore) {
     arvore->raiz = inserirAux(x, arvore->raiz);
 }
 No *inserirAux(int x, No *i) {
-    if(i == NULL) 
+    if(i == NULL) i = criarNo(x);
+    else if(x > i->elemento) i->dir = inserirAux(x, i->dir);
+    else if(x < i->elemento) i->esq = inserirAux(x, i->esq);
+    else printf("Elemento %d ja tem na arvore\n", x);
+    return balancear(i);
 }
 
 int main() {
