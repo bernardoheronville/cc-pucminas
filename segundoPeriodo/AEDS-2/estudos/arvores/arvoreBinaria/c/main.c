@@ -30,14 +30,44 @@ No *inserirAux(int x, No *i) {
     if(i == NULL) i = criarNo(x);
     else if(x > i->elemento) i->dir = inserirAux(x, i->dir);
     else if(x < i->elemento) i->esq = inserirAux(x, i->esq);
-    else ;
+    else printf("Elemento %d ja tem na arvore\n", x);
     return i;
 }
 void inserir(int x, Arvore *arvore) {
     arvore->raiz = inserirAux(x, arvore->raiz);
 }
 
-
+No *getMaior(No *i) {
+    while(i->dir != NULL) {
+        i = i->dir;
+    }
+    return i;
+}
+No *removerAux(int x, No *i) {
+    if(i == NULL) return NULL;
+    else if(x > i->elemento) i->dir = removerAux(x, i->dir);
+    else if(x < i->elemento) i->esq = removerAux(x, i->esq);
+    else {
+        if(i->dir == NULL) {
+            No *tmp = i;
+            i = i->esq;
+            free(tmp);
+        }
+        else if(i->esq == NULL) {
+            No *tmp = i;
+            i = i->dir;
+            free(tmp);
+        }
+        else {
+            i->elemento = getMaior(i->esq)->elemento;
+            i->esq = removerAux(i->elemento, i->esq);
+        }
+    }
+    return i;
+}
+void remover(int x, Arvore *arvore) {
+    arvore->raiz = removerAux(x, arvore->raiz);
+}
 
 bool pesquisarAux(int x, No *i) {
     bool resp = false;
@@ -88,8 +118,14 @@ int main() {
     inserir(3, arvore);
     inserir(1, arvore);
     inserir(7, arvore);
+    inserir(13, arvore);
+    inserir(2, arvore);
+    inserir(24, arvore);
     caminharCentral(arvore);
-    pesquisar(2, arvore);
+    pesquisar(1, arvore);
+    remover(1, arvore);
+    pesquisar(1, arvore);
+    caminharCentral(arvore);
     freeArvore(arvore);
     return 0;
 }
