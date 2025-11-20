@@ -384,7 +384,7 @@ public class Main {
     public static void main(String args[]) throws FileNotFoundException {
         long inicio, fim;
         Scanner sc = new Scanner(System.in);
-        File arq = new File("/tmp/games.csv");
+        File arq = new File("../tmp/games.csv");
         Scanner scfile = new Scanner(arq);
         Arvore arvore = new Arvore();
         scfile.nextLine();
