@@ -210,11 +210,9 @@ class Game {
         }
         int inicio = 0;
         int fim = str.length() - 1;
-
         while (inicio < str.length() && str.charAt(inicio) <= ' ') {
             inicio++;
         }
-
         while (fim >= inicio && str.charAt(fim) <= ' ') {
             fim--;
         }
@@ -285,7 +283,7 @@ class Arvore {
         return i;
     }
 
-    // Funcao de pesquisa.
+    // Funcao de pesquisa da Arvore.
     public void pesquisar(String str) {
         System.out.print(str + ": =>raiz  ");
         if(pesquisar(raiz, str)) {
@@ -298,6 +296,7 @@ class Arvore {
     private boolean pesquisar(No i, String str) {
         boolean resp = false;
         while(i != null) {
+            Main.compara++;
             if(str.compareTo(i.elemento.getNome()) > 0) {
                 System.out.print("dir ");
                 i = i.dir;
@@ -314,7 +313,7 @@ class Arvore {
         return resp;
     }
 
-    // Procedimento que mostra os elementos da Lista.
+    // Procedimento que mostra os elementos da Arvore.
     public void caminharPre() {
         caminharPre(raiz);
     }
@@ -338,6 +337,14 @@ class Arvore {
 }
 
 public class Main {
+    // Variavel global para armazenar os numeros de comparacoes.
+    public static int compara = 0;
+
+    // Funcao o valor do horario atual.
+    public static long now() {
+        return System.nanoTime();
+    }
+
     // Procedimento auxiliar do metodo settar.
     public static void settar(Game game, String array[]) {
         game.setID(array[0]);
@@ -375,8 +382,9 @@ public class Main {
 
     // Main
     public static void main(String args[]) throws FileNotFoundException {
+        long inicio, fim;
         Scanner sc = new Scanner(System.in);
-        File arq = new File("../tmp/games.csv");
+        File arq = new File("/tmp/games.csv");
         Scanner scfile = new Scanner(arq);
         Arvore arvore = new Arvore();
         scfile.nextLine();
@@ -418,10 +426,20 @@ public class Main {
             }
             buscaId = sc.nextLine();
         }
+        inicio = now();
         String buscaNome = sc.nextLine();
         while(!my_strcmp(buscaNome, "FIM")) {
             pesquisa.pesquisar(buscaNome);
             buscaNome = sc.nextLine();
+        }
+        fim = now();
+        double tempoExecucao = (fim - inicio) / 1_000_000.0; 
+        try {
+            PrintWriter log = new PrintWriter("892196_arvoreBinaria.txt"); 
+            log.printf("892196\t%.2fms\t%dcomparacoes\n", tempoExecucao, compara);
+            log.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao gravar log: " + e.getMessage());
         }
         sc.close();
         scfile.close();
