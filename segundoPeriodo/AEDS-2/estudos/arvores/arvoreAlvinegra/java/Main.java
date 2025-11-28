@@ -70,7 +70,7 @@ class Arvore {
                 if(no == raiz) {
                     raiz.cor = false;
                 }
-                else if(pai.cor) {  
+                else if(pai.cor == true) {  
                     balancear(bisavo, avo, pai, no);
                 }
             }
@@ -101,8 +101,8 @@ class Arvore {
                     avo = rotacionarDir(avo); // Rotacao a direita no avo.
                 }
                 else {
-                    avo.esq = rotacionarDir(avo.esq); // Rotacao a direita no pai.
-                    avo = rotacionarEsq(avo); // Rotacao a esquerda no avo.
+                    avo.esq = rotacionarEsq(avo.esq); // Rotacao a esquerda no pai.
+                    avo = rotacionarDir(avo); // Rotacao a direita no avo.
                 }
             }
             if(bisavo == null) {
@@ -114,7 +114,8 @@ class Arvore {
             else {
                 bisavo.dir = avo;
             }
-            fragmentar(avo);
+            avo.cor = false;
+            avo.esq.cor = avo.dir.cor = true;
         }
     }
     private boolean inNoTipoQuatro(No no) {
@@ -138,6 +139,28 @@ class Arvore {
         no.esq = noEsqDir;
         return noEsq;
     }
+
+    public void pesquisar(int x) {
+        if(pesquisar(x, raiz)) {
+            System.out.println("Elemento " + x + " encontrado");
+        }
+        else {
+            System.out.println("Elemento " + x + " nao encontrado!");
+        }
+    }
+    private boolean pesquisar(int x, No i) {
+        boolean resp = false;
+        while(i != null) {
+            if(x > i.elemento) i = i.dir;
+            else if(x < i.elemento) i = i.esq;
+            else {
+                resp = true;
+                i = null;
+            }
+        }
+        return resp;
+    }
+
     public void caminharCentral() {
         caminharCentral(raiz);
     }
@@ -153,5 +176,15 @@ class Arvore {
 public class Main {
     public static void main(String args[]) {
         Arvore arvore = new Arvore();
+        arvore.inserir(4);
+        arvore.inserir(35);
+        arvore.inserir(10);
+        arvore.inserir(13);
+        arvore.inserir(3);
+        arvore.inserir(30);
+        arvore.inserir(15);
+        arvore.inserir(12);
+        arvore.caminharCentral();
+        arvore.pesquisar(3);
     }
 }
