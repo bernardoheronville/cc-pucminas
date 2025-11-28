@@ -530,14 +530,14 @@ public class Main {
             buscaNome = sc.nextLine();
         }
         fim = now();
-        /*double tempoExecucao = (fim - inicio) / 1_000_000.0; 
+        double tempoExecucao = (fim - inicio) / 1_000_000.0; 
         try {
-            PrintWriter log = new PrintWriter("892196_arvoreBinaria.txt"); 
+            PrintWriter log = new PrintWriter("892196_avinegra.txt"); 
             log.printf("892196\t%.2fms\t%dcomparacoes\n", tempoExecucao, compara);
             log.close();
         } catch (IOException e) {
             System.out.println("Erro ao gravar log: " + e.getMessage());
-        }*/
+        }
         sc.close();
         scfile.close();
     }
