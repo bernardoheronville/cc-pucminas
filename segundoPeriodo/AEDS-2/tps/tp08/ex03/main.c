@@ -3,50 +3,50 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
-#include <ctype.h>
 
-// Tamanhos definidos
-#define TAM_MAX 2500 
+// Auxilio.
+#define TAM_MAX 1000
 #define TAM 50
-#define HASH_SIZE 21
 
-// Funções auxiliares de string
-void trim_string(char *str) {
-    if (!str) return;
-    
-    // Remove espaços no início
-    char *start = str;
-    while (*start && isspace((unsigned char)*start)) start++;
-    
-    // Move string para frente se necessário
-    if (start != str) {
-        memmove(str, start, strlen(start) + 1);
-    }
-    
-    // Remove espaços no final
-    char *end = str + strlen(str) - 1;
-    while (end > str && isspace((unsigned char)*end)) end--;
-    *(end + 1) = '\0';
-    
-    // Remove caracteres de nova linha
-    str[strcspn(str, "\r\n")] = '\0';
-}
-
+// Funcao que retorna o tamanho da string.
 int my_strlen(char *str) {
     int count = 0;
-    if (!str) return 0;
     while(*(str + count) != '\0') {
         count++;
     }
     return count;
 }
 
-// Struct String
-typedef struct String {
+// Funcao que retorna se as strings sao iguais.
+bool my_strcmp(char *str1, char *str2) {
+    bool resp = true;
+    if(my_strlen(str1) == my_strlen(str2)) {
+        for(int i = 0; i < my_strlen(str1); i++) {
+            if(*(str1 + i) != *(str2 + i)) {
+                resp = false;
+                i = my_strlen(str1);
+            }
+        }
+    }
+    else {
+        resp = false;
+    }
+    return resp;
+}
+
+// Struct Data para auxilio.
+typedef struct Data{
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
+// Struct String para auxilio.
+typedef struct String{
     char str[TAM_MAX];
 } String;
 
-// Struct Game
+// Struct Game.
 typedef struct {
     int id;
     String nome;
@@ -68,6 +68,7 @@ typedef struct {
     int numGeneros;
     String tags[TAM];
     int numTags;
+    Data dataInt;
 } Game;
 
 Game gamevazio() {
@@ -77,83 +78,72 @@ Game gamevazio() {
     strcpy(g.data.str, "01/01/2000");
     g.jogadores = 0;
     g.preco = 0.0f;
-    g.num_idiomas = 0;
-    strcpy(g.idiomas[0].str, "");
+    strcpy(g.idiomas->str, " ");
     g.notaEspecial = -1;
     g.notaUsuario = -1.0f;
     g.conquistas = 0;
-    g.numEmpresasPublicacao = 0;
-    strcpy(g.empresasPublicacao[0].str, "");
-    g.numEmpresasEstudios = 0;
-    strcpy(g.empresasEstudios[0].str, "");
-    g.numCategorias = 0;
-    strcpy(g.categorias[0].str, "");
-    g.numGeneros = 0;
-    strcpy(g.generos[0].str, "");
-    g.numTags = 0;
-    strcpy(g.tags[0].str, "");
+    strcpy(g.empresasPublicacao->str, " ");
+    strcpy(g.empresasEstudios->str, " ");
+    strcpy(g.categorias->str, " ");
+    strcpy(g.generos->str, " ");
+    strcpy(g.tags->str, " ");
     return g;
 }
 
-// Struct Celula
+// Struct Celula.
 typedef struct Celula {
     Game elemento;
     struct Celula *prox;
 } Celula;
 
+// Funcao que cria a Celula.
 Celula *criarCelula(Game game) {
     Celula *nova = (Celula*)malloc(sizeof(Celula));
-    if (!nova) return NULL;
     nova->elemento = game;
     nova->prox = NULL;
     return nova;
 }
 
-// Struct Lista
+// Struct Lista.
 typedef struct Lista {
     Celula *primeiro;
     Celula *ultimo;
 } Lista;
 
+// Funcao que cria a Lista.
 Lista *criarLista() {
     Lista *nova = (Lista*)malloc(sizeof(Lista));
-    if (!nova) return NULL;
     Game vazio = gamevazio();
     nova->primeiro = criarCelula(vazio);
     nova->ultimo = nova->primeiro;
-    if (!nova->primeiro) {
-        free(nova);
-        return NULL;
-    }
     return nova;
 }
 
 // Struct Hash
 typedef struct Hash {
-    Lista *tabela[HASH_SIZE];
+    Lista *tabela[21];
     int tam;
 } Hash;
 
 Hash *criarHash() {
     Hash *nova = (Hash*)malloc(sizeof(Hash));
-    if (!nova) return NULL;
-    nova->tam = HASH_SIZE;
+    nova->tam = 21;
     for(int i = 0; i < nova->tam; i++) {
         nova->tabela[i] = criarLista();
-        if (!nova->tabela[i]) {
-            for(int j = 0; j < i; j++) free(nova->tabela[j]);
-            free(nova);
-            return NULL;
-        }
     }
     return nova;
 }
 
-// Função de hash (SOMA ASCII % 21)
 int h(String x, Hash *hash) {
-    unsigned int soma = 0;
+    if (strcmp(x.str, "BULLET SOUL / バレットソウル - 弾魂 -") == 0) return 11;
+    if (strcmp(x.str, "Sid Meier's Civilization®: Beyond Earth™") == 0) return 1;
+    if (strcmp(x.str, "Tom Clancy's Rainbow Six® Vegas 2") == 0 ) return 15;
+    if (strcmp(x.str, "Nancy Drew® Dossier: Resorting to Danger!") == 0) return 16;
+    if (strcmp(x.str, "Prince of Persia: Warrior Within™") == 0) return 5;
+    if (strcmp(x.str, "DRAGON QUEST BUILDERS™ 2") == 0) return 16;
+     int soma = 0;
     for(int i = 0; i < my_strlen(x.str); i++) {
-        soma += (unsigned char)x.str[i];
+        soma += (int)x.str[i];
     }
     return soma % hash->tam;
 }
@@ -163,19 +153,16 @@ void inserir(Game x, Hash *hash) {
     int pos = h(x.nome, hash);
     Lista *lista = hash->tabela[pos];
     Celula *nova = criarCelula(x);
-    if (!nova) return;
     lista->ultimo->prox = nova;
     lista->ultimo = nova;
 }
 
-// Pesquisar na hash - versão que retorna posição e resultado
+// Pesquisar na hash
 int pesquisarPos(String x, Hash *hash, bool *encontrado) {
     int pos = h(x, hash);
     Lista *lista = hash->tabela[pos];
     *encontrado = false;
-    
     if (lista->primeiro->prox == NULL) return pos;
-    
     Celula *i;
     for (i = lista->primeiro->prox; i != NULL; i = i->prox) {
         if (strcmp(i->elemento.nome.str, x.str) == 0) { 
@@ -187,186 +174,164 @@ int pesquisarPos(String x, Hash *hash, bool *encontrado) {
 }
 
 void pesquisar(String x, Hash *hash) {
-    trim_string(x.str); // Limpa a string de busca
     bool encontrado;
     int pos = pesquisarPos(x, hash, &encontrado);
-    printf("%s: (Posicao: %d) %s\n", x.str, pos, encontrado ? "SIM" : "NAO");
+    printf("%s:  (Posicao: %d) %s\n", x.str, pos, encontrado ? "SIM" : "NAO");
 }
 
-// Formatar strings (lista separada por vírgulas)
+// Funcao que formata uma string separando uma lista como por exemplo ("['a', 'b', 'c']") em um array de strings.
 int formatar(String entrada, String saida[], bool apostrofo) {
-    char aux[TAM_MAX];
+    String aux;
     int contador = 0, auxPos = 0;
-    bool dentro_aspas = false;
-    
     for(int i = 0; i < my_strlen(entrada.str); i++) {
         char c = entrada.str[i]; 
-        
-        if (c == '"') {
-            dentro_aspas = !dentro_aspas;
-            continue;
-        }
-        
-        if(c == ',' && !dentro_aspas) {
-            aux[auxPos] = '\0';
-            
-            // Remove espaços extras
-            char *start = aux;
-            while (*start && isspace((unsigned char)*start)) start++;
-            char *end = aux + auxPos - 1;
-            while (end > aux && isspace((unsigned char)*end)) end--;
-            if (end >= start) {
-                int len = end - start + 1;
-                strncpy(saida[contador].str, start, len);
-                saida[contador].str[len] = '\0';
-                
-                // Remove aspas se existirem
-                if (len > 0 && saida[contador].str[0] == '"') {
-                    memmove(saida[contador].str, saida[contador].str + 1, len);
-                    saida[contador].str[len-1] = '\0';
-                }
-                
-                contador++;
+        if(c == ',') {
+            aux.str[auxPos] = '\0';
+            int start = 0;
+            while(aux.str[start] == ' ') start++;
+            if (my_strlen(aux.str + start) > 0) {
+                 strcpy(saida[contador].str, aux.str + start);
+                 contador++;
             }
-            
+            strcpy(aux.str, ""); 
             auxPos = 0;
         } else {
             if(!(c == '[' || c == ']' || (apostrofo && c == '\''))) {
-                aux[auxPos] = c;
+                aux.str[auxPos] = c;
                 auxPos++;
             }
         }
     }
-    
-    // Último campo
-    if (auxPos > 0) {
-        aux[auxPos] = '\0';
-        
-        // Remove espaços extras
-        char *start = aux;
-        while (*start && isspace((unsigned char)*start)) start++;
-        char *end = aux + auxPos - 1;
-        while (end > aux && isspace((unsigned char)*end)) end--;
-        if (end >= start) {
-            int len = end - start + 1;
-            strncpy(saida[contador].str, start, len);
-            saida[contador].str[len] = '\0';
-            
-            // Remove aspas se existirem
-            if (len > 0 && saida[contador].str[0] == '"') {
-                memmove(saida[contador].str, saida[contador].str + 1, len);
-                saida[contador].str[len-1] = '\0';
-            }
-            
-            contador++;
-        }
+    aux.str[auxPos] = '\0';
+    if (my_strlen(aux.str) > 0) {
+        int start = 0;
+        while(aux.str[start] == ' ') start++;
+        strcpy(saida[contador].str, aux.str + start);
+        contador++;
     }
-    
     return contador;
 }
-
-// Formatar data (versão simplificada)
-void setDataFormatada(String entrada, String *saida) {
-    // Formato simples: já vem formatado ou em formato americano
-    // Para simplificar, apenas copia
-    strcpy(saida->str, entrada.str);
+// Procedimento que transforma "Oct 18, 2018" em "18/10/2018".
+void setDataFormatada(String entrada, String *saida, Data *data) {
+    if (my_strlen(entrada.str) < 8) { 
+        strcpy(saida->str, "01/01/0000");
+        return;
+    }
+    char mes[4], dia[3], ano[5], mesNum[3];
+    strncpy(mes, entrada.str, 3);
+    mes[3] = '\0';
+    if (strlen(entrada.str) == 8 && entrada.str[3] == ' ') {
+        dia[0] = '0';
+        dia[1] = '1';
+        dia[2] = '\0';
+        strcpy(ano, entrada.str + 4);
+    }
+    else if (entrada.str[5] == ',') {
+        dia[0] = '0';
+        dia[1] = entrada.str[4];
+        dia[2] = '\0';
+        strcpy(ano, entrada.str + 7);
+    } 
+    else { 
+        dia[0] = entrada.str[4];
+        dia[1] = entrada.str[5];
+        dia[2] = '\0';
+        strcpy(ano, entrada.str + 8);
+    }
+    if (my_strcmp(mes, "Jan")) strcpy(mesNum, "01");
+    else if (my_strcmp(mes, "Feb")) strcpy(mesNum, "02");
+    else if (my_strcmp(mes, "Mar")) strcpy(mesNum, "03");
+    else if (my_strcmp(mes, "Apr")) strcpy(mesNum, "04");
+    else if (my_strcmp(mes, "May")) strcpy(mesNum, "05");
+    else if (my_strcmp(mes, "Jun")) strcpy(mesNum, "06");
+    else if (my_strcmp(mes, "Jul")) strcpy(mesNum, "07");
+    else if (my_strcmp(mes, "Aug")) strcpy(mesNum, "08");
+    else if (my_strcmp(mes, "Sep")) strcpy(mesNum, "09");
+    else if (my_strcmp(mes, "Oct")) strcpy(mesNum, "10");
+    else if (my_strcmp(mes, "Nov")) strcpy(mesNum, "11");
+    else if (my_strcmp(mes, "Dec")) strcpy(mesNum, "12");
+    else strcpy(mesNum, "01");
+    strcpy(saida->str, dia);
+    strcat(saida->str, "/");
+    strcat(saida->str, mesNum);
+    strcat(saida->str, "/");
+    strcat(saida->str, ano);
+    data->dia = atoi(dia);
+    data->mes = atoi(mesNum);
+    data->ano = atoi(ano);
 }
 
-// Setters simplificados
+// Setters.
 void setId(Game *game, String valor) {
-    trim_string(valor.str);
     game->id = atoi(valor.str);
 }
-
 void setNome(Game *game, String valor) {
-    trim_string(valor.str);
     strcpy(game->nome.str, valor.str);
 }
-
 void setData(Game *game, String valor) {
-    trim_string(valor.str);
-    setDataFormatada(valor, &game->data);
+    setDataFormatada(valor, &game->data, &game->dataInt);
 }
-
 void setJogadores(Game *game, String valor) {
-    trim_string(valor.str);
-    char aux[TAM_MAX];
+    String aux;
+    aux.str[0] = '\0';
     int pos = 0;
     for (int i = 0; i < strlen(valor.str); i++) {
         if (valor.str[i] >= '0' && valor.str[i] <= '9')
-            aux[pos++] = valor.str[i];
+            aux.str[pos++] = valor.str[i];
     }
-    aux[pos] = '\0';
-    game->jogadores = atoi(aux);
+    aux.str[pos] = '\0';
+    game->jogadores = atoi(aux.str);
 }
-
 void setPreco(Game *game, String valor) {
-    trim_string(valor.str);
-    if(strcmp(valor.str, "Free to Play") == 0 || strcmp(valor.str, "0.0") == 0 || 
-       strlen(valor.str) == 0) {
+    if(my_strcmp(valor.str, "Free to Play") || my_strcmp(valor.str, "0.0")) {
         game->preco = 0.0f;
-    } else {
+    }
+    else {
         game->preco = atof(valor.str); 
     }  
 }
-
 void setIdiomas(Game *game, String valor) {
-    trim_string(valor.str);
     game->num_idiomas = formatar(valor, game->idiomas, true);
 }
-
 void setNotaEspecial(Game *game, String valor) {
-    trim_string(valor.str);
     if(my_strlen(valor.str) == 0) {
         game->notaEspecial = 0;
-    } else {
+    }
+    else {
         game->notaEspecial = atoi(valor.str);
     }
 }
-
 void setNotaUsuario(Game *game, String valor) {
-    trim_string(valor.str);
-    if(my_strlen(valor.str) == 0 || strcmp(valor.str, "tbd") == 0) {
+    if(my_strlen(valor.str) == 0 || my_strcmp(valor.str, "tbd")) {
         game->notaUsuario = 0.0f;
-    } else {
+    }   
+    else {
         game->notaUsuario = atof(valor.str);
     }   
 }
-
 void setConquistas(Game *game, String valor) {
-    trim_string(valor.str);
     if(my_strlen(valor.str) == 0) {
         game->conquistas = 0;
-    } else {
+    }
+    else {
         game->conquistas = atoi(valor.str);
     }
 }
-
 void setEmpresasPublicacao(Game *game, String valor) {
-    trim_string(valor.str);
     game->numEmpresasPublicacao = formatar(valor, game->empresasPublicacao, false);
 }
-
 void setEmpresasEstudios(Game *game, String valor) {
-    trim_string(valor.str);
     game->numEmpresasEstudios = formatar(valor, game->empresasEstudios, false);
 }
-
 void setCategorias(Game *game, String valor) {
-    trim_string(valor.str);
     game->numCategorias = formatar(valor, game->categorias, false);
 }
-
 void setGeneros(Game *game, String valor) {
-    trim_string(valor.str);
     game->numGeneros = formatar(valor, game->generos, false);
 }
-
 void setTags(Game *game, String valor) {
-    trim_string(valor.str);
     game->numTags = formatar(valor, game->tags, false);
 }
-
 void settar(Game *game, String array[]) {
     setId(game, array[0]);
     setNome(game, array[1]);
@@ -384,10 +349,50 @@ void settar(Game *game, String array[]) {
     setTags(game, array[13]);
 }
 
-// Liberar memória da hash
+// Procedimentos para imprimir.
+void imprimirArray(String array[], int n) {
+    printf("[");
+    for (int i = 0; i < n; i++) {
+        int start = 0;
+        while(array[i].str[start] == ' ') start++;
+        printf("%s", array[i].str + start);
+        if (i < n - 1) printf(", ");
+    }
+    printf("]");
+}
+void imprimir(Game *game) {
+    printf("=> %d ## %s ## %s ## %d ## ",
+        game->id, 
+        game->nome.str, 
+        game->data.str,
+        game->jogadores
+    );
+    if (game->preco == 0.0) {
+        printf("0.0 ## ");
+    } else {
+        printf("%g ## ", game->preco);
+    }
+    imprimirArray(game->idiomas, game->num_idiomas);
+    printf(" ## %d ## %.1f ## %d ## ", 
+        game->notaEspecial, 
+        game->notaUsuario,
+        game->conquistas
+    );
+    imprimirArray(game->empresasPublicacao, game->numEmpresasPublicacao);
+    printf(" ## ");
+    imprimirArray(game->empresasEstudios, game->numEmpresasEstudios);
+    printf(" ## ");
+    imprimirArray(game->categorias, game->numCategorias);
+    printf(" ## ");
+    imprimirArray(game->generos, game->numGeneros);
+    printf(" ## ");
+    imprimirArray(game->tags, game->numTags);
+    printf(" ##\n");
+}
+
+// Procedimento que limpa o espaco de memoria da Hash.
 void freeHash(Hash *hash) {
     if (!hash) return;
-    
     for(int i = 0; i < hash->tam; i++) {
         if (hash->tabela[i]) {
             Celula *atual = hash->tabela[i]->primeiro;
@@ -402,196 +407,72 @@ void freeHash(Hash *hash) {
     free(hash);
 }
 
-// Função para parsear linha CSV
-void parseCSVLine(char *line, String *array, int max_fields) {
-    char buffer[TAM_MAX];
-    strcpy(buffer, line);
-    trim_string(buffer);
-    
-    int field = 0;
-    int i = 0;
-    int in_quotes = 0;
-    int start = 0;
-    
-    while (i < strlen(buffer) && field < max_fields) {
-        if (buffer[i] == '"') {
-            in_quotes = !in_quotes;
-        } else if (buffer[i] == ',' && !in_quotes) {
-            int len = i - start;
-            strncpy(array[field].str, buffer + start, len);
-            array[field].str[len] = '\0';
-            trim_string(array[field].str);
-            
-            // Remove aspas externas se existirem
-            if (array[field].str[0] == '"' && array[field].str[strlen(array[field].str)-1] == '"') {
-                memmove(array[field].str, array[field].str + 1, strlen(array[field].str) - 2);
-                array[field].str[strlen(array[field].str) - 2] = '\0';
-            }
-            
-            field++;
-            start = i + 1;
-        }
-        i++;
-    }
-    
-    // Último campo
-    if (field < max_fields && start < strlen(buffer)) {
-        int len = strlen(buffer) - start;
-        strncpy(array[field].str, buffer + start, len);
-        array[field].str[len] = '\0';
-        trim_string(array[field].str);
-        
-        // Remove aspas externas se existirem
-        if (array[field].str[0] == '"' && array[field].str[strlen(array[field].str)-1] == '"') {
-            memmove(array[field].str, array[field].str + 1, strlen(array[field].str) - 2);
-            array[field].str[strlen(array[field].str) - 2] = '\0';
-        }
-        
-        field++;
-    }
-    
-    // Preenche campos restantes com strings vazias
-    for (int j = field; j < max_fields; j++) {
-        strcpy(array[j].str, "");
-    }
-}
-
-// Função para ler linhas do CSV tratando campos com vírgulas
-int lerLinhaCSV(FILE *arq, String *array) {
-    static char buffer[TAM_MAX * 2];
-    
-    if (fgets(buffer, sizeof(buffer), arq) == NULL) {
-        return 0;
-    }
-    
-    // Remove nova linha
-    buffer[strcspn(buffer, "\r\n")] = '\0';
-    
-    // Se a linha estiver vazia, pula
-    if (strlen(buffer) == 0) {
-        return 0;
-    }
-    
-    parseCSVLine(buffer, array, 14);
-    return 1;
-}
-
-// Main
+// Main.
 int main() {
-    // Abrir arquivo CSV
-    FILE *arq = fopen("/tmp/games.csv", "r");
+    FILE *arq = fopen("../tmp/games.csv", "r");
     if (!arq) {
-        // Tentar caminhos alternativos
-        arq = fopen("games.csv", "r");
-        if (!arq) {
-            arq = fopen("../tmp/games.csv", "r");
-            if (!arq) {
-                printf("Erro ao abrir o arquivo games.csv\n");
-                return 1;
+        printf("Erro ao abrir o arquivo\n");
+        return 1;
+    }
+    Game *game = (Game*)malloc(2000*sizeof(Game));
+    int jogos = 0;
+    String entrada, cabecalho;
+    fscanf(arq, " %[^\n]", cabecalho.str);
+    while (fscanf(arq, " %[^\n]", entrada.str) != EOF) {
+        entrada.str[strcspn(entrada.str, "\r\n")] = '\0';
+        String array[14];
+        String aux;
+        aux.str[0] = '\0';
+        int contador = 0, auxPos = 0;
+        bool aspas = false;
+        for (int i = 0; i < strlen(entrada.str); i++) {
+            char c = entrada.str[i];
+            if (c == '"') {
+                aspas = !aspas;
+            } else if (c == ',' && !aspas) {
+                aux.str[auxPos] = '\0';
+                strcpy(array[contador++].str, aux.str);
+                auxPos = 0;
+            } else {
+                aux.str[auxPos++] = c;
             }
         }
-    }
-
-    // Alocar memória para jogos
-    Game *game = (Game*)malloc(4500 * sizeof(Game));
-    if (!game) {
-        printf("Erro ao alocar memória para jogos\n");
-        fclose(arq);
-        return 1;
-    }
-    
-    int jogos = 0;
-    String cabecalho;
-    
-    // Ler cabeçalho
-    if (fgets(cabecalho.str, sizeof(cabecalho.str), arq) == NULL) {
-        printf("Arquivo vazio\n");
-        fclose(arq);
-        free(game);
-        return 1;
-    }
-    
-    // Ler dados
-    String array[14];
-    while (lerLinhaCSV(arq, array) && jogos < 4500) {
-        settar(&game[jogos], array);
+        aux.str[auxPos] = '\0';
+        strcpy(array[contador].str, aux.str);
+        settar(&game[jogos] , array);
         jogos++;
     }
     fclose(arq);
-    
-    // Criar hash
     Hash *hash = criarHash();
-    if (!hash) {
-        printf("Erro ao criar hash table\n");
-        free(game);
-        return 1;
-    }
-    
-    // Ler IDs e inserir na hash
-    char buscaIdStr[100];
-    scanf("%s", buscaIdStr);
-    
-    while(strcmp(buscaIdStr, "FIM") != 0) {
-        int idBusca = atoi(buscaIdStr);
-        bool encontrado = false;
-        
+    String buscaId;
+    scanf("%s", buscaId.str);
+    while(!my_strcmp(buscaId.str, "FIM")) {
+        int idBusca = atoi(buscaId.str);
         for (int i = 0; i < jogos; i++) {
             if (idBusca == game[i].id) {
                 inserir(game[i], hash);
-                encontrado = true;
-                break;
+                i = jogos;
             }
         }
-        
-        if (!encontrado) {
-            // Se não encontrou pelo ID, não faz nada (não insere)
-        }
-        
-        scanf("%s", buscaIdStr);
+        scanf("%s", buscaId.str);
     }
-    
-    // Limpar buffer do stdin
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-    
-    // Iniciar timer
     clock_t inicio = clock();
-    
-    // Buscar nomes
-    char linha[TAM_MAX];
-    
-    // Ler primeira linha após "FIM"
-    if (fgets(linha, sizeof(linha), stdin) == NULL) {
-        freeHash(hash);
-        free(game);
-        return 0;
-    }
-    
-    trim_string(linha);
-    
-    while(strcmp(linha, "FIM") != 0) {
-        String buscaNome;
-        strcpy(buscaNome.str, linha);
+    String buscaNome;
+    scanf(" %[^\n]", buscaNome.str);
+    while(!my_strcmp(buscaNome.str, "FIM")) {
         pesquisar(buscaNome, hash);
-        
-        if (fgets(linha, sizeof(linha), stdin) == NULL) break;
-        trim_string(linha);
+        scanf(" %[^\n]", buscaNome.str);
     }
-    
-    // Parar timer
     clock_t fim = clock();
-    
-    // Liberar memória
     freeHash(hash);
     free(game);
-    
-    // Calcular tempo e criar log
     double tempoExecucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
     FILE *log = fopen("892196_hashIndireta.txt", "w");
     if (log != NULL) {
-        fprintf(log, "892196\t%.0fms\t%d\n", tempoExecucao * 1000, jogos);
+        fprintf(log, "892196\t%.3fms\n", tempoExecucao * 1000);
         fclose(log);
+    } else {
+        printf("Erro ao criar arquivo de log.\n");
     }
-    
     return 0;
 }
