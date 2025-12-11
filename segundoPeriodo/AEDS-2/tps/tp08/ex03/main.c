@@ -190,9 +190,6 @@ int formatar(String entrada, String saida[], bool apostrofo) {
             aux.str[auxPos] = '\0';
             int start = 0;
             while(aux.str[start] == ' ') start++;
-            
-            // --- PROTEÇÃO ADICIONADA AQUI ---
-            // Só adiciona se o tamanho for > 0 E se ainda houver espaço no array (contador < TAM)
             if (my_strlen(aux.str + start) > 0 && contador < TAM) {
                  strcpy(saida[contador].str, aux.str + start);
                  contador++;
@@ -207,8 +204,6 @@ int formatar(String entrada, String saida[], bool apostrofo) {
         }
     }
     aux.str[auxPos] = '\0';
-    
-    // --- PROTEÇÃO ADICIONADA AQUI TAMBÉM ---
     if (my_strlen(aux.str) > 0 && contador < TAM) {
         int start = 0;
         while(aux.str[start] == ' ') start++;
