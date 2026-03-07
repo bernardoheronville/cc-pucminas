@@ -6,7 +6,13 @@
   <lib desc="#Gates" name="1"/>
   <lib desc="#Plexers" name="2"/>
   <lib desc="#Arithmetic" name="3"/>
-  <lib desc="#Memory" name="4"/>
+  <lib desc="#Memory" name="4">
+    <tool name="ROM">
+      <a name="contents">addr/data: 8 8
+0
+</a>
+    </tool>
+  </lib>
   <lib desc="#I/O" name="5"/>
   <lib desc="#Base" name="6">
     <tool name="Text Tool">
@@ -71,17 +77,11 @@
       <a name="size" val="30"/>
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="0" loc="(350,190)" name="Pin">
+    <comp lib="0" loc="(350,140)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
-      <a name="label" val="B"/>
+      <a name="label" val="A"/>
       <a name="labelloc" val="east"/>
-    </comp>
-    <comp lib="0" loc="(150,100)" name="Constant">
-      <a name="facing" val="south"/>
-    </comp>
-    <comp lib="1" loc="(250,180)" name="NOT Gate">
-      <a name="size" val="20"/>
     </comp>
     <comp lib="0" loc="(110,100)" name="Pin">
       <a name="facing" val="south"/>
@@ -89,15 +89,27 @@
       <a name="label" val="SEL"/>
       <a name="labelloc" val="north"/>
     </comp>
+    <comp lib="0" loc="(150,100)" name="Constant">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp lib="1" loc="(250,180)" name="NOT Gate">
+      <a name="size" val="20"/>
+    </comp>
     <comp lib="1" loc="(330,140)" name="AND Gate">
       <a name="size" val="30"/>
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="0" loc="(350,140)" name="Pin">
+    <comp lib="0" loc="(350,190)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
-      <a name="label" val="A"/>
+      <a name="label" val="B"/>
       <a name="labelloc" val="east"/>
+    </comp>
+    <comp lib="6" loc="(778,142)" name="Text">
+      <a name="text" val="B. Este é o demultiplexador 1:2. A diferença é que o MUX seleciona uma entre várias entrada para uma saída, "/>
+    </comp>
+    <comp lib="6" loc="(679,160)" name="Text">
+      <a name="text" val="enquanto o DEMUX direciona uma única entrada para uma entre várias saídas."/>
     </comp>
   </circuit>
 </project>
