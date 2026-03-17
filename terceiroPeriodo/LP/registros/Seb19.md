@@ -11,9 +11,9 @@
 ```c
 char * msg = "Ola Mundo";
 ```
-    * Fixo e dinâmico em pilha: Tamanho estático Alocação dinâmica 
+* Fixo e dinâmico em pilha: Tamanho estático Alocação dinâmica 
 ```c
-            char s[1024]; // em uma função
+char s[1024]; // em uma função
 ```
 * Fixo e dinâmico em heap: Requisitado pelo usuário e feito em tempo de execução 
 ```c
