@@ -8,8 +8,9 @@
 * Se as referências do seletor são constantes, então é estático. Senão, é dinâmico
 * Categorias 
     * Estática: Tamanho e alocação
-    
-            char * msg = "Ola Mundo";
+```c
+char * msg = "Ola Mundo";
+```
     * Fixo e dinâmico em pilha: Tamanho estático Alocação dinâmica 
 ```c
             char s[1024]; // em uma função
