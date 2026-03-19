@@ -4,7 +4,7 @@
     * 1: Nome do vetor
     * 2: Seletor/Índice composto por 1 ou + itens 
 
-        nome_vetor (seletor)-> elemento
+        nome_vetor (seletor)&rarr; elemento
 * Se as referências do seletor são constantes, então é estático. Senão, é dinâmico
 * Categorias 
     * Estática: Tamanho e alocação
@@ -154,4 +154,83 @@ void f(int *v){*(v) *= (*v);}
 //
 f(x);
 f(&x);
+```
+* Tombstones:
+<center>
+        <img src="imgs/img1.png" alt="img1" width="300">
+</center>
+
+* Cada variável heap dinâmica possui uma célula adicional que é um ponteiro para o conteúdo da heap
+* Quando desalocado, o tombstone é definido como nulo
+
++: Previne ponteiros pendentes 
+
+-: Consome + memória e tempo
+* Locks-and-keys: Ponteiros são representados como um par(key, endereço)
+* Quando alocado, define-se um valor para o key do ponteiro e do conteúdo da heap
+* Cópias  do ponterio devem ter a mesma key
+* Quando desalocado, a Key do conteúdo é colocadda para um valor inválido
+<center>
+        <img src="imgs/img2.png" alt="img2" width="600">
+</center>
+
+* Contagem de referências: 
+<center>
+        <img src="imgs/img3.png" alt="img3" width="500">
+</center>
+
+```c
+| int *p = malloc(sizeof(int));
+| p = NULL;
+```
+* É executada toda vez que há desalocação ou alocação
+<center>
+        <img src="imgs/img4.png" alt="img3" width="400">
+</center>
+
+* Marcar e varrer
+<center>
+        <img src="imgs/img5.png" alt="img3" width="400">
+</center>
+
+* Só é executado quando a memória está cheia
+* Opcionais: Tipos "especiais" que tem um valor "normal" e um outro "especial" para indicar que não existe valor
+```C#
+| int? x;
+| if(x == null) {/*..*/}
+| else {/*..*/}
+```
+## 19/03 - Cap 6.12-6.16
+* Verificação de tipos: Tarefa de garantir que os operandos de um operador são compatíveis
+* Coerção: Conversão implícita de um tipo para outro (legal) pelo compilador 
+```c 
+| float f = 3 * 15;
+| char c = 'A' + 2;
+```
+* Estático vs Dinãmico
+
++: Confiabilidade e Otimizado
+
+-: Flexibilidade
+* Fortemente tipada: Sempre consegue verificar a existência de erros de tipo 
+* &uarr;Coerção &darr;Fortemente tipada: Coerção plode levar à perda de acurácia no detecção
+* Equivalentes: Quando é permitido trocar o tipo por outro sem coerção
+```c
+| struct A {int x, y;};
+| struct B {int x, y;};
+```
+* Nome: São equivalentes se o tipo for o mesmo 
+* Estrutura: São equivalente se possuírem a mesma estrutura
+```Ada
+| type i is 1..100;
+| c : Integer;
+| f : i;
+```
+* Estrutura é mais flexível que nome, mas tem dificuldade em diferenciar 
+* Derivado: Tipo, baseado em outro, no qual pode ter a mesma estrutura, mas não é equivalente 
+* Subtipo: Normalmente, é um tipo contido em um outro(ex: intervalo)
+* Classe&rarr;Esquivalente de objetos
+```Ada
+| type deriv is new Integer 1..100;
+| subtype sub is Integer 1..100;
 ```
