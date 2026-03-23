@@ -24,7 +24,7 @@
     $\pi$ name (D)
 5. A = actors $\bowtie$ id = actor_id (roles)
 
-    B = $\rho$ first_name,last_name; count(actor_id) → roles_count (A)
+    B = $\gamma$ first_name,last_name; count(actor_id) → roles_count (A)
 
     C = $\sigma$ roles_count <= 1 (B)
 
