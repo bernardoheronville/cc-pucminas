@@ -1,4 +1,4 @@
-## 10/03/2026 - 6.5-6.6
+## 10/03/2026 - 6.5 - 6.6
 * Vetor: Coleção homogênea de elementos os quais são identificados por seu indice/posição (relativa à do 1)
 * Elementos são referenciados por meio de um mecanismo sintático de dois níveis
     * 1: Nome do vetor
@@ -49,7 +49,7 @@ char s[1024]; // em uma função
 | float *notas;
 | char **nome;
 ```
-## 12/03 - Cap 6.7-6.10
+## 12/03 - Cap 6.7 - 6.10
 * Registro: Coleção de dados no qual elementos individuais são referenciados por nomes e acessados via offset
 
         C: struct Aluno {
@@ -200,7 +200,7 @@ f(&x);
 | if(x == null) {/*..*/}
 | else {/*..*/}
 ```
-## 19/03 - Cap 6.12-6.16
+## 19/03 - Cap 6.12 - 6.16
 * Verificação de tipos: Tarefa de garantir que os operandos de um operador são compatíveis
 * Coerção: Conversão implícita de um tipo para outro (legal) pelo compilador 
 ```c 
@@ -234,3 +234,53 @@ f(&x);
 | type deriv is new Integer 1..100;
 | subtype sub is Integer 1..100;
 ```
+## 24/03 - Cap 7.1 - 7.3
+* Unária: !, ~, ++,--
+
+  Binária: &, |, ^, +, -, /, *, >>, <<
+
+  Ternária: ?
+* a ? b, a ? b : c;
+* Expressão: Conjunto de operadores e operações que resultam em um valor 
+* Infixo: a + b
+  
+  Posfixa: ab + a++
+
+  Prefixa: +ab, ++a
+* (i): Buscar valores na memória 
+  (ii): Cálculo
+* Procedência: Ordem de avaliação da expressão
+* while (t = t--) {/*...*/}
+* ++, -- posfixo
+
+  ++, --, prefixo, +, - unário
+
+  *, /, %
+
+  +, - binário
+* Associatividade: Determina a ordem de avaliação dos operadores
+* Esquerda: *, /, %, +, - binário
+  Direita: ++, --,+, - unário
+* Pode-se alterar a precedência e a associatividade utilizando parênteses
+* Ordem de avaliação dos operandos
+```c
+| int a = 10;
+| int b = a + f(&a);
+```
+* Efeito colateral: Ocorre quando a função altera um de seus parâmetros, ou uma variável global
+* Soluções? Não permitir efeitos colaterais, definir uma ordem estrita de avaliação
+* Transparência referencial: Se quaisquer duas expressões de mesmo valor possam ser trocadas sem afetar o programa  
+```c
+| r1 = (fun(a) + b) / (fun(a) + c);
+| temp = fun(a);
+| r2 = (temp + b) / (temp + c);
+```
++: Otimização; Legibilidade; Sem efeito colateral(funcional)
+* Sobrecarga: Uso multíplo de um operador 
+* 'c' + 'a'
+
+&rarr; "ca"
+
+&rarr; (char) 99 + 97
+
+* p && q != p & q
