@@ -22,13 +22,17 @@
     D = (C) $\bowtie$ id = id (movies)
 
     $\pi$ name (D)
-5. A = actors $\bowtie$ id = actor_id (roles)
+5. A = $\gamma$ actor_id; count(actor_id) &rarr; count_id (roles)
 
-    B = $\gamma$ first_name,last_name; count(actor_id) → roles_count (A)
+    B = $\sigma$ count_id >= 2 (A)
 
-    C = $\sigma$ roles_count <= 1 (B)
+    C = $\pi$ id (actors) - $\pi$ actor_id (B)
 
-    $\pi$ first_name,last_name (C)
+    D = $\rho$ ida &larr; id (C)
+
+    E = (D) $\bowtie$ ida = id (actors)
+
+    $\pi$ first_name, last_name (E)
 6. A = (movies) $\bowtie$ id = movie_id (movies_genres)
 
     B = $\rho$ id_mov ← movie_id (A)
