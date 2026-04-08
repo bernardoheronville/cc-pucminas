@@ -1,4 +1,14 @@
-## 10/03/2026 - 6.5 - 6.6
+## 12/02 - 1.3
+* Legibilidade: 
+  * <1920: Pensando no PC
+  * >1920: Legibilidade é o mais importante
+* Domínio importa
+  1. Simplicidade: + constructor =>
+  - Legibilidade 
+  - Multiplicidade: + de uma forma de obter o mesmo resultado
+  - | count = count + 1; count++; ++count; count += 1;
+
+## 10/03 - 6.5 - 6.6
 * Vetor: Coleção homogênea de elementos os quais são identificados por seu indice/posição (relativa à do 1)
 * Elementos são referenciados por meio de um mecanismo sintático de dois níveis
     * 1: Nome do vetor
