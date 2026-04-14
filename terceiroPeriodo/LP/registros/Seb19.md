@@ -294,3 +294,43 @@ f(&x);
 &rarr; (char) 99 + 97
 
 * p && q != p & q
+
+## 14/04 - Cap 8.1 - 8.2
+* Estruturas / Comandos de controle: meios para alternar o fluxo do programa e / ou executar repetições de comandos
+* Todos os algoritmos que conseguem ser descritos por meio de um fluxograma podem ser codificados com um tipo de comando de seleção e um tipo de comando de repetição
+* Comando de seleção: Fornece os meios para selecionar entre dois ou mais caminhos na execução
+* 2-way ou n-way
+```c
+| if expr then     if(sum == 0)
+|    comandos         if(count == 0)
+| else                  result = 0;
+|    comandos      else
+|                       result = 1;
+```
+* A semântica estática da linguagem especificam que a clausula else é sempre parada com o if mais próximo e seu respectivo then não pareado
+* Desvantagem da regra: Impede o programador de determinar a cláusula if que estará pareada com o else
+```C#
+| let y = 
+|    if x > 0 then x
+|    else 2 * x;;
+```
+* Comando de seleção multipla: Permite a seleção de um dentre vários comandos
+```C
+| switch(expr) {
+|       case constante: comandos; 
+|
+|       case constante: comando
+|       [default: comando]
+| }
+```
+* Break pode ser visto como um go to "limitado" e é utilizado para sair do switch, transferindo o fluxo para o controle associado
+```html
+| switch(X)
+|  default:
+|  if(prime(x))
+|    case 2: case 3: case 5: case 7
+|       process_prime(x);
+|  else
+|    case 4: case 6: case 8: case 9: case 10:
+|       process_composite(x)
+```
