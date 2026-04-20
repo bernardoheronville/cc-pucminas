@@ -334,3 +334,30 @@ f(&x);
 |    case 4: case 6: case 8: case 9: case 10:
 |       process_composite(x)
 ```
+## 16/04 - Cap 8.3
+* Comando de repetição: Causa a execução de uma coleção de comandos uma sequência de iteracões. È também chamado de loop
+* Corpo: Coleção de comandos que será repetida
+* Prévio, Postumo;
+* Inicial; Final; Passo
+* for(ex1; ex2; ex3) { corpo }
+        
+            ex1
+        loop:
+            if ex2 = 0 goto out
+            Corpo
+            ex3
+            goto loop
+        out
+* Sentinela: Coleção de comandos que será executado múltiplas vezes até que a condição booleana seja satisfeita 
+<center>
+        <img src="imgs/img6.png" alt="img3" width="400">
+</center>
+
+* Continue: Evita o restante dos comandos break: Finaliza o loop
+
+        foreach(String n in names) {
+                Console.WriteLine(n);
+        }
+        for(Celula *p = inicio; p != NULL; p = p->prox) {
+                /*...*/
+        }
