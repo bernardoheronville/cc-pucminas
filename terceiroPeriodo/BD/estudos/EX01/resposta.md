@@ -8,5 +8,5 @@
     3. Projeto Conceitual &rarr; estruturas e restrições conceituais 
     4. Projeto Lógico &rarr; estruturas e restrições lógicas
     5. Projeto Físico &rarr; estruturas e restrições físicas
-6. SELECT M.sigla, M.nome,  COUNT(T.horas) AS count_horas
+6. 
     

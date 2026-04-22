@@ -309,7 +309,7 @@ f(&x);
 ```
 * A semântica estática da linguagem especificam que a clausula else é sempre parada com o if mais próximo e seu respectivo then não pareado
 * Desvantagem da regra: Impede o programador de determinar a cláusula if que estará pareada com o else
-```C#
+```F#
 | let y = 
 |    if x > 0 then x
 |    else 2 * x;;
@@ -324,7 +324,7 @@ f(&x);
 | }
 ```
 * Break pode ser visto como um go to "limitado" e é utilizado para sair do switch, transferindo o fluxo para o controle associado
-```html
+```C
 | switch(X)
 |  default:
 |  if(prime(x))
