@@ -361,3 +361,48 @@ f(&x);
         for(Celula *p = inicio; p != NULL; p = p->prox) {
                 /*...*/
         }
+# 23/04 - Cap 8.4 - 8.5
+* Santo incondicional: transfere o fluxo de controle da execução para algum local do programa
+```C
+int ePrimo(int n) {
+        if(n <= 0) goto neg;
+        else if(n % 2 == 0 && n > 2) goto pos;
+        int div = n - 1;
+        while(div > 2 && n % div != 0) {
+                div--;
+        }
+        if(div == 2) return 1;
+        else return 0;
+     neg: return -1;
+     pos: return 0;
+}
+```
+* Minha opinião:
+
+  -> break, continue, goto &rarr; incondicional
+
+  -> if, while, do-while, switch, chamada de função
+
+* LOAD $r1, 2
+    
+  l: MULT $r1, $r2, $r3
+* Cada linha do comando de seleção consiste em uma expressão booleana, seguido de um ou mais comandos
+
+if i = 0 &rarr; sum := sum + i
+
+[] i > j &rarr; sum := sum + j
+
+[] j > i &rarr; sum := sum + k
+
+fi
+
+if x >= y &rarr; max := x
+
+[] y >= x &rarr; max := i
+
+fi
+
+if(x >= y) max = x;
+
+else max = y;
+
