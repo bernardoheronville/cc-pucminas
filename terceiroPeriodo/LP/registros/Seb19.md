@@ -418,8 +418,58 @@ template <T>
 T qua (Tx);
 ```
 ```C
-#define MAX(x, y) ((x) < (y)) ? (y) : (x)
+# define MAX(x, y) ((x) < (y)) ? (y) : (x)
 ```
 * Fechamento: Subprogramas aninhados + referenciamento
 * Locais: Variáveis definidas pelo subprograma
 
+# 05/05 - Cap 9.5 
+* In mode: o parâmetro formal recebe dado do parâmetro real correspondente
+
+* Out mode: o parâmetro formal transmite o valor para o parâmetro real 
+
+* Inout mode: In mode e Out mode 
+
+```c 
+void f1(int a);
+void f2(int *out);
+void f3(int *inout);
+```
+* Modelos: Ou o valor é copiado, ou o acesso é fornecido
+* Passagem por valor: O valor do parâmetro real é utilizado para instanciar o parâmetro formal 
+  
+  +: Rápido 
+
+  -: Memória 
+* Passagem por resultado: Nenhum valor é passado para o subprograma. O valor é transmitido através do parâmetro formal antes do fim da chamada
+```c# 
+void Fixer (out int x, out int y) {
+  x = 17; y = 35;
+}
+//... 
+f.Fixer(out a, out a);
+```
++: Mesmo do cópia 
+
+-: Mesmo do cópia
+* Passagem de valor-resultado: Combinação da passagem por valor e por resultado
+* Passagem por referência: Transmite o endereço/acesso à variável real
+
+  +: Não há duplicação de memória e rápido 
+  
+  -: Confiabilidade 
+* Passagem por nome: O parâmetro formal é "textualmente" substituído pelo real no corpo do subprograma
+```c 
+# define MAX(x, y) ((x) > (y) ? (x) : (y))
+```
+```c 
+result = sub1(1);
+
+double sin(x)
+  double x;
+  {...}
+
+double sin(double x) {
+  ...
+}
+```
