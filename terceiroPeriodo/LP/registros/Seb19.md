@@ -406,3 +406,20 @@ if(x >= y) max = x;
 
 else max = y;
 
+# 30/04 - Cap 9.3 - 9.4
+* Sobrecarga: Possui o mesmo nome dentro do mesmo ambiente de referenciamento 
+```c++
+int quad(int x);
+double quad(double x);
+```
+* Subprograma Genérico: Pode ser aplicado em tipos diferentes de dados
+```C++
+template <T>
+T qua (Tx);
+```
+```C
+#define MAX(x, y) ((x) < (y)) ? (y) : (x)
+```
+* Fechamento: Subprogramas aninhados + referenciamento
+* Locais: Variáveis definidas pelo subprograma
+
