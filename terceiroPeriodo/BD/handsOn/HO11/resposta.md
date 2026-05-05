@@ -6,9 +6,11 @@
 
                 Blocagem: 2048 / 32 = 64 | 64 registros por bloco
 
-                Nível 1: 910 / 64 = 14,21 | 15
+                Nível 1: 910 / 64 = 14,21 | 15 blocos necessários
 
-                Nível 2: 15 / 64 = 0,23 | 1 
+                Nível 2: 910 / 64 = 14,21 | 15
+
+                Nível 3: 15 / 64 = 0,23 | 1 
 
                 Número de blocos necessários: 15 + 1 | 16 blocos necessários
 
@@ -24,9 +26,11 @@
 
                 Blocagem: 2048 / 27 = 75,85 | 75 registros por bloco
 
-                Nível 1: 319 / 75 = 4,25 | 5
+                Nível 1: 319 / 75 = 4,25 | 5 blocos necessários
 
-                Nível 2: 5 / 75 = 0,06 | 1 
+                Nível 2: 319 / 75 = 4,25 | 5
+
+                Nível 3: 5 / 75 = 0,06 | 1 
 
                 Número de blocos necessários: 5 + 1 | 6 blocos necessários
 
@@ -56,13 +60,19 @@
 
                 Blocagem: 2048 / 40 = 51,2 | 51 registros por bloco
 
-                Espaço desperdiçado por bloco: 40 x 51 = 2040 2048 - 2040 = 8 bytes desperdiçados por bloco
+                Nível 1: 357.143 / 51 = 7002,80 | 7003 blocos necessários
 
-                Número de blocos necessários: 357.143 / 51 = 7002,80 | 7003 blocos necessários
+                Nível 2: 7003 / 51 = 137,31 | 138
 
-                Espaço total gasto: 7003 x 2048 = 14342144 bytes
+                Nível 3: 138 / 51 = 2,70 | 3
 
-                Numero de acessos a blocos: log na base 2 de 7003 = 12.77 | 13 + 1 = 14
+                Nível 4: 3 / 51 = 0,05 | 1
+
+                Número de blocos necessários: 7003 + 138 + 3 + 1 | 7145 blocos necessários
+
+                Espaço total gasto: 7145 x 2048 = 14.632.960 bytes
+
+                Numero de acessos a blocos: 4 + 1 | 5 
 
         Índice Secundário:
 
@@ -86,13 +96,19 @@
 
                 Blocagem: 2048 / 63 = 32,5 | 32 registros por bloco
 
-                Espaço desperdiçado por bloco: 63 x 32 = 2016 2048 - 2016 = 32 bytes desperdiçados por bloco
+                Nível 1: 909.091 / 32 = 28409,09 | 28.410 
 
-                Número de blocos necessários: 909.091 / 32 = 28409,09 | 28.410 blocos necessários
+                Nível 2: 28.410 / 32 = 887,8125 | 888
 
-                Espaço total gasto: 28.410 x 2048 = 58.183.680 bytes
+                Nível 3: 888 / 32 = 27,75 | 28
 
-                Numero de acessos a blocos: log na base 2 de 28.410 = 14.7 | 15 + 1 = 16
+                Nível 4: 28 / 32 = 0,875 | 1
+
+                Número de blocos necessários: 28.410 + 888 + 28 + 1 | 29.327 blocos necessários
+
+                Espaço total gasto: 29.327 x 2048 = 60.061.696 bytes
+
+                Numero de acessos a blocos: 4 + 1 | 5
 
         Índice Secundário (CPF_Cliente):
 
@@ -144,14 +160,17 @@
 
                 Blocagem: 2048 / 27 = 75,85 | 75 registros por bloco
 
-                Espaço desperdiçado por bloco: 27 x 75 = 2025 2048 - 2025 = 23 bytes desperdiçados por bloco
+                Nível 1: 20000 / 75 = 266,66 | 267
 
-                Número de blocos necessários: 20000 / 75 = 266,66 | 267 blocos necessários
+                Nível 2: 267 / 75 = 3,56 | 4
 
-                Espaço total gasto: 267 x 2048 = 546.816 bytes
+                Nível 3: 4 / 75 = 0,05 | 1
 
-                Numero de acessos a blocos: log na base 2 de 267 = 8.06 | 9 + 1 = 10
+                Número de blocos necessários: 267 + 4 + 1 | 272 blocos necessários
 
+                Espaço total gasto: 272 x 2048 = 557.056 bytes
+
+                Numero de acessos a blocos: 3 + 1 | 4
 6. Filmes:
 
         Índice Primário:
@@ -160,13 +179,17 @@
 
                 Blocagem: 2048 / 32 = 64 | 64 registros por bloco
 
-                Espaço desperdiçado por bloco: 32 x 64 = 2048 2048 - 2048 = 0 bytes desperdiçados por bloco
+                Nível 1: 250.000 / 64 = 3906,25 | 3907
 
-                Número de blocos necessários: 250.000 / 64 = 3906,25 | 3907 blocos necessários
+                Nível 2: 3907 / 64 = 61,04 | 62
 
-                Espaço total gasto: 3907 x 2048 = 8.001.536 bytes
+                Nível 3: 62 / 64 = 0,96 | 1
 
-                Numero de acessos a blocos: log na base 2 de 3907 = 11.9 | 12 + 1 = 13
+                Número de blocos necessários: 3907 + 62 + 1 | 3970 blocos necessários
+
+                Espaço total gasto: 3970 x 2048 = 8.130.560 bytes
+
+                Numero de acessos a blocos: 3 + 1 = 4
 
 7. Pagamentos:
 
