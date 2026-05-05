@@ -195,12 +195,12 @@ f(&x);
 ```
 * É executada toda vez que há desalocação ou alocação
 <center>
-        <img src="imgs/img4.png" alt="img3" width="400">
+        <img src="imgs/img4.png" alt="img4" width="400">
 </center>
 
 * Marcar e varrer
 <center>
-        <img src="imgs/img5.png" alt="img3" width="400">
+        <img src="imgs/img5.png" alt="img5" width="400">
 </center>
 
 * Só é executado quando a memória está cheia
@@ -350,7 +350,7 @@ f(&x);
         out
 * Sentinela: Coleção de comandos que será executado múltiplas vezes até que a condição booleana seja satisfeita 
 <center>
-        <img src="imgs/img6.png" alt="img3" width="400">
+        <img src="imgs/img6.png" alt="img6" width="400">
 </center>
 
 * Continue: Evita o restante dos comandos break: Finaliza o loop
@@ -425,10 +425,17 @@ T qua (Tx);
 
 # 05/05 - Cap 9.5 
 * In mode: o parâmetro formal recebe dado do parâmetro real correspondente
-
+<center>
+        <img src="imgs/img7.png" alt="img7" width="400">
+</center>
 * Out mode: o parâmetro formal transmite o valor para o parâmetro real 
-
+<center>
+        <img src="imgs/img8.png" alt="img8" width="400">
+</center>
 * Inout mode: In mode e Out mode 
+<center>
+        <img src="imgs/img9.png" alt="img9" width="400">
+</center>
 
 ```c 
 void f1(int a);
