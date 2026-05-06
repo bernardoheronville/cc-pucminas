@@ -6,11 +6,9 @@
 
                 Blocagem: 2048 / 32 = 64 | 64 registros por bloco
 
-                Nível 1: 910 / 64 = 14,21 | 15 blocos necessários
+                Nível 1: 910 / 64 = 14,21 | 15
 
-                Nível 2: 910 / 64 = 14,21 | 15
-
-                Nível 3: 15 / 64 = 0,23 | 1 
+                Nível 2: 15 / 64 = 0,23 | 1 
 
                 Número de blocos necessários: 15 + 1 | 16 blocos necessários
 
@@ -26,11 +24,9 @@
 
                 Blocagem: 2048 / 27 = 75,85 | 75 registros por bloco
 
-                Nível 1: 319 / 75 = 4,25 | 5 blocos necessários
+                Nível 1: 319 / 75 = 4,25 | 5
 
-                Nível 2: 319 / 75 = 4,25 | 5
-
-                Nível 3: 5 / 75 = 0,06 | 1 
+                Nível 2: 5 / 75 = 0,06 | 1 
 
                 Número de blocos necessários: 5 + 1 | 6 blocos necessários
 
@@ -368,30 +364,66 @@
 
                 Numero de acessos a blocos: 3 + 1 = 4
 
-        Índice Secundário (CodFilme):
+        Índice Secundário de Cod_Filme (Arvore B+):
 
-                Tamanho do registro: 16 + 16 = 32 bytes
+                Nível Folha:
 
-                Blocagem: 2048 / 32 = 64 | 64 registros por bloco
+                        Tamanho do registro: 16 + 16 = 32 bytes
 
-                Espaço desperdiçado por bloco: 32 x 64 = 2048 2048 - 2048 = 0 bytes desperdiçados por bloco
+                        Blocagem: 2048 / 32 = 64 | 64 registros por bloco
 
-                Número de blocos necessários: 1.000.000 / 64 = 15625 | 15625 blocos necessários
+                        Fator de Bloco: 64 x 0,69 = 44,16 | 45
 
-                Espaço total gasto: 15625 x 2048 = 32.000.000 bytes
+                        # Blocos Folhas: 1.000.000 / 45 = 22.222,22 | 22.223 folhas
 
-                Numero de acessos a blocos: log na base 2 de 15625 = 13.9 | 14 + 1 = 15
+                Nós Internos:
 
-        Índice Secundário (CodAtor):
+                        Ordem Máxima: (p x 12) + ((p - 1) x 16) <= 2048 | p = 73 ponteiros
 
-                Tamanho do registro: 16 + 16 = 32 bytes
+                        Fator de Bloco Interno: 73 x 0,69 = 50,37 | 51 ponteiros por bloco
 
-                Blocagem: 2048 / 32 = 64 | 64 registros por bloco
+                        # Nós Nível 2: 22.223 / 51 = 435,74 | 436
 
-                Espaço desperdiçado por bloco: 32 x 64 = 2048 2048 - 2048 = 0 bytes desperdiçados por bloco
+                        # Nós Nível 3: 436 / 51 = 8,54 | 9
 
-                Número de blocos necessários: 1.000.000 / 64 = 15625 | 15625 blocos necessários
+                        # Nós Nível 4: 9 / 51 = 0,17 | 1
 
-                Espaço total gasto: 15625 x 2048 = 32.000.000 bytes
+                Espaço Total:
 
-                Numero de acessos a blocos: log na base 2 de 15625 = 13.9 | 14 + 1 = 15
+                        Total de Blocos: 22.223 + 436 + 9 + 1 = 22.669
+
+                        Espaço: 22.669 x 2048 = 46.426.112 bytes
+
+                        Acesso: 4 + 1 = 5
+
+        Índice Secundário de Cod_Ator (Arvore B+):
+
+                Nível Folha:
+
+                        Tamanho do registro: 16 + 16 = 32 bytes
+
+                        Blocagem: 2048 / 32 = 64 | 64 registros por bloco
+
+                        Fator de Bloco: 64 x 0,69 = 44,16 | 45
+
+                        # Blocos Folhas: 1.000.000 / 45 = 22.222,22 | 22.223 folhas
+
+                Nós Internos:
+
+                        Ordem Máxima: (p x 12) + ((p - 1) x 16) <= 2048 | p = 73 ponteiros
+
+                        Fator de Bloco Interno: 73 x 0,69 = 50,37 | 51 ponteiros por bloco
+
+                        # Nós Nível 2: 22.223 / 51 = 435,74 | 436
+
+                        # Nós Nível 3: 436 / 51 = 8,54 | 9
+
+                        # Nós Nível 4: 9 / 51 = 0,17 | 1
+
+                Espaço Total:
+
+                        Total de Blocos: 22.223 + 436 + 9 + 1 = 22.669
+
+                        Espaço: 22.669 x 2048 = 46.426.112 bytes
+
+                        Acesso: 4 + 1 = 5
