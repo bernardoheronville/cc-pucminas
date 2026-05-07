@@ -480,3 +480,48 @@ double sin(double x) {
   ...
 }
 ```
+# 07/05 Cap 9.6 - 9.9
+```c 
+float (*pfun)(float, int);
+void qsort(void *v, size_t n, size_t b, int (*cmp)(void *, void *));
+```
+```javascript 
+function sub1() {
+  var x;
+  function sub2() { alert(x); };
+  function sub3() {
+      var x = 3;
+      sub4(sub2);
+  };
+  function sub4(sub x) {
+      var x = 4;
+      subx();
+  }
+  x = 1; sub3();
+}
+```
+* Shallow: O ambiente de referenciamento da declaração de quem chamou
+
+  sub2&larr;sub4 = x = 4 
+* Deep: O ambiente de referenciamento do subprograma
+
+  sub2&larr;sub1 &rArr; x = 1 
+* ad hoc: O ambiente de referenciamento de quando foi parâmetro real
+
+  sub2&larr;sub3 &rArr; x = 3 
+* Shallow nâo é "interessante" para escopo estático com aninhamento de funções 
+```c 
+int myfun2(int, int);
+int (*pfun2)(int, int);
+pfun2 = myfun2; // pfun2(1, 2);
+```
+* Passagem sempre in made 
+* Sobrecarga: Tem o mesmo nome que um outro subprograma de mesmo nome 
+* Deve ter protocolo distinto: mesmo nome, mas ordem, #, e tipos dos params. dif, ret.dif, etc 
+* Coerção dos parâmetros pode prejudicar a resolução da ambiguidade 
+```c++ 
+int pow(double x);
+int pow(int x);
+//...
+int x = pow(2);
+```
