@@ -525,3 +525,41 @@ int pow(int x);
 //...
 int x = pow(2);
 ```
+# 12/05 Cap 9.10 
+* Subprograma polimórfico: Usa parâmetros de diferentes tipos em ativações diferentes
+* Ad hoc === Sobrecarga
+* Subtipo: Variável do tipo T pode acessar qualquer objeto T ou outro tipo derivado 
+* Parâmetrico: Parâmetros genéricos que são utilizados para descrever os tipos dos parâmetros 
+```c++ 
+template <class Type> 
+Type max(Type first, Type second) {
+  return first > second ? first : second;
+}
+```
+```c 
+#define MAX(first, second)((first) > (second) ? (first) : (second))
+max(x++, y) != MAX(x++, y)
+```
+```python 
+|def --add-- (self, second): 
+  return Complex(self.real + second.real, self.imag + seconf.imag);
+#enddef
+```
+```c++ 
+Complex operator +(Complex & second) {
+  return Complex(real + second.real, imag + second.imag);
+}
+```
+* Closure (Fechamento): Subprograma e ambiente de referenciamento onde for definido
+```javascript
+function makeAdder(x) {
+  return function(y) { return x + y; }
+}
+var add10 = makeAdder(10);
+var add5 = makeAdder(5);
+add10(20) = 30
+add5(20) = 25 
+```
+* Corotinas: Unidade simétrica de controle. Pode possuir vários pontos de entrada, que são conttroladas pela coRrotinas 
+
+* Deve manter o histórico das ativações, e variáveis locais precisam ser estáticas 
