@@ -561,5 +561,39 @@ add10(20) = 30
 add5(20) = 25 
 ```
 * Corotinas: Unidade simétrica de controle. Pode possuir vários pontos de entrada, que são conttroladas pela coRrotinas 
-
 * Deve manter o histórico das ativações, e variáveis locais precisam ser estáticas 
+
+# 21/05 Cap 12.1 - 12.3
+
+* Orientação a objetos: TADs, Herança e Amarração dinâmica
+* Sem herança: (i) TADs são independentes, (ii) Modificações são necessárias 
+* Com herança: TAD pode acessar os dados e funcionalidades de outros tipos de modifica-los
+* Objeto em POO = classe Instância da TAD = Objeto
+
+* Comunicação é feita por mensagens != chamada de subprograma
+
+* Filha != Pai
+1. Classe Filha tem mais métodos / atributos que o pai
+2. Classe Filha pode modificar o comportamento dos métodos 
+Sobrecarga
+3. A classe Pai define atributos privados
+* Dois tipos de variáveis e de métodos: 
+
+  * Variáveis: Instância e classe
+
+```java
+class Pilha {
+        private int n;
+        public Pilha(int tam) { n = tam; }
+}
+```
+
+* Métodos: Instância e classe 
+* Herança Simples: A subclasse herda de uma única class
+* Herança Múltipla: A subclassse herda de mais de uma classe
+
+```java
+Professor p = new Pessoa();
+```
+* Método abstrato e classe abstrata
+* Princípio da substituição: A linguagem permite trocar a variável por uma ancestral sem afetar o comportamento
