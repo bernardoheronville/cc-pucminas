@@ -597,3 +597,31 @@ Professor p = new Pessoa();
 ```
 * Método abstrato e classe abstrata
 * Princípio da substituição: A linguagem permite trocar a variável por uma ancestral sem afetar o comportamento
+
+# 09/06 Cap 16
+* Paradigma lógico (ou declarativo): Utiliza da forma de lógica simbólica como meio de programação 
+* Cálculo de Predicados: 
+
+  * Predicado: Declaração lógica que pode ser ou verdadeiro ou falso
+
+  * Lógica simbolica: Representar proposições, relações entre proposições, e com inferir proposições
+
+  * Proposições: (i) atômica, (ii) composta
+
+* Operadores 
+
+  * Negação: 
+
+  * Conjunção: ^, &&, $\cap$
+
+  * Disjunção: v, ||, $\cup$
+
+  * Equivalência: ===
+
+  * Implicação: &rarr; &larr; 
+* Quantificadores: (i) Universal (ii) Existencial
+* Forma Clausal:
+
+  * A1 ^ A2 ^ A3 ^ ... An &rarr; B1 v B2 v B3 v ... Bm
+* Resolução: 
+  
