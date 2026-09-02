@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'tela_detalhe.dart';
 
 void main() => runApp(const DiarioApp());
 
@@ -11,11 +12,11 @@ class Habito {
 }
 
 Future<List<Habito>> carregarHabitos() async {
-  await Future.delayed(const Duration(seconds: 4));
+  await Future.delayed(const Duration(seconds: 1));
   //throw Exception('servidor fora do ar');
   return const [
+    Habito('Monitoria', 'Meta: 10 horas semanais', Icons.menu_book),
     Habito('Beber água', 'Meta: 8 copos por dia', Icons.local_drink),
-    Habito('Ler', 'Meta: 20 páginas por dia', Icons.menu_book),
     Habito('Caminhar', 'Meta: 30 minutos por dia', Icons.directions_walk),
     Habito('Dormir cedo', 'Meta: antes das 23h', Icons.bedtime),
   ];
@@ -30,7 +31,7 @@ class DiarioApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Meus Hábitos',
-      home: TelaHabitos(futuro: carregarHabitos()), 
+      home: TelaHabitos(futuro: carregarHabitos()),
     );
   }
 }
@@ -63,6 +64,14 @@ class TelaHabitos extends StatelessWidget {
                 leading: Icon(h.icone),
                 title: Text(h.nome),
                 subtitle: Text(h.meta),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TelaDetalhe(),
+                    ),
+                  );
+                },
               ),
           ],
         );
