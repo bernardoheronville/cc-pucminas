@@ -10,10 +10,8 @@ class TelaDetalhe extends StatelessWidget {
       'Ajudar os alunos com dúvidas.'
       ' Fazer aulões para os alunos.'
       ' Fechar a meta na semana.';
-
-  
-  static const String _endereco = 'assets/imagens/estudo.png';
-
+      
+  static const String _endereco = 'assets/imagens/image.png';
   static const double _alturaImagem = 180;
   static const double _raioAvatar = 28;
 
@@ -34,7 +32,6 @@ class TelaDetalhe extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 child: Stack(
                   children: [
-                    // Trocado de Image.network para Image.asset
                     Image.asset(
                       _endereco,
                       height: _alturaImagem,
