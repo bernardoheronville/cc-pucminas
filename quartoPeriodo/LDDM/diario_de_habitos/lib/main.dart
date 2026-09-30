@@ -1,81 +1,173 @@
 import 'package:flutter/material.dart';
 import 'tela_detalhe.dart';
 
-void main() => runApp(const DiarioApp());
-
-class Habito {
-  final String nome;
-  final String meta;
-  final IconData icone;
-
-  const Habito(this.nome, this.meta, this.icone);
+void main() {
+  runApp(const MeuApp());
 }
 
-Future<List<Habito>> carregarHabitos() async {
-  await Future.delayed(const Duration(seconds: 1));
-  //throw Exception('servidor fora do ar');
-  return const [
-    Habito('Monitoria', 'Meta: 10 horas semanais', Icons.menu_book),
-    Habito('Beber água', 'Meta: 8 copos por dia', Icons.local_drink),
-    Habito('Caminhar', 'Meta: 30 minutos por dia', Icons.directions_walk),
-    Habito('Dormir cedo', 'Meta: antes das 23h', Icons.bedtime),
-  ];
-  //return const [];
-}
-
-class DiarioApp extends StatelessWidget {
-  const DiarioApp({super.key});
+class MeuApp extends StatelessWidget {
+  const MeuApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Meus Hábitos',
-      home: TelaHabitos(futuro: carregarHabitos()),
+      title: 'Diário de Hábitos',
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: const TelaPrincipal(),
     );
   }
 }
 
-class TelaHabitos extends StatelessWidget {
-  const TelaHabitos({super.key, required this.futuro});
+class Habito {
+  String nome;
+  String descricao;
+  int frequenciaSemanal;
+  List<String> historico;
 
-  final Future<List<Habito>> futuro;
+  Habito({
+    required this.nome,
+    required this.descricao,
+    required this.frequenciaSemanal,
+    List<String>? historico,
+  }) : historico = historico ?? [];
+}
+
+class TelaPrincipal extends StatefulWidget {
+  const TelaPrincipal({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Meus Hábitos')),
-    body: FutureBuilder<List<Habito>>(
-      future: futuro,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          return const Center(child: Text('Não foi possível carregar'));
-        }
-        final habitos = snapshot.data!;
-        if (habitos.isEmpty) {
-          return const Center(child: Text('Nenhum hábito ainda'));
-        }
-        return ListView(
+  State<TelaPrincipal> createState() => _TelaPrincipalState();
+}
+
+class _TelaPrincipalState extends State<TelaPrincipal> {
+  final List<Habito> _habitos = [
+    Habito(
+      nome: 'Beber Água',
+      descricao: 'Beber pelo menos 2 litros por dia',
+      frequenciaSemanal: 7,
+    ),
+    Habito(
+      nome: 'Exercício',
+      descricao: 'Caminhada ou academia',
+      frequenciaSemanal: 5,
+    ),
+  ];
+
+  void _adicionarHabito(Habito habito) {
+    setState(() {
+      _habitos.add(habito);
+    });
+  }
+
+  void _abrirModalAdicionar(BuildContext context) {
+    final nomeController = TextEditingController();
+    final descController = TextEditingController();
+    final freqController = TextEditingController();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (ctx) => Padding(
+        padding: EdgeInsets.only(
+          top: 16,
+          left: 16,
+          right: 16,
+          bottom: MediaQuery.of(ctx).viewInsets.bottom + 16,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            for (final h in habitos)
-              ListTile(
-                leading: Icon(h.icone),
-                title: Text(h.nome),
-                subtitle: Text(h.meta),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const TelaDetalhe(),
+            const Text(
+              'Novo Hábito',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: nomeController,
+              decoration: const InputDecoration(labelText: 'Nome do Hábito'),
+            ),
+            TextField(
+              controller: descController,
+              decoration: const InputDecoration(labelText: 'Descrição'),
+            ),
+            TextField(
+              controller: freqController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Frequência Semanal (dias)',
+              ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                final nome = nomeController.text;
+                final desc = descController.text;
+                final freq = int.tryParse(freqController.text) ?? 0;
+
+                if (nome.isNotEmpty && freq > 0) {
+                  _adicionarHabito(
+                    Habito(
+                      nome: nome,
+                      descricao: desc,
+                      frequenciaSemanal: freq,
                     ),
                   );
-                },
-              ),
+                  Navigator.of(ctx).pop();
+                }
+              },
+              child: const Text('Salvar'),
+            ),
           ],
-        );
-      },
-    ),
-  );
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Diário de Hábitos'),
+      ),
+      body: _habitos.isEmpty
+          ? const Center(child: Text('Nenhum hábito cadastrado.'))
+          : ListView.builder(
+              itemCount: _habitos.length,
+              itemBuilder: (ctx, index) {
+                final habito = _habitos[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  child: ListTile(
+                    title: Text(habito.nome),
+                    subtitle: Text(
+                      'Meta: ${habito.frequenciaSemanal}x/semana\n${habito.descricao}',
+                    ),
+                    isThreeLine: true,
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TelaDetalhe(habito: habito),
+                        ),
+                      );
+                      setState(() {});
+                    },
+                  ),
+                );
+              },
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _abrirModalAdicionar(context),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
 }

@@ -1,225 +1,100 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
-class TelaDetalhe extends StatelessWidget {
-  const TelaDetalhe({super.key});
+class TelaDetalhe extends StatefulWidget {
+  final Habito habito;
 
-  static const String nome = 'Monitoria';
-  static const String meta = 'Meta: 10 horas semanais';
-  static const IconData icone = Icons.menu_book;
-  static const String descricao =
-      'Ajudar os alunos com dúvidas.'
-      ' Fazer aulões para os alunos.'
-      ' Fechar a meta na semana.';
-      
-  static const String _endereco = 'assets/imagens/image.png';
-  static const double _alturaImagem = 180;
-  static const double _raioAvatar = 28;
+  const TelaDetalhe({super.key, required this.habito});
+
+  @override
+  State<TelaDetalhe> createState() => _TelaDetalheState();
+}
+
+class _TelaDetalheState extends State<TelaDetalhe> {
+  void _registrarConclusao() {
+    final hoje = DateTime.now();
+    final dataFormatada =
+        "${hoje.day.toString().padLeft(2, '0')}/${hoje.month.toString().padLeft(2, '0')}/${hoje.year}";
+
+    if (!widget.habito.historico.contains(dataFormatada)) {
+      setState(() {
+        widget.habito.historico.add(dataFormatada);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Hábito concluído hoje! 🎉')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Este hábito já foi registrado hoje.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final cores = Theme.of(context).colorScheme;
-    final textos = Theme.of(context).textTheme;
-
     return Scaffold(
-      appBar: AppBar(title: const Text(nome)),
-      body: SingleChildScrollView(
+      appBar: AppBar(
+        title: Text(widget.habito.nome),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      _endereco,
-                      height: _alturaImagem,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, erro, pilha) =>
-                          _PlaceholderImagem(
-                            altura: _alturaImagem,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.image_not_supported_outlined,
-                                  size: 32,
-                                  color: cores.onPrimaryContainer,
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Imagem não encontrada',
-                                  style: textos.bodySmall?.copyWith(
-                                    color: cores.onPrimaryContainer,
-                                  ),
-                                ),
-                              ],
-                            ),
+            Text(
+              widget.habito.nome,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              widget.habito.descricao,
+              style: const TextStyle(fontSize: 16, color: Colors.black87),
+            ),
+            const SizedBox(height: 12),
+            Chip(
+              label: Text(
+                'Meta: ${widget.habito.frequenciaSemanal} dias por semana',
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.teal,
+            ),
+            const Divider(height: 32),
+            const Text(
+              'Histórico de Realizações',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: widget.habito.historico.isEmpty
+                  ? const Center(
+                      child: Text('Nenhum registro efetuado até o momento.'),
+                    )
+                  : ListView.builder(
+                      itemCount: widget.habito.historico.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: const Icon(
+                            Icons.check_circle,
+                            color: Colors.green,
                           ),
+                          title: Text(widget.habito.historico[index]),
+                        );
+                      },
                     ),
-                    Positioned.fill(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: _raioAvatar,
-                              backgroundColor: cores.onPrimary,
-                              child: Icon(icone, color: cores.primary),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    nome,
-                                    style: textos.titleLarge?.copyWith(
-                                      color: cores.onPrimary,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text(
-                                    meta,
-                                    style: textos.bodyMedium?.copyWith(
-                                      color: cores.onPrimary,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _registrarConclusao,
+                icon: const Icon(Icons.done),
+                label: const Text('Marcar como Concluído Hoje'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: const [
-                  Expanded(
-                    child: _Indicador(
-                      icone: Icons.today,
-                      valor: '5 / 10',
-                      rotulo: 'Semana',
-                    ),
-                  ),
-                  Expanded(
-                    child: _Indicador(
-                      icone: Icons.local_fire_department,
-                      valor: '12',
-                      rotulo: 'Sequência',
-                    ),
-                  ),
-                  Expanded(
-                    child: _Indicador(
-                      icone: Icons.calendar_month,
-                      valor: '50%',
-                      rotulo: 'Na semana',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Sobre o hábito', style: textos.titleMedium),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Icon(icone, color: cores.primary),
-                          const SizedBox(width: 8),
-                          Expanded(child: Text(meta)),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Text(descricao, style: textos.bodyMedium),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _PlaceholderImagem extends StatelessWidget {
-  const _PlaceholderImagem({required this.altura, required this.child});
-
-  final double altura;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    height: altura,
-    width: double.infinity,
-    color: Theme.of(context).colorScheme.primaryContainer,
-    alignment: Alignment.center,
-    child: child,
-  );
-}
-
-class _Indicador extends StatelessWidget {
-  const _Indicador({
-    required this.icone,
-    required this.valor,
-    required this.rotulo,
-  });
-
-  final IconData icone;
-  final String valor;
-  final String rotulo;
-
-  @override
-  Widget build(BuildContext context) {
-    final cores = Theme.of(context).colorScheme;
-    final textos = Theme.of(context).textTheme;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-      margin: const EdgeInsets.symmetric(horizontal: 4),
-      decoration: BoxDecoration(
-        color: cores.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Icon(icone, color: cores.primary),
-          const SizedBox(height: 8),
-          Text(
-            valor,
-            style: textos.titleMedium,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Text(
-            rotulo,
-            style: textos.bodySmall,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
       ),
     );
   }
