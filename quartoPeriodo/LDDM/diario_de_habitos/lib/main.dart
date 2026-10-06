@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'models/habito.dart';
+import 'stores/habitos_store.dart';
 import 'tela_detalhe.dart';
 
 void main() {
@@ -21,20 +24,7 @@ class MeuApp extends StatelessWidget {
   }
 }
 
-class Habito {
-  String nome;
-  String descricao;
-  int frequenciaSemanal;
-  List<String> historico;
-
-  Habito({
-    required this.nome,
-    required this.descricao,
-    required this.frequenciaSemanal,
-    List<String>? historico,
-  }) : historico = historico ?? [];
-}
-
+/// Camada de INTERFACE: a lista vive no store, não aqui.
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({super.key});
 
@@ -43,24 +33,7 @@ class TelaPrincipal extends StatefulWidget {
 }
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
-  final List<Habito> _habitos = [
-    Habito(
-      nome: 'Beber Água',
-      descricao: 'Beber pelo menos 2 litros por dia',
-      frequenciaSemanal: 7,
-    ),
-    Habito(
-      nome: 'Exercício',
-      descricao: 'Caminhada ou academia',
-      frequenciaSemanal: 5,
-    ),
-  ];
-
-  void _adicionarHabito(Habito habito) {
-    setState(() {
-      _habitos.add(habito);
-    });
-  }
+  final HabitosStore store = HabitosStore();
 
   void _abrirModalAdicionar(BuildContext context) {
     final nomeController = TextEditingController();
@@ -109,7 +82,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                 final freq = int.tryParse(freqController.text) ?? 0;
 
                 if (nome.isNotEmpty && freq > 0) {
-                  _adicionarHabito(
+                  store.adicionarHabito(
                     Habito(
                       nome: nome,
                       descricao: desc,
@@ -130,40 +103,38 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Diário de Hábitos'),
-      ),
-      body: _habitos.isEmpty
-          ? const Center(child: Text('Nenhum hábito cadastrado.'))
-          : ListView.builder(
-              itemCount: _habitos.length,
-              itemBuilder: (ctx, index) {
-                final habito = _habitos[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
+      appBar: AppBar(title: const Text('Diário de Hábitos')),
+      body: Observer(
+        builder: (_) {
+          if (store.habitos.isEmpty) {
+            return const Center(child: Text('Nenhum hábito cadastrado.'));
+          }
+          return ListView.builder(
+            itemCount: store.habitos.length,
+            itemBuilder: (ctx, index) {
+              final habito = store.habitos[index];
+              return Card(
+                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: ListTile(
+                  title: Text(habito.nome),
+                  subtitle: Text(
+                    'Meta: ${habito.frequenciaSemanal}x/semana\n${habito.descricao}',
                   ),
-                  child: ListTile(
-                    title: Text(habito.nome),
-                    subtitle: Text(
-                      'Meta: ${habito.frequenciaSemanal}x/semana\n${habito.descricao}',
+                  isThreeLine: true,
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          TelaDetalhe(habito: habito, store: store),
                     ),
-                    isThreeLine: true,
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                    onTap: () async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TelaDetalhe(habito: habito),
-                        ),
-                      );
-                      setState(() {});
-                    },
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _abrirModalAdicionar(context),
         child: const Icon(Icons.add),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'models/habito.dart';
+import 'stores/habitos_store.dart';
 
 class TelaDetalhe extends StatefulWidget {
   final Habito habito;
+  final HabitosStore store;
 
-  const TelaDetalhe({super.key, required this.habito});
+  const TelaDetalhe({super.key, required this.habito, required this.store});
 
   @override
   State<TelaDetalhe> createState() => _TelaDetalheState();
@@ -12,48 +14,40 @@ class TelaDetalhe extends StatefulWidget {
 
 class _TelaDetalheState extends State<TelaDetalhe> {
   void _registrarConclusao() {
-    final hoje = DateTime.now();
-    final dataFormatada =
-        "${hoje.day.toString().padLeft(2, '0')}/${hoje.month.toString().padLeft(2, '0')}/${hoje.year}";
-
-    if (!widget.habito.historico.contains(dataFormatada)) {
-      setState(() {
-        widget.habito.historico.add(dataFormatada);
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Hábito concluído hoje! 🎉')),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Este hábito já foi registrado hoje.')),
-      );
-    }
+    final registrou = widget.store.registrarConclusao(widget.habito);
+    setState(() {});
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(registrou
+            ? 'Hábito concluído hoje! 🎉'
+            : 'Este hábito já foi registrado hoje.'),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final habito = widget.habito;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.habito.nome),
-      ),
+      appBar: AppBar(title: Text(habito.nome)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.habito.nome,
+              habito.nome,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              widget.habito.descricao,
+              habito.descricao,
               style: const TextStyle(fontSize: 16, color: Colors.black87),
             ),
             const SizedBox(height: 12),
             Chip(
               label: Text(
-                'Meta: ${widget.habito.frequenciaSemanal} dias por semana',
+                'Meta: ${habito.frequenciaSemanal} dias por semana',
                 style: const TextStyle(color: Colors.white),
               ),
               backgroundColor: Colors.teal,
@@ -65,19 +59,19 @@ class _TelaDetalheState extends State<TelaDetalhe> {
             ),
             const SizedBox(height: 8),
             Expanded(
-              child: widget.habito.historico.isEmpty
+              child: habito.historico.isEmpty
                   ? const Center(
                       child: Text('Nenhum registro efetuado até o momento.'),
                     )
                   : ListView.builder(
-                      itemCount: widget.habito.historico.length,
+                      itemCount: habito.historico.length,
                       itemBuilder: (context, index) {
                         return ListTile(
                           leading: const Icon(
                             Icons.check_circle,
                             color: Colors.green,
                           ),
-                          title: Text(widget.habito.historico[index]),
+                          title: Text(habito.historico[index]),
                         );
                       },
                     ),
