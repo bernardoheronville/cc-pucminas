@@ -3,8 +3,7 @@ import '../models/habito.dart';
 
 class HabitoStore extends ChangeNotifier {
   final List<Habito> _habitos = [
-    Habito(nome: 'Beber Água', descricao: 'Pelo menos 2 litros por dia', frequenciaSemanal: 7),
-    Habito(nome: 'Exercício', descricao: 'Caminhada ou academia', frequenciaSemanal: 5),
+    
   ];
 
   List<Habito> get habitos => List.unmodifiable(_habitos);
