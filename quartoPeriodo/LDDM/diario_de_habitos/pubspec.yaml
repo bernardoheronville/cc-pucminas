@@ -1,5 +1,5 @@
 name: diario_de_habitos
-description: Um aplicativo de controle de hábitos criado com Flutter e MobX.
+description: Um aplicativo de controle de hábitos criado com Flutter e SQLite.
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -11,9 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  # Gestão de estado com MobX
-  mobx: ^2.3.0
-  flutter_mobx: ^2.2.0
+  # Banco de dados local (SQLite)
+  sqflite: ^2.3.3
+  # SQLite no Windows/Linux
+  sqflite_common_ffi: ^2.3.3
+  path: ^1.9.0
   # Injeção de dependência para partilhar a Store
   provider: ^6.1.1
 
@@ -21,9 +23,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
-  # Geradores de código para o MobX
-  build_runner: ^2.4.8
-  mobx_codegen: ^2.6.0
 
 flutter:
   uses-material-design: true

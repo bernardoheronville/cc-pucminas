@@ -13,8 +13,9 @@ class TelaDetalhe extends StatefulWidget {
 }
 
 class _TelaDetalheState extends State<TelaDetalhe> {
-  void _registrarConclusao() {
-    final registrou = widget.store.registrarConclusao(widget.habito);
+  Future<void> _registrarConclusao() async {
+    final registrou = await widget.store.registrarConclusao(widget.habito);
+    if (!mounted) return;
     setState(() {});
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

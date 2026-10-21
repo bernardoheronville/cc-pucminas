@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'models/habito.dart';
 import 'stores/habitos_store.dart';
 import 'tela_detalhe.dart';
 
 void main() {
+  if (Platform.isWindows || Platform.isLinux) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
   runApp(const MeuApp());
 }
 
@@ -24,7 +30,6 @@ class MeuApp extends StatelessWidget {
   }
 }
 
-/// Camada de INTERFACE: a lista vive no store, não aqui.
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({super.key});
 
@@ -34,6 +39,18 @@ class TelaPrincipal extends StatefulWidget {
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
   final HabitosStore store = HabitosStore();
+
+  @override
+  void initState() {
+    super.initState();
+    store.carregar();
+  }
+
+  @override
+  void dispose() {
+    store.dispose();
+    super.dispose();
+  }
 
   void _abrirModalAdicionar(BuildContext context) {
     final nomeController = TextEditingController();
@@ -76,20 +93,20 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 final nome = nomeController.text;
                 final desc = descController.text;
                 final freq = int.tryParse(freqController.text) ?? 0;
 
                 if (nome.isNotEmpty && freq > 0) {
-                  store.adicionarHabito(
+                  await store.adicionarHabito(
                     Habito(
                       nome: nome,
                       descricao: desc,
                       frequenciaSemanal: freq,
                     ),
                   );
-                  Navigator.of(ctx).pop();
+                  if (ctx.mounted) Navigator.of(ctx).pop();
                 }
               },
               child: const Text('Salvar'),
@@ -104,8 +121,20 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Diário de Hábitos')),
-      body: Observer(
-        builder: (_) {
+      body: ListenableBuilder(
+        listenable: store,
+        builder: (context, _) {
+          if (store.erro != null) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text('Erro ao abrir o banco de dados:\n${store.erro}'),
+              ),
+            );
+          }
+          if (store.carregando) {
+            return const Center(child: CircularProgressIndicator());
+          }
           if (store.habitos.isEmpty) {
             return const Center(child: Text('Nenhum hábito cadastrado.'));
           }
